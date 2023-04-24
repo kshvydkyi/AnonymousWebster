@@ -24,6 +24,7 @@ roleRouter.get(
     tryCatch(roleController.selectById.bind(roleController))
 );
 
+//Create (Only for admin)
 roleRouter.post(
     '/:token',
     isAutorised,
@@ -34,6 +35,7 @@ roleRouter.post(
     tryCatch(roleController.create.bind(roleController))
 );
 
+//Update (Only for admin)
 roleRouter.patch(
     '/:id/:token',
     isAutorised, 
