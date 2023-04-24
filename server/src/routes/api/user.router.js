@@ -32,6 +32,7 @@ userRouter.get(
     '/event/:id',
     tryCatch(userController.selectByEventId.bind(userController))
 );
+
 //Create (Only for admin)
 userRouter.post(
     '/:token',

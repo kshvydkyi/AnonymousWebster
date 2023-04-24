@@ -20,6 +20,8 @@ export default class AuthService {
     async login(login){
         const sql = `SELECT users.id, users.login, users.password, roles.title FROM users, roles WHERE users.login = '${login}' AND users.role_id = roles.id`;
         const [row] = await db.execute(sql);
+        sql = `UPDATE users SET profile_pic = '${path}' WHERE id = ${user_id}`;
+        const [row1] = await db.execute(sql);
         return row;
     }
 }
