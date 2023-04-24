@@ -1,6 +1,7 @@
 import authRouter from './api/auth.router.js';
 import userRouter from './api/user.router.js';
 import roleRouter from './api/role.router.js';
+import projectRouter from './api/project.router.js';
 
 class AppRouter {
 	constructor(app) { this.app = app }
@@ -12,6 +13,7 @@ class AppRouter {
 		this.app.use('/api/auth', authRouter);
 		this.app.use('/api/users', userRouter);
 		this.app.use('/api/roles', roleRouter);
+		this.app.use('/api/projects', projectRouter);
 	}
 }
 

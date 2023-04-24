@@ -58,6 +58,7 @@ CREATE TABLE `projects` (
   `title` varchar(64) NOT NULL,
   `description` varchar(512) DEFAULT NULL,
   `json_file` varchar(512) NOT NULL,
+  `date_upd` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -110,7 +111,7 @@ CREATE TABLE `users` (
   `email` text NOT NULL,
   `profile_pic` varchar(255) NOT NULL DEFAULT 'default_user.png',
   `role_id` int NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `lastlogindate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Users_fk0` (`role_id`),
   CONSTRAINT `Users_fk0` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
@@ -135,4 +136,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-24 15:41:07
+-- Dump completed on 2023-04-24 19:49:15

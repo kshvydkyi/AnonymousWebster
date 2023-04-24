@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {tryCatch} from "../../utils/tryCacth.utils.js";
+import { tryCatch } from "../../utils/tryCacth.utils.js";
 import roleController from "../../controllers/roleController.js";
 import { roleValidationChainMethod } from "../../validations/role.validation.js";
 import { validateRequestSchema } from "../../middleware/validateRequestSchema.middleware.js";
@@ -7,7 +7,6 @@ import RoleService from "../../services/role.service.js";
 import { isTitleExist, isNotExistById } from "../../scripts/roleChecking.script.js";
 import { isAdmin } from "../../middleware/isAccess.middleware.js";
 import { isAutorised } from "../../middleware/isAuthorized.middleware.js";
-
 import { isSameTitle } from "../../scripts/titleChecking.js";
 
 const roleRouter = Router();
