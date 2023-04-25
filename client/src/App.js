@@ -1,17 +1,24 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route, Routes
+} from 'react-router-dom';
+
 import Header from "./components/Auth/Header/Header";
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import Footer from "./components/Auth/Footer/Footer";
+import MainPage from "./components/Layout/MainPage";
+
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-          <Route path='/' element={<Header/>} />
-      </Routes>
-    </BrowserRouter>
+    <Router>
+        <Header/>
+        <Routes>
+          <Route path='/' element={<MainPage/>} />
+        </Routes>
+        <Footer/>
+    </Router>
   );
 }
 
