@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+header {
+  background-color: "#1E1E1E";
+  padding-right: "79px";
+  padding-left: "118px";
+}
+
+@media (max-width: 900px) {
+  header {
+    padding-left: 0;
+  }
+}
