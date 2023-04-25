@@ -9,6 +9,8 @@ import FormatService from "../../services/format.service.js";
 import { isAdmin } from "../../middleware/isAccess.middleware.js";
 import { isAutorised } from "../../middleware/isAuthorized.middleware.js";
 import { isSameTitle } from "../../scripts/titleChecking.js";
+import { checkFormatValidateChainMethod } from "../../validations/format.validation.js";
+import { isNotExistById, isTitleExist } from "../../scripts/roleChecking.script.js";
 
 const formatRouter = Router();
 
@@ -29,7 +31,9 @@ formatRouter.post(
     '/:token',
     isAutorised,
     isAdmin,
+    checkFormatValidateChainMethod,
     validateRequestSchema,
+    isTitleExist(FormatService),
     tryCatch(formatController.create.bind(formatController))
 );
 
@@ -38,7 +42,10 @@ formatRouter.patch(
     '/:id/:token',
     isAutorised, 
     isAdmin,
+    isNotExistById(FormatService),
+    checkFormatValidateChainMethod,
     validateRequestSchema,
+    isSameTitle(FormatService),
     tryCatch(formatController.update.bind(formatController))
 );
 
@@ -47,6 +54,7 @@ formatRouter.delete(
     '/:id/:token',
     isAutorised,
     isAdmin,
+    isNotExistById(FormatService),
     tryCatch(formatController.deleteById.bind(formatController))
 );
 
