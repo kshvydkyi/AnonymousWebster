@@ -71,7 +71,7 @@ export default function Header() {
               }}
             >
                 
-                <img class="fit-picture" src={menuIcon} alt="menuIcon" height = {30} width = {30} ></img>
+                <img className="fit-picture" src={menuIcon} alt="menuIcon" height = {30} width = {30} ></img>
             </IconButton>
     
             <Drawer
@@ -109,7 +109,7 @@ export default function Header() {
     
       const femmecubatorLogo = (
         <Typography variant="h6" component="h1">
-          <img class="fit-picture" src={websterLogo} alt="websterLogo" width={115} height={40}></img> 
+          <img className="fit-picture" src={websterLogo} alt="websterLogo" width={115} height={40}></img> 
         </Typography>
       );
     
