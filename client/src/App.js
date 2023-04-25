@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import Header from "./components/Auth/Header/Header";
-import Footer from "./components/Auth/Footer";
+import Footer from "./components/Auth/Footer/Footer";
 import MainPage from "./components/Layout/MainPage";
 
 
