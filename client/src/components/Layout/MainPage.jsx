@@ -5,7 +5,7 @@ import {Container, TextBlock, TextDiv, ButtonDiv, StartButton} from './MainPageS
 function MainPage() {
     return (
         <Container>
-            <img className="fit-picture" src={mainPageWallPaper} alt="mainPageWallPaper" width = '100%' height = '550px'></img>
+            <img className="fit-picture" src={mainPageWallPaper} alt="mainPageWallPaper" width = '100%' height = '100%'></img>
             <TextBlock>
                 <TextDiv>
                 Ласкаво просимо до Anonymous Webster - ідеального веб-додатку для всіх, хто хоче редагувати свої фотографії з легкістю та ефективністю. З нашими потужними інструментами для редагування, ви зможете створювати красиві фото, які дійсно будуть виділятися.

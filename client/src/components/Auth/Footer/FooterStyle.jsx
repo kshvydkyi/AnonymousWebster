@@ -1,4 +1,4 @@
-import {styled} from '@mui/system'
+import {Container, styled} from '@mui/system'
 import { Box, Typography, Paper } from "@mui/material";
 
 const PaperComp = styled(Paper)({
@@ -10,17 +10,21 @@ const PaperComp = styled(Paper)({
 });
 
 const BoxComp = styled(Box)({
-    flexGrow: 1,
     justifyContent: "center",
     display: "flex",
-    my:1
+    alignItems: 'center'
+    
 });
+
+const ContainerComp = styled(Container)({
+    display: 'flex'
+})
 
 const BoxComp2 = styled(Box)({
     flexGrow: 1,
     justifyContent: "center",
     display: "flex",
-    mb: 2,
+    alignItems: 'center'
 });
 
 const TypographyComp = styled(Typography)({
@@ -29,4 +33,4 @@ const TypographyComp = styled(Typography)({
 
 
 
-export {PaperComp, BoxComp, BoxComp2, TypographyComp}
+export {PaperComp, BoxComp, BoxComp2, TypographyComp, ContainerComp}
