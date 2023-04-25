@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { tryCatch } from "../../utils/tryCacth.utils.js";
 import projectController from "../../controllers/projectController.js";
-import { roleValidationChainMethod } from "../../validations/role.validation.js";
 import { validateRequestSchema } from "../../middleware/validateRequestSchema.middleware.js";
 import ProjectService from "../../services/role.service.js";
 import { isTitleExist, isNotExistById } from "../../scripts/roleChecking.script.js";
 import { isAutorised } from "../../middleware/isAuthorized.middleware.js";
+import { projectValidationChainMethod } from "../../validations/project.validation.js";
+import { isAccessOrAdmin } from "../../middleware/isAccess.middleware.js";
 
 const projectRouter = Router();
 
@@ -25,21 +26,24 @@ projectRouter.get(
 //Select By User Id
 projectRouter.get(
     '/user/:id',
+    isNotExistById(ProjectService),
     tryCatch(projectController.selectByUserId.bind(projectController))
 );
 
 projectRouter.post(
     '/:token',
     isAutorised,
-    roleValidationChainMethod,
+    projectValidationChainMethod,
     validateRequestSchema,
-    isTitleExist(ProjectService),
     tryCatch(projectController.create.bind(projectController))
 );
 
 projectRouter.patch(
     '/:id/:token',
     isAutorised, 
+    isAccessOrAdmin(ProjectService),
+    isNotExistById(ProjectService),
+    projectValidationChainMethod,
     validateRequestSchema,
     tryCatch(projectController.update.bind(projectController))
 );
@@ -49,6 +53,7 @@ projectRouter.delete(
     '/:id/:token',
     isAutorised,
     isNotExistById(ProjectService),
+    isAccessOrAdmin(ProjectService),
     tryCatch(projectController.deleteById.bind(projectController))
 );
 

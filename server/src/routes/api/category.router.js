@@ -24,6 +24,7 @@ categoryRouter.get(
 //Select By Id(For All)
 categoryRouter.get(
     '/:id',
+    isNotExistById(FormatService),
     tryCatch(categoryController.selectById.bind(categoryController))
 );
 

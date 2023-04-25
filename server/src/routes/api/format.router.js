@@ -23,6 +23,7 @@ formatRouter.get(
 //Select By Id(For All)
 formatRouter.get(
     '/:id',
+    isNotExistById(FormatService),
     tryCatch(formatController.selectById.bind(formatController))
 );
 
