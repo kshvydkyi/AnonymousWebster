@@ -15,7 +15,7 @@ export default class UserService {
     }
 
     async create(body) {
-        let sql = `INSERT INTO users (login, password, full_name, email, profile_pic, role_id, lastlogindate) VALUES ('${body.login}', '${body.password}', '${body.full_name}', '${body.email}', '${body.profile_pic}', ${body.role_id}, 0, '${toSQLDate(Date.now())}')`;
+        let sql = `INSERT INTO users (login, password, full_name, email, profile_pic, role_id, lastlogindate) VALUES ('${body.login}', '${body.password}', '${body.full_name}', '${body.email}', '${body.profile_pic}', ${body.role_id}, '${toSQLDate(Date.now())}')`;
         const [row] = await db.execute(sql);
         return row[0];
     }
