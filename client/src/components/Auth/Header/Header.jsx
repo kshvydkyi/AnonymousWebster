@@ -1,10 +1,11 @@
 import {Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link} from '@mui/material';
-import {styled} from '@mui/system'
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import logoAnon from '../../assets/anonguy.png';
-import menuIcon from '../../assets/menuIcon.png';
-import '../../App.css'
+import menuIcon from '../../../assets/menuIcon.png';
+import websterLogo from '../../../assets/websterLogo.png';
+import '../../../App.css'
+import {MainHeader, MenuButton, MainButtons, Logo} from './HeaderStyles'
+
 
 const headersData = [
     {
@@ -17,65 +18,9 @@ const headersData = [
     },
 ];
 
-const useStyles = styled(() => ({
-    header: {
-      backgroundColor: "#1E1E1E",
-      paddingRight: "79px",
-      paddingLeft: "118px",
-      "@media (max-width: 900px)": {
-        paddingLeft: 0,
-      },
-    },
-    logo: {
-      fontFamily: "Work Sans, sans-serif",
-      fontWeight: 600,
-      color: "#FFFEFE",
-      textAlign: "left",
-    },
-    menuButton: {
-      fontFamily: "Open Sans, sans-serif",
-      fontWeight: 700,
-      size: "18px",
-      marginLeft: "38px",
-    },
-    toolbar: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    drawerContainer: {
-      padding: "20px 30px",
-    },
-  }));
 
-
-                           
+                     
 export default function Header() {
-    const { header, logo, menuButton, toolbar, drawerContainer } = useStyles();
-
-    const MainHeader = styled('div')({
-        color: 'white',
-        backgroundColor: '#1E1E1E',
-        padding: 8,
-        borderRadius: 4,
-        position: 'relative',
-        text: 'right'
-    });
-
-    const MenuButton = styled(Button)({
-        padding: '20px',
-    });
-
-    const MainButtons = styled('div')({
-        position: 'relative',
-        left: 'calc(100% - 276px)'
-    });
-
-
-    const Logo = styled('span')({
-        position:'absolute',
-        marginLeft: '10px'
-    });
-
     const [state, setState] = useState({
         mobileView: false,
         drawerOpen: false,
@@ -101,7 +46,7 @@ export default function Header() {
     
       const displayDesktop = () => {
         return (
-          <Toolbar className={toolbar}>
+          <Toolbar>
             {femmecubatorLogo}
             <MainButtons>{getMenuButtons()}</MainButtons>
           </Toolbar>
@@ -136,7 +81,7 @@ export default function Header() {
                 onClose: handleDrawerClose,
               }}
             >
-              <div className={drawerContainer}>{getDrawerChoices()}</div>
+              <div>{getDrawerChoices()}</div>
             </Drawer>
     
             <div>{femmecubatorLogo}</div>
@@ -163,9 +108,8 @@ export default function Header() {
       };
     
       const femmecubatorLogo = (
-        <Typography variant="h6" component="h1" className={logo}>
-          Webster
-          <Logo><img class="fit-picture" src={logoAnon} alt="anonLogo"  ></img></Logo>
+        <Typography variant="h6" component="h1">
+          <img class="fit-picture" src={websterLogo} alt="websterLogo" width={115} height={40}></img> 
         </Typography>
       );
     
