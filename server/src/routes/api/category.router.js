@@ -9,6 +9,8 @@ import CategoryService from "../../services/category.service.js";
 import { isAdmin } from "../../middleware/isAccess.middleware.js";
 import { isAutorised } from "../../middleware/isAuthorized.middleware.js";
 import { isSameTitle } from "../../scripts/titleChecking.js";
+import { checkCategoryChainMethod } from "../../validations/category.validation.js";
+import { isNotExistById } from "../../scripts/roleChecking.script.js";
 
 const categoryRouter = Router();
 
@@ -29,6 +31,7 @@ categoryRouter.post(
     '/:token',
     isAutorised,
     isAdmin,
+    checkCategoryChainMethod,
     validateRequestSchema,
     tryCatch(categoryController.create.bind(categoryController))
 );
@@ -38,6 +41,8 @@ categoryRouter.patch(
     '/:id/:token',
     isAutorised, 
     isAdmin,
+    isNotExistById(CategoryService),
+    checkCategoryChainMethod,
     validateRequestSchema,
     tryCatch(categoryController.update.bind(categoryController))
 );
@@ -47,6 +52,7 @@ categoryRouter.delete(
     '/:id/:token',
     isAutorised,
     isAdmin,
+    isNotExistById(CategoryService),
     tryCatch(categoryController.deleteById.bind(categoryController))
 );
 
