@@ -30,6 +30,7 @@ projectRouter.get(
     tryCatch(projectController.selectByUserId.bind(projectController))
 );
 
+//Create (For Authorized)
 projectRouter.post(
     '/:token',
     isAutorised,
@@ -38,6 +39,7 @@ projectRouter.post(
     tryCatch(projectController.create.bind(projectController))
 );
 
+//Update (For Self or Admin)
 projectRouter.patch(
     '/:id/:token',
     isAutorised, 
@@ -48,7 +50,7 @@ projectRouter.patch(
     tryCatch(projectController.update.bind(projectController))
 );
 
-//Delete by id
+//Delete by id (For Self or Admin)
 projectRouter.delete(
     '/:id/:token',
     isAutorised,

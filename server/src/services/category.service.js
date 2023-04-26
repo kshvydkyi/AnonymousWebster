@@ -14,7 +14,7 @@ export default class CategoryService {
     }
 
     async create(body) {
-        var sql = `INSERT INTO categories (title) VALUES ('${body.title}')`;
+        var sql = `INSERT INTO categories (title, description) VALUES ('${body.title}', '${body.description}')`;
         const [row] = await db.execute(sql);
         return row;
     }
