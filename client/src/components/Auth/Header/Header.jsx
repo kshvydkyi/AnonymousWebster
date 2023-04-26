@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import menuIcon from '../../../assets/menuIcon.png';
 import websterLogo from '../../../assets/websterLogo.png';
 import '../../../App.css'
-import {MainHeader, MenuButton, MainButtons, Logo} from './HeaderStyles'
+import {MainHeader, MenuButton, MainButtons, Logo, ToolbarAnon} from './HeaderStyles'
 
 
 const headersData = [
@@ -46,10 +46,10 @@ export default function Header() {
     
       const displayDesktop = () => {
         return (
-          <Toolbar>
+          <ToolbarAnon>
             {femmecubatorLogo}
             <MainButtons>{getMenuButtons()}</MainButtons>
-          </Toolbar>
+          </ToolbarAnon>
         );
       };
     

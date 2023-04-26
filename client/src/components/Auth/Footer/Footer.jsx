@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "@mui/material";
 import anonLogo from '../../../assets/anonguy.png';
 
-import { PaperComp, BoxComp, BoxComp2, TypographyComp, ContainerComp } from './FooterStyle'
+import {BoxComp2, TypographyComp, ContainerComp } from './FooterStyle'
 
 function Footer() {
   return (

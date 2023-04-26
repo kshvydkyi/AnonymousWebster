@@ -4,7 +4,7 @@ import {Container, TextBlock, TextDiv, ButtonDiv, StartButton} from './MainPageS
 
 function MainPage() {
     return (
-        <Container>
+        <Container size="lg">
             <img className="fit-picture" src={mainPageWallPaper} alt="mainPageWallPaper" width = '100%' height = '100%'></img>
             <TextBlock>
                 <TextDiv>
