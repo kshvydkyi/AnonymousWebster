@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from "react";
-import mainPageElement from '../../assets/header_and_mainPage/mainPageElementAnon.jpg';
-import websterLogo from '../../assets/header_and_mainPage/Logo.png'
+import mainPageElement from '../../assets/Layout/mainPageElementAnon.jpg';
+import websterLogo from '../../assets/Layout/Logo.png'
 import {Container, TextBlock, TextDiv, ButtonDiv, StartButton} from './MainPageStyle';
 
 function MainPage() {

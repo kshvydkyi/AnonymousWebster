@@ -1,10 +1,10 @@
 import { Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link } from '@mui/material';
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import menuIcon from '../../../assets/header_and_mainPage/menuIcon.png';
-import websterLogo from '../../../assets/header_and_mainPage/Logo.png'
+import menuIcon from '../../../assets/Layout/menuIcon.png';
+import Logo from '../../../assets/Layout/Logo.png'
 import '../../../App.css'
-import { MainHeader, MenuButton, MainButtons, Logo, ToolbarAnon } from './HeaderStyles'
+import { MainHeader, MenuButton, MainButtons, ToolbarStyled } from './HeaderStyles'
 
 
 const headersData = [
@@ -46,10 +46,10 @@ export default function Header() {
 
   const displayDesktop = () => {
     return (
-      <ToolbarAnon>
+      <ToolbarStyled>
         {femmecubatorLogo}
         <MainButtons>{getMenuButtons()}</MainButtons>
-      </ToolbarAnon>
+      </ToolbarStyled>
     );
   };
 
@@ -109,7 +109,7 @@ export default function Header() {
 
   const femmecubatorLogo = (
     <Typography variant="h6" component="a" href='/'>
-      <img className="fit-picture" src={websterLogo} alt="websterLogo" width={165} height={50}></img>
+      <img className="fit-picture" src={Logo} alt="websterLogo" width={165} height={50}></img>
     </Typography>
   );
 

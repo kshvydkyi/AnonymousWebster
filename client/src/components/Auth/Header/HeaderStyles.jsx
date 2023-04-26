@@ -6,7 +6,6 @@ const MainHeader = styled('div')({
     backgroundColor: '#101010',
     padding: 3,
     width: "100%",
-    // borderBottom: "1px solid white",
     position: 'fixed',
     overflow: "hidden",
     text: 'right'
@@ -22,7 +21,7 @@ const MainButtons = styled('div')({
     // left: 'calc(100% - 276px)'
 });
 
-const ToolbarAnon = styled(Toolbar)({
+const ToolbarStyled = styled(Toolbar)({
     display: "flex",
     justifyContent: "space-between"
 
@@ -33,4 +32,4 @@ const Logo = styled('span')({
     marginLeft: '10px'
 });
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarAnon}
+export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled}
