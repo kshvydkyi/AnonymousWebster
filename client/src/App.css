@@ -6,13 +6,37 @@
   padding: 0;
 }
 html{
-  background-color: #1e1e1e;
+  background-color: #000000;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+.AppDiv{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+footer{
+  width: 100%;
+  height: 40px;
+  flex: 0 0 auto;
+}
+main{
+flex: 1 0 auto;
+}
+#root {
+  height: 100%;
 }
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+.wrapper-navbar{
+  height: 70px;
+  width: 100%;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -44,7 +68,7 @@ html{
 }
 
 header {
-  background-color: #1E1E1E;
+  background-color: #131313;
 }
 
 @media (max-width: 900px) {

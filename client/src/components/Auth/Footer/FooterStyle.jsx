@@ -1,13 +1,5 @@
 import {Container, styled} from '@mui/system'
-import { Box, Typography, Paper } from "@mui/material";
-
-const PaperComp = styled(Paper)({
-    marginTop: 'calc(10% + 60px)',
-    backgroundColor: '#1E1E1E',
-    position: 'fixed',
-    width: '100%',
-    bottom: 0,
-});
+import { Box, Typography } from "@mui/material";
 
 const BoxComp = styled(Box)({
     justifyContent: "center",
@@ -16,21 +8,28 @@ const BoxComp = styled(Box)({
     
 });
 
-const ContainerComp = styled(Container)({
-    display: 'flex'
+const ContainerComp = styled('div')({
+    display: 'flex',
+    justifyContent: "center",
+    width: "100%",
+    height: "40px",
+    flex: "0 0 auto",
+    backgroundColor: "#101010"
 })
 
 const BoxComp2 = styled(Box)({
-    flexGrow: 1,
     justifyContent: "center",
     display: "flex",
-    alignItems: 'center'
+    width: "100%",
+    alignItems: 'center',
+    marginTop: "7px"
 });
 
 const TypographyComp = styled(Typography)({
+    marginLeft: "10px",
     color: 'white'
 });
 
 
 
-export {PaperComp, BoxComp, BoxComp2, TypographyComp, ContainerComp}
+export {BoxComp, BoxComp2, TypographyComp, ContainerComp}

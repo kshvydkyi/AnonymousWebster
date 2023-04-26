@@ -1,23 +1,21 @@
 import React from "react";
-import { Container } from "@mui/material";
-import anonLogo from '../../../assets/anonguy.png';
+import anonymousMask from '../../../assets/Layout/anonguy.png';
 
-import { PaperComp, BoxComp, BoxComp2, TypographyComp, ContainerComp } from './FooterStyle'
+import { BoxComp2, TypographyComp, ContainerComp } from './FooterStyle'
 
 function Footer() {
   return (
-
-    <ContainerComp maxWidth="lg">
-      <BoxComp2>
-      <div>
-          <img className="fit-picture" src={anonLogo} alt="anonLogo"></img>
-        </div>
-        <TypographyComp variant="caption" color="initial">
-          Webster © 2023 Anonymous team. All rights reserved
-        </TypographyComp>
-      </BoxComp2>
-    </ContainerComp>
-
+  
+      <ContainerComp>
+        <BoxComp2>
+          <div>
+            <img className="fit-picture" src={anonymousMask} alt="anonLogo"></img>
+          </div>
+          <TypographyComp variant="caption" color="initial">
+            Webster © 2023 Anonymous team. All rights reserved
+          </TypographyComp>
+        </BoxComp2>
+      </ContainerComp>
   );
 }
 
