@@ -2,15 +2,12 @@ import React, {  useRef, useState, useEffect  } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from './RegisterStyle'
 import axios from '../../../api/axios';
 import { CircularProgress } from '@mui/material';
+import {REGISTER_URL} from '../../../api/routes'
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const FULLNAME_REGEX = /^['а-яА-ЯїЇґҐіІєЄa-zA-Z\s]{2,24}$/
+import {USER_REGEX, PWD_REGEX, EMAIL_REGEX, FULLNAME_REGEX} from '../../regex'
 
-const REGISTER_URL = '/api/auth/register';
 
-export default function Register() {
+const  Register = () => {
     const [login, setLogin] = useState('');
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -133,3 +130,5 @@ export default function Register() {
         </Body>
     )
 }
+
+export default Register;

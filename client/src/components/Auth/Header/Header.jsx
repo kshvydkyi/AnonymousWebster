@@ -18,8 +18,6 @@ const headersData = [
   },
 ];
 
-
-
 export default function Header() {
   const [state, setState] = useState({
     mobileView: false,
@@ -91,6 +89,7 @@ export default function Header() {
 
   const getDrawerChoices = () => {
     return headersData.map(({ label, href }) => {
+
       return (
         <Link
           {...{
@@ -138,3 +137,4 @@ export default function Header() {
     </div>
   );
 }
+

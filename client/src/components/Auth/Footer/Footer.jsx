@@ -3,7 +3,7 @@ import anonymousMask from '../../../assets/Layout/anonguy.png';
 
 import { BoxComp2, TypographyComp, ContainerComp } from './FooterStyle'
 
-function Footer() {
+const  Footer  = () => {
   return (
   
       <ContainerComp>
