@@ -1,4 +1,5 @@
 import db from '../config/db.connection.js';
+import toSQLDate from 'js-date-to-sql-datetime';
 
 export default class UserService {
     async selectAll() {
@@ -13,14 +14,8 @@ export default class UserService {
         return row[0];
     }
 
-    async selectByEventId(id) {
-        let sql = `SELECT users.id, users.login, users.profile_pic FROM users INNER JOIN tickets ON tickets.event_id = ${id} AND users.id = tickets.user_id`;
-        const [row] = await db.execute(sql);
-        return row;
-    }
-
     async create(body) {
-        let sql = `INSERT INTO users (login, password, full_name, email, profile_pic, role_id, status) VALUES ('${body.login}', '${body.password}', '${body.full_name}', '${body.email}', '${body.profile_pic}', ${body.role_id}, 0)`;
+        let sql = `INSERT INTO users (login, password, full_name, email, profile_pic, role_id, lastlogindate) VALUES ('${body.login}', '${body.password}', '${body.full_name}', '${body.email}', '${body.profile_pic}', ${body.role_id}, '${toSQLDate(Date.now())}')`;
         const [row] = await db.execute(sql);
         return row[0];
     }
@@ -32,7 +27,7 @@ export default class UserService {
 	}
 
     async update(body, id) {
-        if(Object.entries(body).length !== 0){
+        if (Object.entries(body).length !== 0) {
             await Object.entries(body).filter(([key, value]) => value).map(([key, value]) => db.execute(`UPDATE users SET ${key} = '${value}' WHERE id = ${id}`))
         }
 	}

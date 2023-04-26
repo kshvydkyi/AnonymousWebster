@@ -9,7 +9,7 @@ export default class AuthService {
             full_name: body.fullName,
             profile_pic: "default_avatar.png",
             email: body.email,
-            role_id: 2,
+            role_id: 1,
             status: 1
         };
         
@@ -20,6 +20,8 @@ export default class AuthService {
     async login(login){
         const sql = `SELECT users.id, users.login, users.password, roles.title FROM users, roles WHERE users.login = '${login}' AND users.role_id = roles.id`;
         const [row] = await db.execute(sql);
+        // sql = `UPDATE users SET profile_pic = '${path}' WHERE id = ${user_id}`;
+        // const [row1] = await db.execute(sql);
         return row;
     }
 }
