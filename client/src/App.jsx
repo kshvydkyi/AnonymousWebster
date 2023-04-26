@@ -4,20 +4,20 @@ import {
   Route, Routes
 } from 'react-router-dom';
 
-import Header from "./components/Auth/Header/Header";
-import Footer from "./components/Auth/Footer/Footer";
 import MainPage from "./components/Layout/MainPage";
+import { Layout } from './components/Layout/Layout';
 
 
 
 function App() {
   return (
     <Router>
-        <Header/>
         <Routes>
-          <Route path='/' element={<MainPage/>} />
+          <Route path='/' element={<Layout />}> 
+          <Route path='/' element={<MainPage/>}/>
+          </Route>
         </Routes>
-        <Footer/>
+
     </Router>
   );
 }

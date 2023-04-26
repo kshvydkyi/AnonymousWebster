@@ -3,11 +3,14 @@ import {Button, Toolbar} from '@mui/material';
 
 const MainHeader = styled('div')({
     color: 'white',
-    backgroundColor: '#1E1E1E',
-    padding: 8,
-    borderRadius: 4,
-    position: 'relative',
+    backgroundColor: '#101010',
+    padding: 3,
+    width: "100%",
+    // borderBottom: "1px solid white",
+    position: 'fixed',
+    overflow: "hidden",
     text: 'right'
+    
 });
 
 const MenuButton = styled(Button)({
