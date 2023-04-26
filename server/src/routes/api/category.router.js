@@ -11,7 +11,7 @@ import { isAutorised } from "../../middleware/isAuthorized.middleware.js";
 import { isSameTitle } from "../../scripts/titleChecking.js";
 import { checkCategoryChainMethod } from "../../validations/category.validation.js";
 import { isNotExistById } from "../../scripts/roleChecking.script.js";
-import FormatService from "../../services/format.service.js";
+
 
 const categoryRouter = Router();
 
@@ -24,7 +24,7 @@ categoryRouter.get(
 //Select By Id(For All)
 categoryRouter.get(
     '/:id',
-    isNotExistById(FormatService),
+    isNotExistById(CategoryService),
     tryCatch(categoryController.selectById.bind(categoryController))
 );
 
@@ -46,7 +46,7 @@ categoryRouter.patch(
     checkCategoryChainMethod,
     validateRequestSchema,
     isNotExistById(CategoryService),
-    isSameTitle(FormatService),
+    isSameTitle(CategoryService),
     tryCatch(categoryController.update.bind(categoryController))
 );
 
