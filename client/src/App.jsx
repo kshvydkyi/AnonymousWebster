@@ -4,13 +4,21 @@ import {
   Route, Routes
 } from 'react-router-dom';
 
-import MainPage from "./components/Layout/MainPage";
-
 import { Layout } from './components/Layout/Layout';
-import Register from "./components/Auth/Register/Register";
-import Login from "./components/Auth/Login/Login";
+import Header from "./components/Auth/Header";
+import Footer from "./components/Auth/Footer";
+import MainPage from "./components/Layout/MainPage";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
+import ConfirmEmail from "./components/Auth/ConfirmEmail";
 
 function App() {
+  if (!localStorage.getItem('autorized')) {
+		localStorage.setItem(
+			'autorized',
+			JSON.stringify({ currentUser: 'guest' })
+		);
+	}
   return (
     <Router>
         <Routes>
@@ -18,6 +26,7 @@ function App() {
           <Route path='/' element={<MainPage/>}/>
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
+          <Route path='/confirm-email/:token' element={<ConfirmEmail/>} />
         </Routes>
     </Router>
   );
