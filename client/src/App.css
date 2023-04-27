@@ -80,3 +80,17 @@ header {
     padding-left: 0;
   }
 }
+
+body::-webkit-scrollbar {
+  width: 5px;
+          
+}
+body::-webkit-scrollbar-track {
+  background: #131313;  
+  border-radius: 10px;          
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #850000;  
+  border-radius: 10px; 
+}
