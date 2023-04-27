@@ -57,12 +57,7 @@ const  Register = () => {
             if(err?.response?.data?.errors[0]?.msg === `Passwords do not match`) {
                 setErrMsg('Паролі не співпадають');
             }
-            else if (err.response.data.values.message === `Email - ${email} invalid`) {
-                setErrMsg('Якийсь дивний email');
-            }
-            else if (err.response.data.values.message === `User with email - ${email} already exist`) {
-                setErrMsg('Цей email вже використовується');
-            } else {
+            else {
                 setErrMsg('Шось не так');
             }
             errRef.current.focus();
@@ -128,7 +123,7 @@ const  Register = () => {
                     value={confirmPassword}
                     onChange={e => setConfirmPassword(e.target.value)}
                     error={PWD_REGEX.test(confirmPassword) === false && submitClicked === true}
-                    helperText={PWD_REGEX.test(confirmPassword) === false && submitClicked === true ? 'Password must be not less than 8 symbols, including: digits, capital letter and at least one special symbol' : ' '}
+                    helperText={PWD_REGEX.test(confirmPassword) === false && submitClicked === true ? 'Confirm Password must be same like field above' : ' '}
                 />
                 <div>
                     <ButtonEl type="submit" variant="contained" color="primary">

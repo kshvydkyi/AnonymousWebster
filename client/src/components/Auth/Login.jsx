@@ -55,9 +55,6 @@ const Login = () => {
             else if (err?.response?.data?.errors[0]?.msg === 'Invalid value' || err?.response?.data?.errors[1]?.msg === 'Invalid value') {
                 setErrMsg('Login Failed');
             }
-            else if (err?.response?.data?.values?.message === `User with this login not exist`) {
-                setErrMsg('Користувача з таким логіном не існує');
-            }
             else if (err?.response?.data?.status === 400) {
                 setErrMsg('Пароль не підходить');
             }
