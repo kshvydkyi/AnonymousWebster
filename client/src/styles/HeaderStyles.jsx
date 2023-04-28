@@ -32,4 +32,9 @@ const Logo = styled('span')({
     marginLeft: '10px'
 });
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled}
+const LogOutBtn = styled(Button)({
+    outline: 'none',
+    border: '0px black',
+});
+
+export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn}

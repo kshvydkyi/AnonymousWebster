@@ -79,7 +79,7 @@ const  Register = () => {
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
                 <TextFieldEl
                 label="Full Name"
-                variant="filled"
+                variant="standart"
                 required
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
@@ -88,7 +88,7 @@ const  Register = () => {
                 />
                 <TextFieldEl
                 label="Login"
-                variant="filled"
+                variant="standart"
                 required
                 value={login}
                 onChange={e => setLogin(e.target.value)}
@@ -97,7 +97,7 @@ const  Register = () => {
                 />
                 <TextFieldEl
                     label="Email"
-                    variant="filled"
+                    variant="standart"
                     type="email"
                     required
                     value={email}
@@ -107,7 +107,7 @@ const  Register = () => {
                 />
                 <TextFieldEl
                     label="Password"
-                    variant="filled"
+                    variant="standart"
                     type="password"
                     required
                     value={password}
@@ -117,7 +117,7 @@ const  Register = () => {
                 />
                 <TextFieldEl
                     label="Confirm Password"
-                    variant="filled"
+                    variant="standart"
                     type="password"
                     required
                     value={confirmPassword}

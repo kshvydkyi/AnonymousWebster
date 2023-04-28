@@ -187,10 +187,10 @@ export default function Header() {
           return (
             <div>
           <span>{currentUser.login}</span>
-          <Button title="Log Out" onClick={() => toLogOut()} className='p-1 mb-1 bg-dark text-white' style={{ outline: 'none', border: '0px black' }}>
+          <LogOutBtn title="Log Out" onClick={() => toLogOut()}>
             <img className="fit-picture" src={logoutLogo} alt="logoutLogo" width={20} height={20}></img> 
-        </Button>
-        <img src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} className='link-header border border-secondary rounded-circle' height={40} width={40} alt='avatar' />
+        </LogOutBtn>
+        <img src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} height={40} width={40} alt='avatar' />
         </div>
           )
         }
