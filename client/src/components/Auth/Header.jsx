@@ -156,7 +156,7 @@ export default function Header() {
       else {
         return (
           <UserInfo>
-          <p>{currentUser.login}</p>
+          <p>{currentUser?.login}</p>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <LogOutBtn title="Log Out" onClick={() => toLogOut()}>
             <img className="fit-picture" src={logoutLogo} alt="logoutLogo" width={20} height={20}></img> 
@@ -173,7 +173,7 @@ export default function Header() {
   );
 
       const getMenuButtons = () => {
-        if(currentUser.currentUser === 'guest') {
+        if(currentUser?.currentUser === 'guest') {
         return headersData.map(({ label, href }) => {
           return (
             <MenuButton
@@ -192,7 +192,7 @@ export default function Header() {
         else {
           return (
             <UserInfo>
-          <p>{currentUser.login}</p>
+          <p>{currentUser?.login}</p>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <LogOutBtn title="Log Out" onClick={() => toLogOut()}>
             <img className="fit-picture" src={logoutLogo} alt="logoutLogo" width={20} height={20}></img> 
