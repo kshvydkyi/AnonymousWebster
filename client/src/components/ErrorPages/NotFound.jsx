@@ -1,19 +1,11 @@
 import React from 'react'
-import { Box, Button, Container, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { ErrorBox } from './ErrorPagesStyles';
 export const NotFound = () => {
     const navigate = useNavigate();
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-            }}
-        >
-
+        <ErrorBox>
             <Typography variant="h1" color="white">
                 404
             </Typography>
@@ -22,6 +14,6 @@ export const NotFound = () => {
             </Typography>
             <Button variant="contained" onClick={() => navigate(-1)}>Go back</Button>
 
-        </Box>
+        </ErrorBox>
     )
 }

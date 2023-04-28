@@ -7,6 +7,7 @@ import {
 import MainPage from "./components/Layout/MainPage";
 import { Layout } from './components/Layout/Layout';
 import { NotFound } from './components/ErrorPages/NotFound';
+import { ServerError } from './components/ErrorPages/ServerError';
 
 
 
@@ -17,6 +18,7 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<MainPage />} />
           <Route path='/*' element={<NotFound />} />
+          <Route path='500' element={<ServerError/>}/>
         </Route>
       </Routes>
 
