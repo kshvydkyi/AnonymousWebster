@@ -21,7 +21,6 @@ const corsOptions = {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(ErrorHandler);
-  app.use('/avatars', express.static(`${path.resolve()}/assets/avatars`));
   
   router.init();
   

@@ -4,9 +4,6 @@
     "auth": {
         "user": "rahul.mitchell@ethereal.email",
         "pass": "7enxD1p8BtTYvnCXTY"
-    },
-    "tls": {
-        "rejectUnauthorized": false
     }
 }
 

@@ -1,9 +1,9 @@
 import React from "react";
+import anonymousMask from '../../../assets/Layout/anonguy.png';
 
-import anonymousMask from '../../assets/Layout/anonguy.png';
-import { BoxComp2, TypographyComp, ContainerComp } from '../../styles/FooterStyle'
+import { BoxComp2, TypographyComp, ContainerComp } from './FooterStyle'
 
-const  Footer  = () => {
+function Footer() {
   return (
   
       <ContainerComp>

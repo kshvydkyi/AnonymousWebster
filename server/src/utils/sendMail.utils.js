@@ -130,7 +130,7 @@ class SendMail {
 <body>
     
     <div>
-        <h1 class="header">Webster</h1>
+        <h1 class="header">Concertik</h1>
         <div class="text-div" style="justify-content: center">
         <p class="text">
             Thank you for registering on our website,
@@ -196,7 +196,7 @@ class SendMail {
 <body>
     
     <div>
-        <h1 class="header">Webster</h1>
+        <h1 class="header">Concertik</h1>
         <div class="text-div" style="justify-content: center">
         <p class="text">
              You requested for reset password,
