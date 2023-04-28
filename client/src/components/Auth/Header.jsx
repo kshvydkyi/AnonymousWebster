@@ -1,16 +1,16 @@
-import { Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link } from '@mui/material';
+
+import {Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link, Avatar} from '@mui/material';
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import menuIcon from '../../../assets/Layout/menuIcon.png';
 import Logo from '../../../assets/Layout/Logo.png'
 import '../../../App.css'
-import { MainHeader, MenuButton, MainButtons, ToolbarStyled } from './HeaderStyles'
 import logoutLogo from '../../assets/logout.png';
+import {MainHeader, MenuButton, MainButtons, ToolbarStyled, Logo, LogOutBtn, UserInfo} from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
 import route from '../../api/route';
-
 
 const headersData = [
   {
@@ -155,7 +155,13 @@ export default function Header() {
       }
       else {
         return (
-        <p>{currentUser.login}</p>
+          <UserInfo>
+          <p>{currentUser.login}</p>
+          <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
+          <LogOutBtn title="Log Out" onClick={() => toLogOut()}>
+            <img className="fit-picture" src={logoutLogo} alt="logoutLogo" width={20} height={20}></img> 
+        </LogOutBtn>
+        </UserInfo>
         )
       }
       };
@@ -185,13 +191,13 @@ export default function Header() {
         }
         else {
           return (
-            <div>
-          <span>{currentUser.login}</span>
+            <UserInfo>
+          <p>{currentUser.login}</p>
+          <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <LogOutBtn title="Log Out" onClick={() => toLogOut()}>
             <img className="fit-picture" src={logoutLogo} alt="logoutLogo" width={20} height={20}></img> 
         </LogOutBtn>
-        <img src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} height={40} width={40} alt='avatar' />
-        </div>
+        </UserInfo>
           )
         }
       };

@@ -35,6 +35,15 @@ const Logo = styled('span')({
 const LogOutBtn = styled(Button)({
     outline: 'none',
     border: '0px black',
+    marginTop: '7px'
 });
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn}
+const UserInfo = styled('div')({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '5px'
+});
+
+export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo}
