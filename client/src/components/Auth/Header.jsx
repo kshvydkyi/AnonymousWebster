@@ -1,9 +1,8 @@
 import {Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link, Avatar, CircularProgress} from '@mui/material';
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import menuIcon from '../../../assets/Layout/menuIcon.png';
-import Logo from '../../../assets/Layout/Logo.png'
-import '../../../App.css'
+import menuIcon from '../../assets/Layout/menuIcon.png';
+import WebsterLogo from '../../assets/Layout/websterLogo.png'
 import logoutLogo from '../../assets/logout.png';
 import {MainHeader, MenuButton, MainButtons, ToolbarStyled, Logo, LogOutBtn, UserInfo, DrawerEl} from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
@@ -119,7 +118,7 @@ export default function Header() {
           <img className="fit-picture" src={menuIcon} alt="menuIcon" height={30} width={30} ></img>
         </IconButton>
 
-        <Drawer
+        <DrawerEl
           {...{
             anchor: "left",
             open: drawerOpen,
@@ -127,7 +126,7 @@ export default function Header() {
           }}
         >
           <div>{getDrawerChoices()}</div>
-        </Drawer>
+        </DrawerEl>
 
         <div>{femmecubatorLogo}</div>
       </Toolbar>
@@ -170,7 +169,7 @@ export default function Header() {
 
   const femmecubatorLogo = (
     <Typography variant="h6" component="a" href='/'>
-      <img className="fit-picture" src={Logo} alt="websterLogo" width={165} height={50}></img>
+      <img className="fit-picture" src={WebsterLogo} alt="websterLogo" width={165} height={50}></img>
     </Typography>
   );
 
