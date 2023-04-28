@@ -21,14 +21,14 @@ function App() {
 	}
   return (
     <Router>
-      <Header/>
         <Routes>
-          <Route path='/' element={<MainPage/>}/>
-          <Route path='/login' element={<Login/>} />
-          <Route path='/register' element={<Register/>} />
-          <Route path='/confirm-email/:token' element={<ConfirmEmail/>} />
+          <Route path="/" element={<Layout />} >
+            <Route path='/' element={<MainPage/>}/>
+            <Route path='/login' element={<Login/>} />
+            <Route path='/register' element={<Register/>} />
+            <Route path='/confirm-email/:token' element={<ConfirmEmail/>} />
+          </Route>
         </Routes>
-      <Footer/>
     </Router>
   );
 }
