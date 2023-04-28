@@ -34,5 +34,9 @@ const ErrWarning = styled('p')({
     padding: '15px'
 });
 
-export {Body, BoxEl,TextFieldEl, ButtonEl, ErrWarning}
+const SpanEl = styled('span')({
+    margin: '10px'
+});
+
+export {Body, BoxEl,TextFieldEl, ButtonEl, ErrWarning, SpanEl}
 

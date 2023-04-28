@@ -1,7 +1,7 @@
 import React, {  useRef, useState, useEffect  } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Link } from '@mui/material';
 import {LOGIN_URL} from '../../api/routes'
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -102,6 +102,15 @@ const Login = () => {
                         
                     </ButtonEl>
                 </div>
+                <Link
+                    component="button"
+                    variant="body2"
+                    onClick={() => {
+                        navigate('/reset-password')
+                    }}
+                    >
+                    Forget Password?
+                    </Link>
             </BoxEl>
         </Body>
     )

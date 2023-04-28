@@ -51,7 +51,7 @@ const DialogWindow = (props) => {
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            You've just successfully registered, do not forget to confirm your email!
+            {props.message}
           </Typography>
         </DialogContent>
         <DialogActions>

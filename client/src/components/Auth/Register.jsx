@@ -1,9 +1,9 @@
 import React, {  useRef, useState, useEffect  } from 'react';
-import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
+import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanEl} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Link } from '@mui/material';
 import {REGISTER_URL} from '../../api/routes'
-
+import { useNavigate } from "react-router-dom";
 
 import {DialogWindow} from '../Other/DialogWIndow'
 
@@ -24,7 +24,8 @@ const  Register = () => {
     const [stateDialog, setStateDialog] = useState(false);
 
     const [submitClicked, setSubmitClicked] = useState(false);
-  
+    const navigate = useNavigate(); 
+    
     const handleSubmit = async e => {
         setSubmitClicked(true)
       setErrMsg('');
@@ -68,6 +69,7 @@ const  Register = () => {
         <Body>
             <DialogWindow
             state={stateDialog}
+            message={'You\'ve just successfully registered, do not forget to confirm your email!'}
             />
             <BoxEl
             component="form"
@@ -134,6 +136,18 @@ const  Register = () => {
                         
                     </ButtonEl>
                 </div>
+                <span>
+                <SpanEl>Already have an accout?</SpanEl>
+                <Link
+                    component="button"
+                    variant="body2"
+                    onClick={() => {
+                        navigate('/login')
+                    }}
+                    >
+                     Sign in
+                    </Link>
+                </span>
             </BoxEl>
         </Body>
     )

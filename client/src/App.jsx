@@ -11,6 +11,8 @@ import MainPage from "./components/Layout/MainPage";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
 import ConfirmEmail from "./components/Auth/ConfirmEmail";
+import ResetPassword from "./components/Auth/ResetPassword";
+import ResetPasswordWT from "./components/Auth/ResetPasswordWT";
 
 function App() {
   if (!localStorage.getItem('autorized')) {
@@ -27,6 +29,8 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/confirm-email/:token' element={<ConfirmEmail/>} />
+            <Route path='/reset-password' element={<ResetPassword/>} />
+            <Route path='/reset-password/:token' element={<ResetPasswordWT/>} />
           </Route>
         </Routes>
     </Router>
