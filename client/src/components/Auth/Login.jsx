@@ -80,14 +80,14 @@ const Login = () => {
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
                 <TextFieldEl
                 label="Login"
-                variant="standart"
+                variant="standard"
                 required
                 value={login}
                 onChange={e => setLogin(e.target.value)}
                 />
                 <TextFieldEl
                     label="Password"
-                    variant="standart"
+                    variant="standard"
                     type="password"
                     required
                     value={password}
