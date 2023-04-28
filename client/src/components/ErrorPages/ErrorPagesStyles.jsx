@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 const ErrorBox = styled(Box)({
     display: 'flex',
@@ -8,4 +8,9 @@ const ErrorBox = styled(Box)({
     flexDirection: 'column',
 })
 
-export {ErrorBox}
+const ErrorButton = styled(Button)({
+    backgroundColor: '#171717',
+    margin: '15px'
+}) 
+
+export {ErrorBox, ErrorButton}

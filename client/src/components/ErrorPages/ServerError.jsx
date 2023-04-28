@@ -3,7 +3,7 @@ import { Container } from '@mui/system';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ButtonDiv } from '../Layout/MainPageStyle';
-import { ErrorBox } from './ErrorPagesStyles';
+import { ErrorBox, ErrorButton } from './ErrorPagesStyles';
 
 export const ServerError = () => {
     const navigate = useNavigate();
@@ -16,8 +16,8 @@ export const ServerError = () => {
                 Internal Server Error. If this error occurs again, contact support.
             </Typography>
             <ButtonDiv>
-                <Button variant="contained" onClick={() => navigate(-1)}>Go back</Button>
-                <Button variant="contained" href='https://t.me/kossyaak'>Contact Support</Button>
+                <ErrorButton variant="contained" onClick={() => navigate(-1)}>Go back</ErrorButton>
+                <ErrorButton variant="contained" href='https://t.me/kossyaak'>Contact Support</ErrorButton>
             </ButtonDiv>
         </ErrorBox>
     )
