@@ -1,5 +1,5 @@
 import {styled} from '@mui/system'
-import {Button, Toolbar} from '@mui/material';
+import {Button, Toolbar, Drawer} from '@mui/material';
 
 const MainHeader = styled('div')({
     color: 'white',
@@ -32,4 +32,26 @@ const Logo = styled('span')({
     marginLeft: '10px'
 });
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled}
+const LogOutBtn = styled(Button)({
+    outline: 'none',
+    border: '0px black',
+    marginTop: '7px'
+});
+
+const UserInfo = styled('div')({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '5px'
+});
+
+const DrawerEl = styled(Drawer)({
+    '& .MuiDrawer-paper': {   
+        backgroundColor: "#131313",
+        color: "white", 
+        padding: '10px'
+    },
+});
+
+export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl}

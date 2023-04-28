@@ -1,9 +1,9 @@
 import React, { FC, ReactElement } from "react";
 import mainPageElement from '../../assets/Layout/mainPageElementAnon.jpg';
 import websterLogo from '../../assets/Layout/Logo.png'
-import {Container, TextBlock, TextDiv, ButtonDiv, StartButton} from './MainPageStyle';
+import {Container, TextBlock, TextDiv, ButtonDiv, StartButton} from '../../styles/MainPageStyle';
 
-function MainPage() {
+export const  MainPage  = () => {
     return (
         <Container size="lg">
             <TextBlock>
