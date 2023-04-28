@@ -1,5 +1,5 @@
 import { FC, ReactElement } from 'react';
-import { Container, ElementsContainer, TextBlock, PaperComponent, ProjectCard, DateChip } from './ProjectsStyle';
+import { Container, CustomCard, CustomCardCreate, ElementsContainer, CardMediaCustomCreate, TextBlock, PaperComponent, DateChip, CardMediaCustom } from './ProjectsStyle';
 import { List, Card, CardActionArea, CardMedia, CardContent, Typography, Chip, Grid } from '@mui/material';
 import testPic from '../../assets/test/image 2.png'
 import newProjectIcon from '../../assets/ProjectPage/newProgectIcon.png'
@@ -18,12 +18,8 @@ function ShowProjects() {
         { id: 12, title: "test", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
         { id: 13, title: "test", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
         { id: 14, title: "test", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
-
-
     ]
 
-
-    //fdsfdsfdfdsfds
     return (
         <Container>
             <TextBlock>
@@ -33,41 +29,34 @@ function ShowProjects() {
                 <PaperComponent className='project-paper'>
                     <Grid
                         container
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
+                        // direction="row"
+                        // justifyContent="flex-start"
+                        // alignItems="flex-start"
+                        // // columns={16}
                         spacing={2}>
-
-
-                        <Grid item xs={12} sm={8} md={6} lg={4} xl={2}>
-                            <ProjectCard >
-                                <CardActionArea>
-                                    <CardMedia
+                        <Grid item md={2} >
+                                <CustomCardCreate raised={true}>
+                                    <CardMediaCustomCreate
                                         component="img"
-                                        height="182"
                                         image={newProjectIcon}
                                         alt="projectPic"
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
-                                        New project
+                                            New project
                                         </Typography>
-                                        <Typography variant="subtitle1" color="white" >
-
+                                        <Typography>
+                                        aboba
                                         </Typography>
-
                                     </CardContent>
-                                </CardActionArea>
-                            </ProjectCard>
+                                </CustomCardCreate>
                         </Grid>
                         {projects ? projects.map((item) => {
                             return (
-                                <Grid item xs={12} sm={8} md={6} lg={4} xl={2}>
-                                    <ProjectCard >
-                                        <CardActionArea>
-                                            <CardMedia
+                                <Grid item md={2}>
+                                        <CustomCard raised={true}>
+                                            <CardMediaCustom 
                                                 component="img"
-                                                height="150"
                                                 image={testPic}
                                                 alt="projectPic"
                                             />
@@ -75,14 +64,14 @@ function ShowProjects() {
                                                 <Typography gutterBottom variant="h5" component="div">
                                                     {item.title.length < 13 ? item.title : `${item.title.slice(0, 13)}...`}
                                                 </Typography>
-                                                <DateChip label={item.date_upd} variant="outlined" />
+                                                <Typography>
+                                                    {item.date_upd}
+                                                </Typography>
                                             </CardContent>
-                                        </CardActionArea>
-                                    </ProjectCard>
+                                        </CustomCard>
                                 </Grid>
                             )
                         }) : <></>}
-
                     </Grid>
                 </PaperComponent>
             </ElementsContainer>

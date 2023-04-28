@@ -1,12 +1,12 @@
-import { styled } from '@mui/system';
-import { Button, Card, Chip, Paper } from '@mui/material';
+import { styled, textAlign } from '@mui/system';
+import { Button, CardActionArea, CardMedia, Chip, Paper } from '@mui/material';
 
 const Container = styled('div')({
     paddingLeft: '7%',
     paddingRight: '7%',
     paddingTop: '2%',
     height: '100%',
-    backgroundColor: '#131313'
+    backgroundColor: '#171717'
 });
 
 const TextBlock = styled('div')({
@@ -22,15 +22,10 @@ const ElementsContainer = styled('div')({
     color: 'white'
 });
 
-const ProjectCard = styled(Card)({
-    maxWidth: "340px",
-    backgroundColor: "#101010",
-    color: "white",
-})
 const PaperComponent = styled(Paper)({
-    maxHeight: 550,
+    height: "75%",
     overflow: 'auto',
-    padding: "2%",
+    boxShadow: 'none',
     backgroundColor: "inherit",
     "&::-webkit-scrollbar": {
         width: 5
@@ -45,9 +40,31 @@ const PaperComponent = styled(Paper)({
 })
 
 const DateChip = styled(Chip)({
-    color: "white",
-    border: "none",
-    padding: 0,
-    margin: 0
+    // color: "white",
+    // border: "none",
+    // marginLeft: -2
 })
-export { Container, ElementsContainer, TextBlock, PaperComponent, ProjectCard, DateChip }
+
+const CustomCard = styled(CardActionArea)({
+    background: '#272727',
+    color: 'white'
+})
+
+const CustomCardCreate = styled(CardActionArea)({
+    background: '#272727',
+    color: 'white',
+    textAlign: 'center'
+})
+
+const CardMediaCustom = styled(CardMedia)({
+    padding: "2em 2em 0em 1.9em", 
+    width: "80%",
+    height: "80%",
+})
+
+const CardMediaCustomCreate = styled(CardMedia)({
+    padding: "2em 2em 0em 1.9em",
+    width: "80%",
+    height: "80%",
+})
+export { Container, CustomCardCreate, CardMediaCustom, CardMediaCustomCreate, CustomCard, ElementsContainer, TextBlock, PaperComponent, DateChip }

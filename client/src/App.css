@@ -94,3 +94,6 @@ body::-webkit-scrollbar-thumb {
   background-color: #850000;  
   border-radius: 10px; 
 }
+.project-image{
+  padding: 5px;
+}
