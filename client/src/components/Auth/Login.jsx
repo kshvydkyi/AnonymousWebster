@@ -96,7 +96,7 @@ const Login = () => {
                 <div>
                     <ButtonEl type="submit" variant="contained" color="primary">
                         {
-                            isLoading ? <CircularProgress/> :
+                            isLoading ? <CircularProgress size={24}/> :
                             <p>Sign In</p>
                         }
                         
