@@ -7,7 +7,7 @@ import {REGISTER_URL} from '../../api/routes'
 
 import {DialogWindow} from '../Other/DialogWIndow'
 
-import {USER_REGEX, PWD_REGEX, EMAIL_REGEX, FULLNAME_REGEX} from '../regex'
+import {USER_REGEX, PWD_REGEX, EMAIL_REGEX, FULLNAME_REGEX} from '../../regex/regex'
 
 
 const  Register = () => {
@@ -128,7 +128,7 @@ const  Register = () => {
                 <div>
                     <ButtonEl type="submit" variant="contained" color="primary">
                         {
-                            isLoading ? <CircularProgress/> :
+                            isLoading ? <CircularProgress size={24}/> :
                             <p>Sign Up</p>
                         }
                         

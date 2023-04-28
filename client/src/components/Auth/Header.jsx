@@ -1,12 +1,11 @@
-
-import {Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link, Avatar} from '@mui/material';
+import {Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link, Avatar, CircularProgress} from '@mui/material';
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import menuIcon from '../../../assets/Layout/menuIcon.png';
 import Logo from '../../../assets/Layout/Logo.png'
 import '../../../App.css'
 import logoutLogo from '../../assets/logout.png';
-import {MainHeader, MenuButton, MainButtons, ToolbarStyled, Logo, LogOutBtn, UserInfo} from '../../styles/HeaderStyles'
+import {MainHeader, MenuButton, MainButtons, ToolbarStyled, Logo, LogOutBtn, UserInfo, DrawerEl} from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
@@ -34,6 +33,7 @@ export default function Header() {
   const currentUser = JSON.parse(localStorage.getItem('autorized'));
   const [userAvatar, setUserAvatar] = useState();
   const navigate = useNavigate(); 
+  const [isLoading, setLoading] = useState(false);
 
       useEffect(() => {
         if (currentUser?.currentUser !== 'guest') {
@@ -69,11 +69,10 @@ export default function Header() {
     
       async function toLogOut() {
           localStorage.removeItem('autorized');
-          // setAuth(false);
+          setLoading(true);
           navigate('/');
           document.location.reload();
       }
-
   useEffect(() => {
     const setResponsiveness = () => {
       return window.innerWidth < 900
@@ -139,7 +138,7 @@ export default function Header() {
         if(currentUser.currentUser === 'guest') {
         return headersData.map(({ label, href }) => {
           return (
-            <Link
+            <Link 
               {...{
                 component: RouterLink,
                 to: href,
@@ -148,7 +147,7 @@ export default function Header() {
                 key: label,
               }}
             >
-              <MenuItem>{label}</MenuItem>
+              <MenuItem >{label}</MenuItem>
             </Link>
           );
         });
@@ -159,7 +158,10 @@ export default function Header() {
           <p>{currentUser?.login}</p>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <LogOutBtn title="Log Out" onClick={() => toLogOut()}>
+            {
+            isLoading ? <CircularProgress size={24}/> :
             <img className="fit-picture" src={logoutLogo} alt="logoutLogo" width={20} height={20}></img> 
+            }
         </LogOutBtn>
         </UserInfo>
         )
@@ -195,7 +197,10 @@ export default function Header() {
           <p>{currentUser?.login}</p>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <LogOutBtn title="Log Out" onClick={() => toLogOut()}>
+            {
+            isLoading ? <CircularProgress size={24}/> :
             <img className="fit-picture" src={logoutLogo} alt="logoutLogo" width={20} height={20}></img> 
+            }
         </LogOutBtn>
         </UserInfo>
           )

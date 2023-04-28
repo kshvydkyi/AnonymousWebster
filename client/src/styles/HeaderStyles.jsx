@@ -1,5 +1,5 @@
 import {styled} from '@mui/system'
-import {Button, Toolbar} from '@mui/material';
+import {Button, Toolbar, Drawer} from '@mui/material';
 
 const MainHeader = styled('div')({
     color: 'white',
@@ -46,4 +46,12 @@ const UserInfo = styled('div')({
     gap: '5px'
 });
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo}
+const DrawerEl = styled(Drawer)({
+    '& .MuiDrawer-paper': {   
+        backgroundColor: "#131313",
+        color: "white", 
+        padding: '10px'
+    },
+});
+
+export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl}
