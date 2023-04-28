@@ -50,7 +50,7 @@ export default function Header() {
 
       const getUserInfo = async () => {
         try {
-          if (currentUser.currentUser !== 'guest') {
+          if (currentUser?.currentUser !== 'guest') {
           const response = await axios.get(`/api/users/${currentUser.userId}`);
           // console.log('userAvatar', response);
           setUserAvatar(response.data.values.values.profile_pic);
