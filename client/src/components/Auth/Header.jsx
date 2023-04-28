@@ -134,7 +134,7 @@ export default function Header() {
   };
 
  const getDrawerChoices = () => {
-        if(currentUser.currentUser === 'guest') {
+        if(currentUser?.currentUser === 'guest') {
         return headersData.map(({ label, href }) => {
           return (
             <Link 
