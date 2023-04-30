@@ -23,42 +23,39 @@ const ResetPassword = () => {
         setSubmitClicked(true)
         setErrMsg('');
         e.preventDefault();
-        const v = EMAIL_REGEX.test(email);
-        if (!v) {
-            setErrMsg("Invalid Entry");
-            return;
-        }
-        try{
-            setLoading(true);
-            console.log(email)
-            const response = await axios.post(RESET_PASSWORD_URL, 
-                JSON.stringify({email: email}),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+        if (EMAIL_REGEX.test(email)) {
+            try{
+                setLoading(true);
+                console.log(email)
+                const response = await axios.post(RESET_PASSWORD_URL, 
+                    JSON.stringify({email: email}),
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    }
+                )
+                console.log(response?.data.status, response?.data.values.message);
+                setSuccess(true);
+                setLoading(false);
+                setStateDialog(true)
+            }
+            catch(err){
+                setLoading(false);
+                if (!err?.response) {
+                    setErrMsg('Server is busy');
                 }
-            )
-            console.log(response?.data.status, response?.data.values.message);
-            setSuccess(true);
-            setLoading(false);
-            setStateDialog(true)
-        }
-        catch(err){
-            setLoading(false);
-            if (!err?.response) {
-                setErrMsg('Server is busy');
+                else{
+                    setErrMsg('Such email does not exist');
+                }
+                errRef.current.focus();
             }
-            else{
-                setErrMsg('Such email does not exist');
-            }
-            errRef.current.focus();
         }
     }
     return (
         <Body>
             <DialogWindow
             state={stateDialog}
-            message={'The message was sent to your email, go to link and reset password!'}
+            message={'Password changed'}
             />
             <BoxEl
             component="form"
