@@ -109,7 +109,7 @@ const Login = () => {
                         navigate('/reset-password')
                     }}
                     >
-                    Forget Password?
+                    Forgot Password?
                     </Link>
             </BoxEl>
         </Body>

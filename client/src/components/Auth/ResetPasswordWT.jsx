@@ -58,8 +58,8 @@ const ResetPasswordWT = () => {
     return (
         <Body>
             <DialogWindow
-            state={stateDialog}
-            message={'The message was sent to your email, go to link and reset password!'}
+            state={success}
+            message={'Password changed'}
             />
             <BoxEl
             component="form"

@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { ButtonDiv } from '../Layout/MainPageStyle';
+import { ButtonDiv } from '../../styles/MainPageStyle';
 import { ErrorBox, ErrorButton } from './ErrorPagesStyles'
 
 export const AccesDenied = () => {

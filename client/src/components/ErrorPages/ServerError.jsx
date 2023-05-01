@@ -2,7 +2,7 @@ import { Button, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { ButtonDiv } from '../Layout/MainPageStyle';
+import { ButtonDiv } from '../../styles/MainPageStyle';
 import { ErrorBox, ErrorButton } from './ErrorPagesStyles';
 
 export const ServerError = () => {

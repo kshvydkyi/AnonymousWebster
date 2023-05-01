@@ -4,13 +4,12 @@ import {Box, TextField, Button} from '@mui/material';
 const Body = styled('body')({
     backgroundColor: '#131313',
     color: 'white',
-    padding: '3px',
 });
 
 const BoxEl = styled(Box)({
     flexShrink: 1,
     padding: '30px',
-    '& .MuiTextField-root': { m: 1, width: '25%' },
+    '& .MuiTextField-root': { m: 1, width: '35%' },
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',

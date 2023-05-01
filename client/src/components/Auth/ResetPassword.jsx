@@ -55,7 +55,7 @@ const ResetPassword = () => {
         <Body>
             <DialogWindow
             state={stateDialog}
-            message={'Password changed'}
+            message={'The message was sent to your email, go to link and reset password!'}
             />
             <BoxEl
             component="form"
