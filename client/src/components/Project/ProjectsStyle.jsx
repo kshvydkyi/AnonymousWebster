@@ -1,5 +1,5 @@
 import { styled, textAlign } from '@mui/system';
-import { Button, Box, CardActionArea, CardMedia, Chip, Paper } from '@mui/material';
+import { Button, Typography, Box, CardActionArea, CardMedia, Chip, Paper } from '@mui/material';
 
 const Container = styled('div')({
     paddingLeft: '7%',
@@ -45,7 +45,21 @@ const ElementsContainer = styled('div')({
 //     // marginLeft: -2
 // })
 
+
+
 const CustomBox = styled(Box)({
+    background: '#272727',
+    color: 'white',
+    display: 'flex',
+    border: '1px solid white',
+    padding: '1vw',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
+    height: "91%"
+})
+
+const CustomBoxCreate = styled(Box)({
     background: '#272727',
     color: 'white',
     display: 'flex',
@@ -75,4 +89,16 @@ const CardMediaCustomCreate = styled(CardMedia)({
     width: "80%",
     height: "80%",
 })
-export { Container, CustomCardCreate, CardMediaCustom, CardMediaCustomCreate, CustomBox, ElementsContainer, TextBlock }
+
+const TypographyName = styled(Typography)({
+
+    // whiteSpace: "pre-wrap",
+    // border: '1px solid white',
+    // display: 'flex',
+    // alignItems: 'left',
+    // justifyContent: 'left'
+    // flexDirection: 'column',
+    // alignContent: 'left'
+})
+
+export { Container, TypographyName, CustomCardCreate, CardMediaCustom, CardMediaCustomCreate, CustomBox, CustomBoxCreate, ElementsContainer, TextBlock }
