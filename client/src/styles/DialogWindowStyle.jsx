@@ -5,16 +5,19 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
       padding: theme.spacing(2),
       color: 'white',
-      backgroundColor: '#1E1E1E',
+      backgroundColor: '#171717',
     },
     '& .MuiDialogActions-root': {
-        backgroundColor: '#1E1E1E',
+        backgroundColor: '#171717',
       padding: theme.spacing(1),
     },
+    '& .MuiPaper-root': {
+      minWidth: "50%"
+    }
   }));
 
   const DialogTitleEl = styled(DialogTitle)({
-    backgroundColor: '#1E1E1E',
+    backgroundColor: '#171717',
     color: 'white',
     m: 0,
     p: 2

@@ -2,7 +2,7 @@ import {Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link,
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import menuIcon from '../../assets/Layout/menuIcon.png';
-import WebsterLogo from '../../assets/Layout/websterLogo.png'
+import WebsterLogo from '../../assets/Layout/Logo.png'
 import logoutLogo from '../../assets/logout.png';
 import {MainHeader, MenuButton, MainButtons, ToolbarStyled, Logo, LogOutBtn, UserInfo, DrawerEl} from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
