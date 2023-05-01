@@ -1,16 +1,16 @@
-import React, {  useRef, useState, useEffect  } from 'react';
-import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanEl} from '../../styles/RegisterStyle'
+import React, { useRef, useState } from 'react';
+import { Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanEl } from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress, Link } from '@mui/material';
-import {REGISTER_URL} from '../../api/routes'
+import { REGISTER_URL } from '../../api/routes'
 import { useNavigate } from "react-router-dom";
 
-import {DialogWindow} from '../Other/DialogWIndow'
+import { DialogWindow } from '../Other/DialogWIndow'
 
-import {USER_REGEX, PWD_REGEX, EMAIL_REGEX, FULLNAME_REGEX} from '../../regex/regex'
+import { USER_REGEX, PWD_REGEX, EMAIL_REGEX, FULLNAME_REGEX } from '../../regex/regex'
 
 
-const  Register = () => {
+const Register = () => {
     const [login, setLogin] = useState('');
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -18,84 +18,84 @@ const  Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    // const [success, setSuccess] = useState(false);
     const errRef = useRef();
     const [isLoading, setLoading] = useState(false);
     const [stateDialog, setStateDialog] = useState(false);
 
     const [submitClicked, setSubmitClicked] = useState(false);
-    const navigate = useNavigate(); 
-    
+    const navigate = useNavigate();
+
     const handleSubmit = async e => {
         setSubmitClicked(true)
-      setErrMsg('');
-      e.preventDefault();
-      if(FULLNAME_REGEX.test(fullName) && PWD_REGEX.test(confirmPassword) && PWD_REGEX.test(password) && EMAIL_REGEX.test(email) && USER_REGEX.test(login)) {
-        try {
-            setLoading(true);
-            const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ login: login, email: email, fullName: fullName, password: password, confirmPassword: confirmPassword}),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
+        setErrMsg('');
+        e.preventDefault();
+        if (FULLNAME_REGEX.test(fullName) && PWD_REGEX.test(confirmPassword) && PWD_REGEX.test(password) && EMAIL_REGEX.test(email) && USER_REGEX.test(login)) {
+            try {
+                setLoading(true);
+                const response = await axios.post(REGISTER_URL,
+                    JSON.stringify({ login: login, email: email, fullName: fullName, password: password, confirmPassword: confirmPassword }),
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    }
+                );
 
-            console.log(response);
-            setSuccess(true);
-            setLoading(false);
-            setStateDialog(true)
+                console.log(response);
+                // setSuccess(true);
+                setLoading(false);
+                setStateDialog(true)
+            }
+            catch (err) {
+                setLoading(false);
+                console.log(err)
+                if (!err?.response) {
+                    setErrMsg('Сервер спить, вибачте');
+                }
+                if (err?.response?.data?.values?.message === `User with this login or email already exists`) {
+                    setErrMsg('Такий логін або емейл вже існує');
+                }
+                if (err?.response?.data?.errors[0]?.msg === `Passwords do not match`) {
+                    setErrMsg('Паролі не співпадають');
+                }
+                else {
+                    setErrMsg('Шось не так');
+                }
+                errRef.current.focus();
+            }
         }
-        catch (err) {
-            setLoading(false);
-            console.log(err)
-            if (!err?.response) {
-                setErrMsg('Сервер спить, вибачте');
-            }
-            if(err?.response?.data?.values?.message === `User with this login or email already exists`) {
-                setErrMsg('Такий логін або емейл вже існує');
-            }
-            if(err?.response?.data?.errors[0]?.msg === `Passwords do not match`) {
-                setErrMsg('Паролі не співпадають');
-            }
-            else {
-                setErrMsg('Шось не так');
-            }
-            errRef.current.focus();
-        }
-    }
     };
     return (
         <Body>
             <DialogWindow
-            state={stateDialog}
-            message={'You\'ve just successfully registered, do not forget to confirm your email!'}
+                state={stateDialog}
+                message={'You\'ve just successfully registered, do not forget to confirm your email!'}
             />
             <BoxEl
-            component="form"
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit}
+                component="form"
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
             >
                 <h3>Sign Up</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
                 <TextFieldEl
-                label="Full Name"
-                variant="standard"
-                required
-                value={fullName}
-                onChange={e => setFullName(e.target.value)}
-                error={FULLNAME_REGEX.test(fullName) === false && submitClicked === true}
-                helperText={FULLNAME_REGEX.test(fullName) === false && submitClicked === true ? 'Full Name must be not less than 2 symbols and not more than 23 symbols' : ' '}
+                    label="Full Name"
+                    variant="standard"
+                    required
+                    value={fullName}
+                    onChange={e => setFullName(e.target.value)}
+                    error={FULLNAME_REGEX.test(fullName) === false && submitClicked === true}
+                    helperText={FULLNAME_REGEX.test(fullName) === false && submitClicked === true ? 'Full Name must be not less than 2 symbols and not more than 23 symbols' : ' '}
                 />
                 <TextFieldEl
-                label="Login"
-                variant="standard"
-                required
-                value={login}
-                onChange={e => setLogin(e.target.value)}
-                error={USER_REGEX.test(login) === false && submitClicked === true}
-                helperText={USER_REGEX.test(login) === false && submitClicked === true ? 'Login must be not less than 4 symbols and not more than 24 symbols' : ' '}
+                    label="Login"
+                    variant="standard"
+                    required
+                    value={login}
+                    onChange={e => setLogin(e.target.value)}
+                    error={USER_REGEX.test(login) === false && submitClicked === true}
+                    helperText={USER_REGEX.test(login) === false && submitClicked === true ? 'Login must be not less than 4 symbols and not more than 24 symbols' : ' '}
                 />
                 <TextFieldEl
                     label="Email"
@@ -130,22 +130,22 @@ const  Register = () => {
                 <div>
                     <ButtonEl type="submit" variant="contained" color="primary">
                         {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Sign Up</p>
+                            isLoading ? <CircularProgress size={24} /> :
+                                <p>Sign Up</p>
                         }
-                        
+
                     </ButtonEl>
                 </div>
                 <span>
-                <SpanEl>Already have an accout?</SpanEl>
-                <Link
-                    component="button"
-                    variant="body2"
-                    onClick={() => {
-                        navigate('/login')
-                    }}
+                    <SpanEl>Already have an accout?</SpanEl>
+                    <Link
+                        component="button"
+                        variant="body2"
+                        onClick={() => {
+                            navigate('/login')
+                        }}
                     >
-                     Sign in
+                        Sign in
                     </Link>
                 </span>
             </BoxEl>

@@ -1,10 +1,10 @@
-import React, {  useRef, useState, useEffect  } from 'react';
+import React, {  useRef, useState  } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
-import { CircularProgress, Link } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import {RESET_PASSWORD_WT_URL} from '../../api/routes'
 import { useParams,useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 import {DialogWindow} from '../Other/DialogWIndow'
 import {PWD_REGEX} from '../../regex/regex'
 
@@ -17,9 +17,9 @@ const ResetPasswordWT = () => {
     const errRef = useRef();
     const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate(); 
-    const { setAuth } = useAuth();
+    // const { setAuth } = useAuth();
     const [submitClicked, setSubmitClicked] = useState(false);
-    const [stateDialog, setStateDialog] = useState(false);
+    // const [stateDialog, setStateDialog] = useState(false);
 
     const resetPassword = async (e) =>{
         e.preventDefault();
@@ -38,9 +38,9 @@ const ResetPasswordWT = () => {
                 }
             );
             console.log(response?.data.status, response?.data.values.message);
-            setSuccess(true);
             setLoading(false);
-            setTimeout(()=> navigate('/login'), 2000);
+            setSuccess(true);
+            setTimeout(()=> navigate('/login'), 5000);
         }
         catch (err) {
             setLoading(false);

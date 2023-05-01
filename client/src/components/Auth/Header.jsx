@@ -1,10 +1,10 @@
-import {Toolbar, AppBar, Typography, Button, IconButton, MenuItem, Drawer, Link, Avatar, CircularProgress} from '@mui/material';
+import {Toolbar, Typography, IconButton, MenuItem, Link, Avatar, CircularProgress} from '@mui/material';
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import menuIcon from '../../assets/Layout/menuIcon.png';
 import WebsterLogo from '../../assets/Layout/Logo.png'
 import logoutLogo from '../../assets/logout.png';
-import {MainHeader, MenuButton, MainButtons, ToolbarStyled, Logo, LogOutBtn, UserInfo, DrawerEl} from '../../styles/HeaderStyles'
+import {MainHeader, MenuButton, MainButtons, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl} from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";

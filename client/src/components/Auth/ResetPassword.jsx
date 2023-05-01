@@ -1,21 +1,21 @@
-import React, {  useRef, useState, useEffect  } from 'react';
+import React, {  useRef, useState  } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
-import { CircularProgress, Link } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import {RESET_PASSWORD_URL} from '../../api/routes'
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+// import { useNavigate } from "react-router-dom";
+// import useAuth from "../../hooks/useAuth";
 import {DialogWindow} from '../Other/DialogWIndow'
 import {EMAIL_REGEX} from '../../regex/regex'
 
 const ResetPassword = () => {
     const [email, setEmail] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    // const [success, setSuccess] = useState(false);
     const errRef = useRef();
     const [isLoading, setLoading] = useState(false);
-    const navigate = useNavigate(); 
-    const { setAuth } = useAuth();
+    // const navigate = useNavigate(); 
+    // const { setAuth } = useAuth();
     const [submitClicked, setSubmitClicked] = useState(false);
     const [stateDialog, setStateDialog] = useState(false);
 
@@ -35,7 +35,7 @@ const ResetPassword = () => {
                     }
                 )
                 console.log(response?.data.status, response?.data.values.message);
-                setSuccess(true);
+                // setSuccess(true);
                 setLoading(false);
                 setStateDialog(true)
             }

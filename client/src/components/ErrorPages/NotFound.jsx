@@ -1,7 +1,7 @@
 import React from 'react'
-import { Box, Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { ErrorBox, ErrorButton } from './ErrorPagesStyles';
+import { ErrorBox, ErrorButton } from '../../styles/ErrorPagesStyles';
 export const NotFound = () => {
     const navigate = useNavigate();
     return (

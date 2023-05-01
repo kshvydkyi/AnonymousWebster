@@ -1,4 +1,4 @@
-import {Dialog, DialogTitle, DialogContent, DialogActions, IconButton} from '@mui/material';
+import {Dialog, DialogTitle, IconButton} from '@mui/material';
 import {styled} from '@mui/system'
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
