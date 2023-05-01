@@ -1,5 +1,5 @@
 import { styled, textAlign } from '@mui/system';
-import { Button, CardActionArea, CardMedia, Chip, Paper } from '@mui/material';
+import { Button, Box, CardActionArea, CardMedia, Chip, Paper } from '@mui/material';
 
 const Container = styled('div')({
     paddingLeft: '7%',
@@ -22,32 +22,39 @@ const ElementsContainer = styled('div')({
     color: 'white'
 });
 
-const PaperComponent = styled(Paper)({
-    height: "75%",
-    overflow: 'auto',
-    boxShadow: 'none',
-    backgroundColor: "inherit",
-    "&::-webkit-scrollbar": {
-        width: 5
-    },
-    "&::-webkit-scrollbar-track": {
-        backgroundColor: "#222222"
-    },
-    "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "#850000",
-        borderRadius: 10
-    }
-})
+// const PaperComponent = styled(Paper)({
+//     height: "75%",
+//     overflow: 'auto',
+//     boxShadow: 'none',
+//     backgroundColor: "inherit",
+//     "&::-webkit-scrollbar": {
+//         width: 5
+//     },
+//     "&::-webkit-scrollbar-track": {
+//         backgroundColor: "#222222"
+//     },
+//     "&::-webkit-scrollbar-thumb": {
+//         backgroundColor: "#850000",
+//         borderRadius: 10
+//     }
+// })
 
-const DateChip = styled(Chip)({
-    // color: "white",
-    // border: "none",
-    // marginLeft: -2
-})
+// const DateChip = styled(Chip)({
+//     // color: "white",
+//     // border: "none",
+//     // marginLeft: -2
+// })
 
-const CustomCard = styled(CardActionArea)({
+const CustomBox = styled(Box)({
     background: '#272727',
-    color: 'white'
+    color: 'white',
+    display: 'flex',
+    border: '1px solid white',
+    padding: '1vw',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
+    height: "91%"
 })
 
 const CustomCardCreate = styled(CardActionArea)({
@@ -57,9 +64,10 @@ const CustomCardCreate = styled(CardActionArea)({
 })
 
 const CardMediaCustom = styled(CardMedia)({
+    display: 'flex',
     padding: "2em 2em 0em 1.9em", 
     width: "80%",
-    height: "80%",
+    height: "80%"
 })
 
 const CardMediaCustomCreate = styled(CardMedia)({
@@ -67,4 +75,4 @@ const CardMediaCustomCreate = styled(CardMedia)({
     width: "80%",
     height: "80%",
 })
-export { Container, CustomCardCreate, CardMediaCustom, CardMediaCustomCreate, CustomCard, ElementsContainer, TextBlock, PaperComponent, DateChip }
+export { Container, CustomCardCreate, CardMediaCustom, CardMediaCustomCreate, CustomBox, ElementsContainer, TextBlock }

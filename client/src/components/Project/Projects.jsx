@@ -1,12 +1,12 @@
-import { FC, ReactElement } from 'react';
-import { Container, CustomCard, CustomCardCreate, ElementsContainer, CardMediaCustomCreate, TextBlock, PaperComponent, DateChip, CardMediaCustom } from './ProjectsStyle';
-import { List, Card, CardActionArea, CardMedia, CardContent, Typography, Chip, Grid } from '@mui/material';
-import testPic from '../../assets/test/image 2.png'
+import React, { FC, ReactElement } from 'react';
+import { Container, CustomBox, CustomCardCreate, ElementsContainer, CardMediaCustomCreate, TextBlock, CardMediaCustom } from './ProjectsStyle';
+import { List, Card, CardActionArea, CardMedia, CardContent, Typography, Chip, Grid, Box, useMediaQuery} from '@mui/material';
 import newProjectIcon from '../../assets/ProjectPage/newProgectIcon.png'
 function ShowProjects() {
+    const matches = useMediaQuery('(min-width:1024px)');
     const projects = [
-        { id: 1, title: "test nfvkdslvnmdskl nfkdslnfkdslfndsklfnkdslfn dsml fsdlnfdsklfndskls", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
-        { id: 2, title: "test", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
+        { id: 1, title: "1", description: "description test", json_file: "test_file.json", date_upd: "1" },
+        { id: 2, title: "1", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
         { id: 3, title: "test", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
         { id: 4, title: "test", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
         { id: 5, title: "test", description: "description test", json_file: "test_file.json", date_upd: "2023-04-27T10:01:32+0000" },
@@ -26,15 +26,10 @@ function ShowProjects() {
                 Recent projects
             </TextBlock>
             <ElementsContainer>
-                <PaperComponent className='project-paper'>
                     <Grid
                         container
-                        // direction="row"
-                        // justifyContent="flex-start"
-                        // alignItems="flex-start"
-                        // // columns={16}
-                        spacing={2}>
-                        <Grid item md={2} >
+                        spacing={3}>
+                        {/* <Grid item md={2} sx={{border: '1px solid white'}}>
                                 <CustomCardCreate raised={true}>
                                     <CardMediaCustomCreate
                                         component="img"
@@ -50,16 +45,13 @@ function ShowProjects() {
                                         </Typography>
                                     </CardContent>
                                 </CustomCardCreate>
-                        </Grid>
+                        </Grid> */}
                         {projects ? projects.map((item) => {
                             return (
-                                <Grid item md={2}>
-                                        <CustomCard raised={true}>
-                                            <CardMediaCustom 
-                                                component="img"
-                                                image={testPic}
-                                                alt="projectPic"
-                                            />
+                                <React.Fragment key={item.id + ''}>
+                                    <Grid item xs={ matches ? 2 : 4 } >
+                                        <CustomBox >
+                                            <img src="/test/image2.png" alt=""/>
                                             <CardContent>
                                                 <Typography gutterBottom variant="h5" component="div">
                                                     {item.title.length < 13 ? item.title : `${item.title.slice(0, 13)}...`}
@@ -68,12 +60,12 @@ function ShowProjects() {
                                                     {item.date_upd}
                                                 </Typography>
                                             </CardContent>
-                                        </CustomCard>
-                                </Grid>
+                                        </CustomBox>
+                                    </Grid>
+                                </React.Fragment>
                             )
                         }) : <></>}
                     </Grid>
-                </PaperComponent>
             </ElementsContainer>
         </Container>
     );
