@@ -35,7 +35,9 @@ const Logo = styled('span')({
 const LogOutBtn = styled(Button)({
     outline: 'none',
     border: '0px black',
-    marginTop: '7px'
+    margin: 0,
+    color: "white",
+
 });
 
 const UserInfo = styled('div')({
@@ -43,7 +45,7 @@ const UserInfo = styled('div')({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: '5px'
+    gap: '5px',
 });
 
 const DrawerEl = styled(Drawer)({
