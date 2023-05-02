@@ -10,6 +10,7 @@ import route from '../../api/route';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import { BoxEl } from '../../styles/RegisterStyle';
 const headersData = [
   {
     label: "Sign In",
@@ -108,6 +109,9 @@ export default function Header() {
           open: settingsOpen,
           onClose: handleSettingsClose,
         }}>
+          <BoxEl>
+          <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
+          <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -125,6 +129,9 @@ export default function Header() {
                 </>
             }
           </IconButton>
+          
+         
+          </BoxEl>
         </DrawerEl>
         <MainButtons>{getMenuButtons()}</MainButtons>
       </ToolbarStyled>
@@ -132,8 +139,6 @@ export default function Header() {
   };
 
   const displayMobile = () => {
-
-
     return (
       <Toolbar>
         <IconButton
@@ -217,10 +222,7 @@ export default function Header() {
             "aria-haspopup": "true",
             onClick: handleSettingsOpen,
           }}>
-            {
-              isLoading ? <CircularProgress size={24} color="inherit" /> :
-                <ManageAccountsOutlinedIcon />
-            }
+            <ManageAccountsOutlinedIcon />
           </IconButton>
         </UserInfo>
       )
@@ -261,12 +263,9 @@ export default function Header() {
             color: "inherit",
             "aria-label": "menu",
             "aria-haspopup": "true",
-            // onClick: toLogOut,
+            onClick: handleSettingsOpen,
           }}>
-            {
-              isLoading ? <CircularProgress size={24} color="inherit" /> :
-                <ManageAccountsOutlinedIcon onClick={() => handleSettingsOpen()} />
-            }
+            <ManageAccountsOutlinedIcon />
           </IconButton>
         </UserInfo>
       )

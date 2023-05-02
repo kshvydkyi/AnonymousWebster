@@ -1,5 +1,5 @@
 import {styled} from '@mui/system'
-import {Button, Toolbar, Drawer} from '@mui/material';
+import {Button, Toolbar, Drawer, CircularProgress} from '@mui/material';
 
 const MainHeader = styled('div')({
     color: 'white',
@@ -56,4 +56,8 @@ const DrawerEl = styled(Drawer)({
     },
 });
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl}
+const Spinner = styled(CircularProgress)({
+    color: "white"
+})
+
+export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner}
