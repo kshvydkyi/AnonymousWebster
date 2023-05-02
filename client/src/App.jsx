@@ -5,8 +5,6 @@ import {
 } from 'react-router-dom';
 
 import { Layout } from './components/Layout/Layout';
-import Header from "./components/Auth/Header";
-import Footer from "./components/Auth/Footer";
 import MainPage from "./components/Layout/MainPage";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";

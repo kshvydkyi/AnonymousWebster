@@ -1,10 +1,10 @@
-import React, {  useRef, useState, useEffect  } from 'react';
+import React, {  useRef, useState, } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress, Link } from '@mui/material';
 import {LOGIN_URL} from '../../api/routes'
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 
 
 const Login = () => {
@@ -12,11 +12,11 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    // const [success, setSuccess] = useState(false);
     const errRef = useRef();
     const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate(); 
-    const { setAuth } = useAuth();
+    // const { setAuth } = useAuth();
     const handleSubmit = async (e) => {
         setErrMsg('');
         e.preventDefault();

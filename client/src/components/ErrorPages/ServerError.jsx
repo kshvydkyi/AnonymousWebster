@@ -1,9 +1,8 @@
-import { Button, Typography } from '@mui/material';
-import { Container } from '@mui/system';
+import { Typography } from '@mui/material';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ButtonDiv } from '../../styles/MainPageStyle';
-import { ErrorBox, ErrorButton } from './ErrorPagesStyles';
+import { ErrorBox, ErrorButton } from '../../styles/ErrorPagesStyles';
 
 export const ServerError = () => {
     const navigate = useNavigate();

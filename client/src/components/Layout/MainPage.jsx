@@ -1,7 +1,7 @@
-import React, { FC, ReactElement } from "react";
+import React from "react";
 import mainPageElement from '../../assets/Layout/mainPageElementAnon.jpg';
 import websterLogo from '../../assets/Layout/Logo.png'
-import {Container, TextBlock, TextDiv, ButtonDiv, StartButton} from '../../styles/MainPageStyle';
+import {Container, TextBlock, ButtonDiv, StartButton} from '../../styles/MainPageStyle';
 
 export const  MainPage  = () => {
     return (
