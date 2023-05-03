@@ -1,4 +1,4 @@
-import {Container, styled} from '@mui/system'
+import {styled} from '@mui/system'
 import { Box, Typography } from "@mui/material";
 
 const BoxComp = styled(Box)({

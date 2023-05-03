@@ -38,6 +38,7 @@ const DialogWindow = (props) => {
   }
   function handleMainPage() {
     navigate('/')
+    document.location.reload();
   }
   return (
     <div>
