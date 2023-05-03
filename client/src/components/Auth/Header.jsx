@@ -169,6 +169,8 @@ export default function Header() {
           open: settingsOpen,
           onClose: handleSettingsClose,
         }}>
+          <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
+          <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
           <IconButton {...{
             edge: "start",
             color: "inherit",
