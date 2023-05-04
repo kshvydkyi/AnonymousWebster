@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Body, BoxEl, ButtonEl, ErrWarning } from '../../styles/RegisterStyle';
 // import { FileInput } from '../../styles/SettingsStyles';
 import Avatar from "react-avatar-edit";
-import { Button, CircularProgress, Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import axios from '../../api/axios';
 import { DialogWindow } from '../Other/DialogWIndow';
 export const UpdateAvatar = () => {
@@ -36,7 +36,7 @@ export const UpdateAvatar = () => {
  useEffect(()=>{
   console.log(prewiew)
   if(prewiew){
-    setUploadFile(dataURLtoFile(prewiew ? prewiew : "", `${currentUser.login}.login.png`));
+    setUploadFile(dataURLtoFile(prewiew ? prewiew : "", `${currentUser.login}_avatar.png`));
   }
  }, [prewiew])
   const addImage = async (e) => {
@@ -56,7 +56,7 @@ export const UpdateAvatar = () => {
         console.log(response);
      
         setLoading(false);
-        setStateDialog(true)
+        setStateDialog(true);
     }
     catch (err) {
         setLoading(false);
@@ -83,13 +83,6 @@ export const UpdateAvatar = () => {
       elem.target.value = "";
     };
   }
-
-
-  //Usage example:
-
-  // console.log(uploadFile);
-
-  // console.log(file);
   return (
     <Body>
       <DialogWindow
@@ -105,7 +98,7 @@ export const UpdateAvatar = () => {
         <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
         <Grid
           container
-          spacing={6}
+          spacing={10}
           justifyContent="center"
           alignItems="center"
         >
