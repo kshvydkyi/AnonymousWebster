@@ -2,12 +2,11 @@ import { CircularProgress } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
-import { UPDATE_PROFILE_DATA_URL } from '../../api/routes';
+import { GET_USER_BY_ID_URL, UPDATE_PROFILE_DATA_URL } from '../../api/routes';
 import { EMAIL_REGEX, FULLNAME_REGEX, USER_REGEX } from '../../regex/regex';
 import { Body, BoxEl, ButtonEl, ErrWarning, TextFieldEl } from '../../styles/RegisterStyle';
 import { DialogWindow } from '../Other/DialogWIndow';
 import { InfoLoadingSpinner } from '../Other/InfoLoadingSpinner';
-import { UpdateAvatar } from './UpdateAvatar';
 
 export const UpdateProfile = () => {
   const currentUser = JSON.parse(localStorage.getItem('autorized'));
@@ -25,8 +24,8 @@ export const UpdateProfile = () => {
     try {
       setIsLoadingPage(true);
       if (currentUser?.currentUser !== 'guest') {
-        const response = await axios.get(`/api/users/${currentUser.userId}`);
-        console.log(response);
+        const response = await axios.get(GET_USER_BY_ID_URL);
+        // console.log(response);
         setLogin(response.data.values.values.login);
         setFullName(response.data.values.values.full_name);
         setEmail(response.data.values.values.email);

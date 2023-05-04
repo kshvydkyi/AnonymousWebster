@@ -1,9 +1,10 @@
 import {styled} from '@mui/system'
 import {Box, TextField, Button} from '@mui/material';
 
-const Body = styled('body')({
+const Body = styled('div')({
     backgroundColor: '#131313',
     color: 'white',
+    height:"100%"
 });
 
 const BoxEl = styled(Box)({

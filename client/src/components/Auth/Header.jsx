@@ -4,13 +4,15 @@ import { Link as RouterLink } from "react-router-dom";
 import WebsterLogo from '../../assets/Layout/Logo.png'
 import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn } from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
-import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
 import route from '../../api/route';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import { BoxEl } from '../../styles/RegisterStyle';
+import { getInfo } from '../../requests/getInfo';
+import { GET_USER_BY_ID_URL } from '../../api/routes';
+import { InfoLoadingSpinner } from '../Other/InfoLoadingSpinner';
 const headersData = [
   {
     label: "Sign In",
@@ -22,12 +24,13 @@ const headersData = [
   },
 ];
 
-export default function Header() {
+export const Header = () => {
   const [state, setState] = useState({
     mobileView: false,
     drawerOpen: false,
     settingsOpen: false
   });
+
 
   const handleSettingsClose = () =>
     setState((prevState) => ({ ...prevState, settingsOpen: false }));
@@ -41,10 +44,10 @@ export default function Header() {
   const { mobileView, drawerOpen, settingsOpen } = state;
   const { auth, setAuth } = useAuth();
   const currentUser = JSON.parse(localStorage.getItem('autorized'));
-  const [userAvatar, setUserAvatar] = useState();
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
-
+  const [isLoadingPage, setIsLoadingPage] = useState(false);
+  const [userData, setUserData] = useState(false);
   useEffect(() => {
     if (currentUser?.currentUser !== 'guest') {
       if (auth) {
@@ -58,22 +61,9 @@ export default function Header() {
     }
   }, []);
 
-  const getUserInfo = async () => {
-    try {
-      if (currentUser?.currentUser !== 'guest') {
-        const response = await axios.get(`/api/users/${currentUser.userId}`);
-        // console.log('userAvatar', response);
-        setUserAvatar(response.data.values.values.profile_pic);
-      }
-    }
-    catch (e) {
-      console.log(e)
-      navigate('/500');
-    }
-  }
   useEffect(() => {
     if (currentUser?.currentUser !== 'guest') {
-      getUserInfo();
+      getInfo(setUserData, setIsLoadingPage, GET_USER_BY_ID_URL);
     }
   }, []);
 
@@ -216,7 +206,7 @@ export default function Header() {
       return (
         <UserInfo>
           <Typography>{currentUser?.login}</Typography>
-          <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
+          <Avatar src={userData && userData !== 'undefined' && userData !== undefined ? `${route.serverURL}/avatars/${userData.profile_pic}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -259,7 +249,7 @@ export default function Header() {
       return (
         <UserInfo>
           <p>{currentUser?.login}</p>
-          <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
+          <Avatar src={userData && userData !== 'undefined' && userData !== undefined ? `${route.serverURL}/avatars/${userData.profile_pic}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -274,7 +264,7 @@ export default function Header() {
     }
   };
 
-  return (
+  return isLoadingPage ? <InfoLoadingSpinner size={24}/> : (
     <div className="wrapper-navbar">
       <MainHeader>
         {mobileView ? displayMobile() : displayDesktop()}
