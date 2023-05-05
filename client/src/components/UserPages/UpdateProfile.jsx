@@ -24,7 +24,7 @@ export const UpdateProfile = () => {
     try {
       setIsLoadingPage(true);
       if (currentUser?.currentUser !== 'guest') {
-        const response = await axios.get(GET_USER_BY_ID_URL);
+        const response = await axios.get(`${GET_USER_BY_ID_URL}/${currentUser.userId}`);
         // console.log(response);
         setLogin(response.data.values.values.login);
         setFullName(response.data.values.values.full_name);

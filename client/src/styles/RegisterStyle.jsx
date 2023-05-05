@@ -26,7 +26,8 @@ const TextFieldEl = styled(TextField)({
 
 const ButtonEl = styled(Button)({
     backgroundColor: '#171717',
-    margin: '15px'
+    margin: '15px',
+    color:"white"
 });
 
 const ErrWarning = styled('p')({

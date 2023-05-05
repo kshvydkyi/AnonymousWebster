@@ -4,15 +4,13 @@ import { Link as RouterLink } from "react-router-dom";
 import WebsterLogo from '../../assets/Layout/Logo.png'
 import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn } from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
+import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
 import route from '../../api/route';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import { BoxEl } from '../../styles/RegisterStyle';
-import { getInfo } from '../../requests/getInfo';
-import { GET_USER_BY_ID_URL } from '../../api/routes';
-import { InfoLoadingSpinner } from '../Other/InfoLoadingSpinner';
 const headersData = [
   {
     label: "Sign In",
@@ -31,7 +29,6 @@ export const Header = () => {
     settingsOpen: false
   });
 
-
   const handleSettingsClose = () =>
     setState((prevState) => ({ ...prevState, settingsOpen: false }));
   const handleSettingsOpen = () =>
@@ -44,10 +41,10 @@ export const Header = () => {
   const { mobileView, drawerOpen, settingsOpen } = state;
   const { auth, setAuth } = useAuth();
   const currentUser = JSON.parse(localStorage.getItem('autorized'));
+  const [userAvatar, setUserAvatar] = useState();
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
-  const [isLoadingPage, setIsLoadingPage] = useState(false);
-  const [userData, setUserData] = useState(false);
+
   useEffect(() => {
     if (currentUser?.currentUser !== 'guest') {
       if (auth) {
@@ -61,9 +58,22 @@ export const Header = () => {
     }
   }, []);
 
+  const getUserInfo = async () => {
+    try {
+      if (currentUser?.currentUser !== 'guest') {
+        const response = await axios.get(`/api/users/${currentUser.userId}`);
+        // console.log('userAvatar', response);
+        setUserAvatar(response.data.values.values.profile_pic);
+      }
+    }
+    catch (e) {
+      console.log(e)
+      navigate('/500');
+    }
+  }
   useEffect(() => {
     if (currentUser?.currentUser !== 'guest') {
-      getInfo(setUserData, setIsLoadingPage, GET_USER_BY_ID_URL);
+      getUserInfo();
     }
   }, []);
 
@@ -102,23 +112,17 @@ export const Header = () => {
           <BoxEl>
           <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
           <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
-          <IconButton {...{
-            edge: "start",
-            color: "inherit",
-            "aria-label": "menu",
-            "aria-haspopup": "true",
-            onClick: toLogOut,
-          }}>
-            {
-              isLoading ? <CircularProgress size={24} color="inherit" /> :
+         
+             {
+              isLoading ? <LogOutBtn><CircularProgress size={24} color="inherit" /></LogOutBtn> :
                 <>
-                  <LogOutBtn>
+                  <LogOutBtn onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
                 </>
             }
-          </IconButton>
+
           
          
           </BoxEl>
@@ -161,23 +165,17 @@ export const Header = () => {
         }}>
           <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
           <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
-          <IconButton {...{
-            edge: "start",
-            color: "inherit",
-            "aria-label": "menu",
-            "aria-haspopup": "true",
-            onClick: toLogOut,
-          }}>
+        
             {
-              isLoading ? <CircularProgress size={24} color="inherit" /> :
+              isLoading ? <LogOutBtn><CircularProgress size={24} color="inherit" /></LogOutBtn> :
                 <>
-                  <LogOutBtn>
+                  <LogOutBtn onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
                 </>
             }
-          </IconButton>
+          
         </DrawerEl>
         <div>{femmecubatorLogo}</div>
       </Toolbar>
@@ -206,7 +204,7 @@ export const Header = () => {
       return (
         <UserInfo>
           <Typography>{currentUser?.login}</Typography>
-          <Avatar src={userData && userData !== 'undefined' && userData !== undefined ? `${route.serverURL}/avatars/${userData.profile_pic}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
+          <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -249,7 +247,7 @@ export const Header = () => {
       return (
         <UserInfo>
           <p>{currentUser?.login}</p>
-          <Avatar src={userData && userData !== 'undefined' && userData !== undefined ? `${route.serverURL}/avatars/${userData.profile_pic}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
+          <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -264,7 +262,7 @@ export const Header = () => {
     }
   };
 
-  return isLoadingPage ? <InfoLoadingSpinner size={24}/> : (
+  return (
     <div className="wrapper-navbar">
       <MainHeader>
         {mobileView ? displayMobile() : displayDesktop()}
@@ -272,4 +270,3 @@ export const Header = () => {
     </div>
   );
 }
-
