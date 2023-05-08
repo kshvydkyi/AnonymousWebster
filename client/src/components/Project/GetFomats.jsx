@@ -33,9 +33,7 @@ export const GetFomats = ({chosenWidthState, chosenHeightState}) => {
   }
   return isLoadingPage ? <InfoLoadingSpinner size={56} /> : (
     <>
-      <TypographyBox>Create Project</TypographyBox>
       <CustomToggleButtonGroup
-        sx={{ marginTop: '30px' }}
         value={alignment}
         exclusive
         onChange={handleChange}
@@ -50,7 +48,7 @@ export const GetFomats = ({chosenWidthState, chosenHeightState}) => {
           }) : <></>
         }
       </CustomToggleButtonGroup>
-      <Grid container spacing={2}
+      <Grid container spacing={1}
       direction="row"
       justifyContent="flex-start"
       alignItems="center"
@@ -72,7 +70,7 @@ export const GetFomats = ({chosenWidthState, chosenHeightState}) => {
             return (
               <>
                 <Grid item key={format.id}>
-                  <FormatCard variant="outlined">
+                  <FormatCard variant="outlined"  onClick={() => setFormatStates(format.width, format.height)}>
                     <FormatTitle variant="h1" color="white">{format.title_short}</FormatTitle>
                     <Typography color="white">{format.title}</Typography>
                     <Typography variant="caption" color="grey">{`${format.width} x ${format.height}`}</Typography>

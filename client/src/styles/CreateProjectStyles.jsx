@@ -1,5 +1,6 @@
-import { Card, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Box, Card, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import {styled} from '@mui/system'
+import { MuiColorInput } from 'mui-color-input';
 
 const CreateBox = styled('div')({
     paddingLeft: '7%',
@@ -9,7 +10,8 @@ const CreateBox = styled('div')({
     backgroundColor: '#171717'
 });
 const Settings = styled('div')({
-    display: "flex"
+    display: "flex",
+    width: '100%'
 });
 const TypographyBox = styled('div')({
     borderLeft: '6px solid white',
@@ -20,16 +22,10 @@ const TypographyBox = styled('div')({
 const CustomToggleButtonGroup = styled(ToggleButtonGroup)({
     marginTop: '30px',
     zIndex: "1",
-    marginBottom: "30px"
+    marginBottom: "30px",
 })
 const CustomToggleButton = styled(ToggleButton)({
-    color: "white",
-    paddingLeft: "10px",
-    paddingRight: "10px",
-    "& .Mui-selected": {
-        color: "white",
-        backgroundColor:"gray"
-    }
+  
 
 })
 
@@ -51,4 +47,18 @@ const FormatTitle = styled(Typography)({
     paddingTop: "30px",
     paddingBottom: "30px"
 })
-export {CreateBox, TypographyBox, CustomToggleButton, CustomToggleButtonGroup, FormatCard, FormatTitle, Settings}
+const SettingsForm = styled(Box)({
+    margin: 0,
+    padding: 0,
+    display: "flex",
+    flexDirection: "column",
+    width: "26%",
+    marginTop: "70px"
+})
+
+const ColorPicker = styled(MuiColorInput)({
+    label: {color: 'white'},
+    input: { color: 'white', margin: '3px' },
+    margin: '10px'
+})
+export {CreateBox, TypographyBox, CustomToggleButton, CustomToggleButtonGroup, FormatCard, FormatTitle, Settings, SettingsForm, ColorPicker}
