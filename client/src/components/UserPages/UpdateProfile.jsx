@@ -90,6 +90,7 @@ export const UpdateProfile = () => {
   }
   return isLoadingPage ? <InfoLoadingSpinner size={56} /> : (
     <Body>
+      <UpdateAvatar/>
       <DialogWindow
         state={stateDialog}
         message={'Profile data updated succefully'}

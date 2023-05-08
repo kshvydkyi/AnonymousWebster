@@ -2,7 +2,7 @@ import { Toolbar, Typography, IconButton, MenuItem, Link, Avatar, CircularProgre
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import WebsterLogo from '../../assets/Layout/Logo.png'
-import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn } from '../../styles/HeaderStyles'
+import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
@@ -111,7 +111,6 @@ export default function Header() {
         }}>
           <BoxEl>
           <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
-          <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -170,7 +169,6 @@ export default function Header() {
           onClose: handleSettingsClose,
         }}>
           <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
-          <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -217,7 +215,7 @@ export default function Header() {
         <UserInfo>
           <Typography>{currentUser?.login}</Typography>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
-          <IconButton {...{
+          <ManageAccountButton {...{
             edge: "start",
             color: "inherit",
             "aria-label": "menu",
@@ -225,7 +223,7 @@ export default function Header() {
             onClick: handleSettingsOpen,
           }}>
             <ManageAccountsOutlinedIcon />
-          </IconButton>
+          </ManageAccountButton>
         </UserInfo>
       )
     }
@@ -260,7 +258,7 @@ export default function Header() {
         <UserInfo>
           <p>{currentUser?.login}</p>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
-          <IconButton {...{
+          <ManageAccountButton {...{
             edge: "start",
             color: "inherit",
             "aria-label": "menu",
@@ -268,7 +266,7 @@ export default function Header() {
             onClick: handleSettingsOpen,
           }}>
             <ManageAccountsOutlinedIcon />
-          </IconButton>
+          </ManageAccountButton>
         </UserInfo>
       )
     }

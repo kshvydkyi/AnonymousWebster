@@ -20,51 +20,51 @@ export const UpdateAvatar = () => {
     setTimeout(() => setErrMsg(''), 5000);
   }
   const dataURLtoFile = (dataurl, filename) => {
-      let arr = dataurl.split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
+    let arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
 
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
 
-      return new File([u8arr], filename, { type: mime });
-    
+    return new File([u8arr], filename, { type: mime });
+
   }
- useEffect(()=>{
-  console.log(prewiew)
-  if(prewiew){
-    setUploadFile(dataURLtoFile(prewiew ? prewiew : "", `${currentUser.login}_avatar.png`));
-  }
- }, [prewiew])
+  useEffect(() => {
+    console.log(prewiew)
+    if (prewiew) {
+      setUploadFile(dataURLtoFile(prewiew ? prewiew : "", `${currentUser.login}_avatar.png`));
+    }
+  }, [prewiew])
   const addImage = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", uploadFile);
     console.log(formData);
     try {
-        setLoading(true);
-        const response = await axios.patch(`/api/users/avatar/${currentUser.userId}/${currentUser.accessToken}`, formData,
-            {
-                headers: { "Content-Type": "multipart/form-data" },
-                withCredentials: true
-            }
+      setLoading(true);
+      const response = await axios.patch(`/api/users/avatar/${currentUser.userId}/${currentUser.accessToken}`, formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true
+        }
 
-        )
-        console.log(response);
-     
-        setLoading(false);
-        setStateDialog(true);
+      )
+      console.log(response);
+
+      setLoading(false);
+      setStateDialog(true);
     }
     catch (err) {
-        setLoading(false);
-        console.log(err);
-        setErrMsg( 'Error' )
-    setHidden();
+      setLoading(false);
+      console.log(err);
+      setErrMsg('Error')
+      setHidden();
 
-    errRef.current.focus();
+      errRef.current.focus();
     }
 
 
@@ -84,7 +84,7 @@ export const UpdateAvatar = () => {
     };
   }
   return (
-    <Body>
+    <>
       <DialogWindow
         state={stateDialog}
         message={'Your avatar updated'}
@@ -124,6 +124,6 @@ export const UpdateAvatar = () => {
           }
         </ButtonEl>
       </BoxEl>
-    </Body>
+    </>
   )
 }
