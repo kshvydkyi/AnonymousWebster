@@ -112,6 +112,7 @@ export default function Header() {
           <BoxEl>
           <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
           <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
+          <LogOutBtn href='admin'>Admin Panel</LogOutBtn>
           <IconButton {...{
             edge: "start",
             color: "inherit",

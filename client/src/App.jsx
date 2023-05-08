@@ -13,7 +13,7 @@ import { AccesDenied } from './components/ErrorPages/AccesDenied';
 import RequreAuth from './components/Auth/RequreAuth';
 import { UpdateProfile } from './components/UserPages/UpdateProfile';
 import { UpdateAvatar } from './components/UserPages/UpdateAvatar';
-
+import { AdminMain } from './components/Admin/AdminMain';
 function App() {
   if (!localStorage.getItem('autorized')) {
     localStorage.setItem(
@@ -39,7 +39,9 @@ function App() {
             <Route path="update-profile" element={<UpdateProfile />} />
             <Route path="update-avatar" element={<UpdateAvatar />} />
           </Route>
-
+          <Route element={<RequreAuth allowedRoles={['admin']} />} >
+            <Route path="admin" element={<AdminMain />} />
+          </Route>
         </Route>
       </Routes>
     </Router>
