@@ -2,7 +2,7 @@ import { Toolbar, Typography, IconButton, MenuItem, Link, Avatar, CircularProgre
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import WebsterLogo from '../../assets/Layout/Logo.png'
-import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn } from '../../styles/HeaderStyles'
+import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
@@ -111,10 +111,15 @@ export const Header = () => {
         }}>
           <BoxEl>
           <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
-          <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
-         
-             {
-              isLoading ? <LogOutBtn><CircularProgress size={24} color="inherit" /></LogOutBtn> :
+          <IconButton {...{
+            edge: "start",
+            color: "inherit",
+            "aria-label": "menu",
+            "aria-haspopup": "true",
+            onClick: toLogOut,
+          }}>
+            {
+              isLoading ? <CircularProgress size={24} color="inherit" /> :
                 <>
                   <LogOutBtn onClick={() => toLogOut()}>
                     Logout
@@ -122,7 +127,7 @@ export const Header = () => {
                   </LogOutBtn>
                 </>
             }
-
+          </IconButton>
           
          
           </BoxEl>
@@ -164,8 +169,13 @@ export const Header = () => {
           onClose: handleSettingsClose,
         }}>
           <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
-          <LogOutBtn href='update-avatar'>Update Avatar</LogOutBtn>
-        
+          <IconButton {...{
+            edge: "start",
+            color: "inherit",
+            "aria-label": "menu",
+            "aria-haspopup": "true",
+            onClick: toLogOut,
+          }}>
             {
               isLoading ? <LogOutBtn><CircularProgress size={24} color="inherit" /></LogOutBtn> :
                 <>
@@ -205,7 +215,7 @@ export const Header = () => {
         <UserInfo>
           <Typography>{currentUser?.login}</Typography>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
-          <IconButton {...{
+          <ManageAccountButton {...{
             edge: "start",
             color: "inherit",
             "aria-label": "menu",
@@ -213,7 +223,7 @@ export const Header = () => {
             onClick: handleSettingsOpen,
           }}>
             <ManageAccountsOutlinedIcon />
-          </IconButton>
+          </ManageAccountButton>
         </UserInfo>
       )
     }
@@ -248,7 +258,7 @@ export const Header = () => {
         <UserInfo>
           <p>{currentUser?.login}</p>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
-          <IconButton {...{
+          <ManageAccountButton {...{
             edge: "start",
             color: "inherit",
             "aria-label": "menu",
@@ -256,7 +266,7 @@ export const Header = () => {
             onClick: handleSettingsOpen,
           }}>
             <ManageAccountsOutlinedIcon />
-          </IconButton>
+          </ManageAccountButton>
         </UserInfo>
       )
     }
