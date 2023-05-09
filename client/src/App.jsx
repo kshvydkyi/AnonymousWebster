@@ -37,7 +37,6 @@ function App() {
 
           <Route element={<RequreAuth allowedRoles={['user', 'admin']} />} >
             <Route path="update-profile" element={<UpdateProfile />} />
-            <Route path="update-avatar" element={<UpdateAvatar />} />
           </Route>
 
         </Route>
