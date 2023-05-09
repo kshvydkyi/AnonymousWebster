@@ -8,6 +8,7 @@ const MainHeader = styled('div')({
     width: "100%",
     position: 'fixed',
     overflow: "hidden",
+    zIndex: "999",
     text: 'right'
     
 });
@@ -49,9 +50,8 @@ const UserInfo = styled('div')({
 });
 
 const DrawerEl = styled(Drawer)({
-    '& .MuiDrawer-paper': {   
-        backgroundColor: "#131313",
-        color: "white", 
+    '& MuiDrawer-paper': {   
+        backgroundColor: "#000000",
         padding: '10px'
     },
 });

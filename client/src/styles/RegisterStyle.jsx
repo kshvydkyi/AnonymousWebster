@@ -1,9 +1,10 @@
 import {styled} from '@mui/system'
 import {Box, TextField, Button} from '@mui/material';
 
-const Body = styled('body')({
+const Body = styled('div')({
     backgroundColor: '#131313',
     color: 'white',
+    height:"100%"
 });
 
 const BoxEl = styled(Box)({
@@ -25,7 +26,8 @@ const TextFieldEl = styled(TextField)({
 
 const ButtonEl = styled(Button)({
     backgroundColor: '#171717',
-    margin: '15px'
+    margin: '15px',
+    color:"white"
 });
 
 const ErrWarning = styled('p')({

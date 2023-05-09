@@ -1,19 +1,21 @@
-import './App.css';
+import '../App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Layout } from './components/Layout/Layout';
-import MainPage from "./components/Layout/MainPage";
-import Register from "./components/Auth/Register";
-import Login from "./components/Auth/Login";
-import ConfirmEmail from "./components/Auth/ConfirmEmail";
-import ResetPassword from "./components/Auth/ResetPassword";
-import ResetPasswordWT from "./components/Auth/ResetPasswordWT";
-import { NotFound } from './components/ErrorPages/NotFound';
-import { ServerError } from './components/ErrorPages/ServerError';
-import { AccesDenied } from './components/ErrorPages/AccesDenied';
-import RequreAuth from './components/Auth/RequreAuth';
-import { UpdateProfile } from './components/UserPages/UpdateProfile';
-import { UpdateAvatar } from './components/UserPages/UpdateAvatar';
-
+import { Layout } from './Layout/Layout';
+import MainPage from "./Layout/MainPage";
+import Register from "./Auth/Register";
+import Login from "./Auth/Login";
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import ConfirmEmail from "./Auth/ConfirmEmail";
+import ResetPassword from "./Auth/ResetPassword";
+import ResetPasswordWT from "./Auth/ResetPasswordWT";
+import { NotFound } from './ErrorPages/NotFound';
+import { ServerError } from './ErrorPages/ServerError';
+import { AccesDenied } from './ErrorPages/AccesDenied';
+import RequreAuth from './Auth/RequreAuth';
+import { UpdateProfile } from './UserPages/UpdateProfile';
+import { UpdateAvatar } from './UserPages/UpdateAvatar';
+import { CreateProject } from './Project/CreateProject';
+import CssBaseline from '@mui/material/CssBaseline';
 function App() {
   if (!localStorage.getItem('autorized')) {
     localStorage.setItem(
@@ -21,8 +23,15 @@ function App() {
       JSON.stringify({ currentUser: 'guest' })
     );
   }
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+
   return (
-    <Router>
+<ThemeProvider theme={darkTheme}>
+{/* <CssBaseline /> */}
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path='/' element={<MainPage />} />
@@ -37,11 +46,13 @@ function App() {
 
           <Route element={<RequreAuth allowedRoles={['user', 'admin']} />} >
             <Route path="update-profile" element={<UpdateProfile />} />
+
+            <Route path="create-project" element={<CreateProject />} />
           </Route>
 
         </Route>
       </Routes>
-    </Router>
+      </ThemeProvider>
   );
 }
 

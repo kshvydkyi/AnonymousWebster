@@ -22,7 +22,7 @@ const headersData = [
   },
 ];
 
-export default function Header() {
+export const Header = () => {
   const [state, setState] = useState({
     mobileView: false,
     drawerOpen: false,
@@ -121,7 +121,7 @@ export default function Header() {
             {
               isLoading ? <CircularProgress size={24} color="inherit" /> :
                 <>
-                  <LogOutBtn>
+                  <LogOutBtn onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
@@ -177,15 +177,15 @@ export default function Header() {
             onClick: toLogOut,
           }}>
             {
-              isLoading ? <CircularProgress size={24} color="inherit" /> :
+              isLoading ? <LogOutBtn><CircularProgress size={24} color="inherit" /></LogOutBtn> :
                 <>
-                  <LogOutBtn>
+                  <LogOutBtn onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
                 </>
             }
-          </IconButton>
+          
         </DrawerEl>
         <div>{femmecubatorLogo}</div>
       </Toolbar>
@@ -280,4 +280,3 @@ export default function Header() {
     </div>
   );
 }
-
