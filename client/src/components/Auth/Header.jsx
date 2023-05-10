@@ -185,7 +185,7 @@ export const Header = () => {
                   </LogOutBtn>
                 </>
             }
-          
+          </IconButton>
         </DrawerEl>
         <div>{femmecubatorLogo}</div>
       </Toolbar>

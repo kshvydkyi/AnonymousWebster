@@ -7,6 +7,7 @@ import { EMAIL_REGEX, FULLNAME_REGEX, USER_REGEX } from '../../regex/regex';
 import { Body, BoxEl, ButtonEl, ErrWarning, TextFieldEl } from '../../styles/RegisterStyle';
 import { DialogWindow } from '../Other/DialogWIndow';
 import { InfoLoadingSpinner } from '../Other/InfoLoadingSpinner';
+import { UpdateAvatar } from './UpdateAvatar';
 
 export const UpdateProfile = () => {
   const currentUser = JSON.parse(localStorage.getItem('autorized'));
