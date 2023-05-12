@@ -76,3 +76,9 @@ header {
     padding-left: 0;
   }
 }
+.dsd{
+  color: #081e34;
+}
+.tui-image-editor-header-logo{
+  opacity: 0 !important;
+}

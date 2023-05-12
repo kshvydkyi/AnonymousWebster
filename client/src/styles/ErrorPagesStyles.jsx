@@ -10,6 +10,7 @@ const ErrorBox = styled(Box)({
 
 const ErrorButton = styled(Button)({
     backgroundColor: '#171717',
+    color: "white", 
     margin: '15px'
 }) 
 
