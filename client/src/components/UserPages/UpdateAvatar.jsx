@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Body, BoxEl, ButtonEl, ErrWarning } from '../../styles/RegisterStyle';
+import React, { useRef, useState, useEffect } from 'react';
+import {Body, BodyLight, TextFieldElLight, ButtonElLight, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanElLight, SpanEl} from '../../styles/RegisterStyle'
+
 // import { FileInput } from '../../styles/SettingsStyles';
 import Avatar from "react-avatar-edit";
 import { CircularProgress, Grid } from '@mui/material';
 import axios from '../../api/axios';
 import { DialogWindow } from '../Other/DialogWIndow';
 export const UpdateAvatar = () => {
+  const [theme, setTheme] = useState('');
+  useEffect(() => {
+      setTheme(localStorage.getItem === 'dark' ? 'Body' : 'BodyLight')
+  }, []);
   const currentUser = JSON.parse(localStorage.getItem('autorized'));
   const errRef = useRef();
 
@@ -84,7 +89,7 @@ export const UpdateAvatar = () => {
     };
   }
   return (
-    <>
+    <theme>
       <DialogWindow
         state={stateDialog}
         message={'Your avatar updated'}
@@ -103,27 +108,50 @@ export const UpdateAvatar = () => {
           alignItems="center"
         >
           <Grid item>
-            <Avatar
-              width={390}
-              height={295}
-              labelStyle={{ color: 'white' }}
-              onCrop={onCrop}
-              onClose={onClose}
-              onBeforeFileLoad={onBeforeFileLoad}
-              src={file}
-            />
+          {
+          localStorage.getItem('themeMode') === 'dark' ?
+          <Avatar
+          width={390}
+          height={295}
+          labelStyle={{ color: 'white' }}
+          onCrop={onCrop}
+          onClose={onClose}
+          onBeforeFileLoad={onBeforeFileLoad}
+          src={file}
+          />
+          :
+          <Avatar
+          width={390}
+          height={295}
+          labelStyle={{ color: 'black' }}
+          onCrop={onCrop}
+          onClose={onClose}
+          onBeforeFileLoad={onBeforeFileLoad}
+          src={file}
+          />
+        }
           </Grid>
           <Grid item>
             {prewiew && <img src={prewiew} alt="Preview" />}
           </Grid>
         </Grid>
-        <ButtonEl type="submit" variant="contained" color="primary">
-          {
-            isLoading ? <CircularProgress size={24} /> :
-              <p>Update Avatar</p>
-          }
-        </ButtonEl>
+        {
+            localStorage.getItem('themeMode') === 'dark' ?
+            <ButtonEl type="submit" variant="contained" color="primary">
+            {
+                isLoading ? <CircularProgress size={24}/> :
+                <p>Update Avatar</p>
+            }
+            </ButtonEl>
+            :
+            <ButtonElLight type="submit" variant="contained" color="primary">
+            {
+                isLoading ? <CircularProgress size={24}/> :
+                <p>Update Avatar</p>
+            }
+            </ButtonElLight>
+        }
       </BoxEl>
-    </>
+    </theme>
   )
 }

@@ -7,6 +7,12 @@ const Body = styled('div')({
     height:"100%"
 });
 
+const BodyLight = styled('div')({
+    backgroundColor: 'white',
+    color: 'black',
+    height:"100%"
+});
+
 const BoxEl = styled(Box)({
     flexShrink: 1,
     padding: '30px',
@@ -24,11 +30,24 @@ const TextFieldEl = styled(TextField)({
     margin: '10px'
 });
 
+const TextFieldElLight = styled(TextField)({
+    label: {color: 'black'},
+    input: { color: 'black', margin: '3px' },
+    margin: '10px'
+});
+
 const ButtonEl = styled(Button)({
     backgroundColor: '#171717',
     margin: '15px',
     color:"white"
 });
+
+const ButtonElLight = styled(Button)({
+    backgroundColor: 'white',
+    margin: '15px',
+    color:"black"
+});
+
 
 const ErrWarning = styled('p')({
     color: 'red',
@@ -36,8 +55,13 @@ const ErrWarning = styled('p')({
 });
 
 const SpanEl = styled('span')({
-    margin: '10px'
+    margin: '10px',
+    color: 'white'
+});
+const SpanElLight = styled('span')({
+    margin: '10px',
+    color: 'black'
 });
 
-export {Body, BoxEl,TextFieldEl, ButtonEl, ErrWarning, SpanEl}
+export {Body, BodyLight, TextFieldElLight, ButtonElLight, BoxEl,TextFieldEl, ButtonEl, ErrWarning, SpanEl, SpanElLight}
 

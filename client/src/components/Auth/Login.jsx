@@ -1,5 +1,5 @@
-import React, {  useRef, useState, } from 'react';
-import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
+import React, {  useRef, useState, useEffect } from 'react';
+import {Body, BodyLight, TextFieldElLight, ButtonElLight, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress, Link } from '@mui/material';
 import {LOGIN_URL} from '../../api/routes'
@@ -8,6 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
+
+    const [theme, setTheme] = useState('');
+    useEffect(() => {
+        setTheme(localStorage.getItem === 'dark' ? 'Body' : 'BodyLight')
+    }, []);
+
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
@@ -69,7 +75,7 @@ const Login = () => {
 
     }
     return (
-        <Body>
+        <theme>
             <BoxEl
             component="form"
             noValidate
@@ -78,29 +84,61 @@ const Login = () => {
             >
                 <h3>Sign In</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
-                <TextFieldEl
-                label="Login"
-                variant="standard"
-                required
-                value={login}
-                onChange={e => setLogin(e.target.value)}
-                />
-                <TextFieldEl
-                    label="Password"
+                {
+                    localStorage.getItem('themeMode') === 'dark' ?
+                    <>
+                    <TextFieldEl
+                    label="Login"
                     variant="standard"
-                    type="password"
                     required
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
+                    value={login}
+                    onChange={e => setLogin(e.target.value)}
+                    />
+                    <TextFieldEl
+                        label="Password"
+                        variant="standard"
+                        type="password"
+                        required
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                    </>
+                    :
+                    <>
+                    <TextFieldElLight
+                    label="Login"
+                    variant="standard"
+                    required
+                    value={login}
+                    onChange={e => setLogin(e.target.value)}
+                    />
+                    <TextFieldElLight
+                        label="Password"
+                        variant="standard"
+                        type="password"
+                        required
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                    </>
+                }
                 <div>
-                    <ButtonEl type="submit" variant="contained" color="primary">
+                    {
+                        localStorage.getItem('themeMode') === 'dark' ?
+                        <ButtonEl type="submit" variant="contained" color="primary">
                         {
                             isLoading ? <CircularProgress size={24}/> :
                             <p>Sign In</p>
                         }
-                        
-                    </ButtonEl>
+                        </ButtonEl>
+                        :
+                        <ButtonElLight type="submit" variant="contained" color="primary">
+                        {
+                            isLoading ? <CircularProgress size={24}/> :
+                            <p>Sign In</p>
+                        }
+                        </ButtonElLight>
+                    }
                 </div>
                 <Link
                     component="button"
@@ -112,7 +150,7 @@ const Login = () => {
                     Forgot Password?
                     </Link>
             </BoxEl>
-        </Body>
+        </theme>
     )
 }
 

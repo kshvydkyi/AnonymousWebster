@@ -1,4 +1,5 @@
 import '../App.css';
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout/Layout';
 import MainPage from "./Layout/MainPage";
@@ -23,15 +24,19 @@ function App() {
       JSON.stringify({ currentUser: 'guest' })
     );
   }
-  const darkTheme = createTheme({
+  if (!localStorage.getItem('themeMode')) {
+    localStorage.setItem('themeMode', 'dark')
+  }
+
+  const theme = createTheme({
     palette: {
-      mode: 'dark',
+        mode: localStorage.getItem('themeMode'),
     },
-  });
+});
 
   return (
-<ThemeProvider theme={darkTheme}>
-{/* <CssBaseline /> */}
+<ThemeProvider theme={theme}>
+<CssBaseline />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path='/' element={<MainPage />} />

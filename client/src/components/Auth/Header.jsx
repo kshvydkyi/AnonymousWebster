@@ -1,8 +1,9 @@
 import { Toolbar, Typography, IconButton, MenuItem, Link, Avatar, CircularProgress } from '@mui/material';
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import WebsterLogo from '../../assets/Layout/Logo.png'
-import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
+import WebsterLogoLight from '../../assets/Layout/LogoLight.png'
+import WebsterLogoDark from '../../assets/Layout/LogoDark.png'
+import { MainHeader, LogOutBtnLight, MainHeaderLight, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
@@ -11,6 +12,10 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import { BoxEl } from '../../styles/RegisterStyle';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+
 const headersData = [
   {
     label: "Sign In",
@@ -23,6 +28,18 @@ const headersData = [
 ];
 
 export const Header = () => {
+  const [mode, setMode] = useState(localStorage.getItem('themeMode'));
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        }
+        ,
+      }),
+    [mode],
+  );
+
   const [state, setState] = useState({
     mobileView: false,
     drawerOpen: false,
@@ -99,6 +116,15 @@ export const Header = () => {
     };
   }, []);
 
+  function toggleColorMode() {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    localStorage.getItem('themeMode') === 'light' ?
+     localStorage.setItem('themeMode', 'dark') :
+     localStorage.setItem('themeMode', 'light')
+     window.location.reload(false)
+
+  }
+
   const displayDesktop = () => {
 
     return (
@@ -110,7 +136,12 @@ export const Header = () => {
           onClose: handleSettingsClose,
         }}>
           <BoxEl>
-          <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
+            {localStorage.getItem('themeMode') === 'dark' ?
+            <LogOutBtn href='update-profile'>Update Profile</LogOutBtn> 
+            :
+            <LogOutBtnLight href='update-profile'>Update Profile</LogOutBtnLight>
+            }
+          
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -121,10 +152,18 @@ export const Header = () => {
             {
               isLoading ? <CircularProgress size={24} color="inherit" /> :
                 <>
-                  <LogOutBtn onClick={() => toLogOut()}>
+                  {
+                    localStorage.getItem('themeMode') === 'dark' ?
+                    <LogOutBtn onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
+                  :
+                  <LogOutBtnLight onClick={() => toLogOut()}>
+                  Logout
+                  <ExitToAppOutlinedIcon />
+                </LogOutBtnLight>
+                  }
                 </>
             }
           </IconButton>
@@ -194,21 +233,35 @@ export const Header = () => {
 
   const getDrawerChoices = () => {
     if (currentUser?.currentUser === 'guest') {
-      return headersData.map(({ label, href }) => {
         return (
+          <>
+      <IconButton onClick={toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
           <Link
             {...{
               component: RouterLink,
-              to: href,
+              to: '/login',
               color: "inherit",
               style: { textDecoration: "none" },
-              key: label,
+              key: 'Sign In',
             }}
           >
-            <MenuItem >{label}</MenuItem>
+          <MenuItem >Sign In</MenuItem>
           </Link>
+          <Link
+            {...{
+              component: RouterLink,
+              to: '/register',
+              color: "inherit",
+              style: { textDecoration: "none" },
+              key: 'Sign Up',
+            }}
+          >
+          <MenuItem >Sign Up</MenuItem>
+          </Link>
+          </>
         );
-      });
     }
     else {
       return (
@@ -224,6 +277,9 @@ export const Header = () => {
           }}>
             <ManageAccountsOutlinedIcon />
           </ManageAccountButton>
+          <IconButton onClick={toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
         </UserInfo>
       )
     }
@@ -231,31 +287,52 @@ export const Header = () => {
 
   const femmecubatorLogo = (
     <Typography variant="h6" component="a" href='/'>
-      <img className="fit-picture" src={WebsterLogo} alt="websterLogo" width={165} height={50}></img>
+      {
+        localStorage.getItem('themeMode') === 'dark' ?
+        <img className="fit-picture" src={WebsterLogoDark} alt="websterLogo" width={165} height={50}></img>
+        :
+        <img className="fit-picture" src={WebsterLogoLight} alt="websterLogo" width={165} height={50}></img>
+      }
     </Typography>
   );
 
   const getMenuButtons = () => {
 
     if (currentUser?.currentUser === 'guest') {
-      return headersData.map(({ label, href }) => {
         return (
+          <>
+          <IconButton onClick={toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
           <MenuButton
             {...{
-              key: label,
+              key: 'Sign In',
               color: "inherit",
-              to: href,
+              to: '/login',
               component: RouterLink,
             }}
           >
-            {label}
+            Sign In
           </MenuButton>
+          <MenuButton
+            {...{
+              key: 'Sign Up',
+              color: "inherit",
+              to: '/register',
+              component: RouterLink,
+            }}
+          >
+            Sign Up
+          </MenuButton>
+          </>
         );
-      });
     }
     else {
       return (
         <UserInfo>
+          <IconButton onClick={toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
           <p>{currentUser?.login}</p>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <ManageAccountButton {...{
@@ -274,9 +351,17 @@ export const Header = () => {
 
   return (
     <div className="wrapper-navbar">
+      {
+      localStorage.getItem('themeMode') === 'dark' ?
       <MainHeader>
         {mobileView ? displayMobile() : displayDesktop()}
       </MainHeader>
+      :
+      <MainHeaderLight>
+      {mobileView ? displayMobile() : displayDesktop()}
+      </MainHeaderLight>
+      }
     </div>
   );
 }
+

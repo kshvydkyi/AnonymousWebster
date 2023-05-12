@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from '../../api/axios';
 import {ACTIVE_EMAIL_URL} from '../../api/routes'
-import {H1El, PEl} from '../../styles/ConfirmEmailStyle'
+import {H1El, PEl, H1ElLight, PElLight} from '../../styles/ConfirmEmailStyle'
+import {Body, BodyLight, SpanEl, SpanElLight} from '../../styles/RegisterStyle'
 
 const ConfirmEmail = () => {
     const { token } = useParams();
@@ -27,12 +28,24 @@ const ConfirmEmail = () => {
 
     }, []);
     return (
-        <div className="form-background p-5 d-flex justify-content-center">
-            <section className="email-reg text-white">
+        <>
+        {
+        localStorage.getItem('themeMode') === 'dark' ?
+        <Body>
+            <SpanEl className="email-reg">
                 <H1El>Result of registration</H1El>
                 <PEl>{active}</PEl>
-            </section>
-        </div>   
+            </SpanEl>
+        </Body>   
+        :
+        <BodyLight>
+        <SpanElLight className="email-reg">
+            <H1ElLight>Result of registration</H1ElLight>
+            <PElLight>{active}</PElLight>
+        </SpanElLight>
+        </BodyLight>   
+        }
+        </>
     )
 }
 

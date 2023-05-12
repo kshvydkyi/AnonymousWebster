@@ -10,7 +10,17 @@ const MainHeader = styled('div')({
     overflow: "hidden",
     zIndex: "999",
     text: 'right'
-    
+});
+
+const MainHeaderLight = styled('div')({
+    color: 'black',
+    backgroundColor: '#f2f3f4',
+    padding: 3,
+    width: "100%",
+    position: 'fixed',
+    overflow: "hidden",
+    zIndex: "999",
+    text: 'right'
 });
 
 const MenuButton = styled(Button)({
@@ -38,7 +48,13 @@ const LogOutBtn = styled(Button)({
     border: '0px black',
     margin: 0,
     color: "white",
+});
 
+const LogOutBtnLight = styled(Button)({
+    outline: 'none',
+    border: '0px black',
+    margin: 0,
+    color: "black",
 });
 
 const UserInfo = styled('div')({
@@ -63,4 +79,4 @@ const Spinner = styled(CircularProgress)({
     color: "white"
 })
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}
+export {MainHeader, MainHeaderLight, LogOutBtnLight, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}

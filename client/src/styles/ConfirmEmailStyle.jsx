@@ -10,6 +10,16 @@ const PEl = styled('p')({
     textAlign: 'center'
 });
 
+const H1ElLight = styled('h1')({
+    color: 'black',
+    textAlign: 'center'
+});
+
+const PElLight = styled('p')({
+    color: 'black',
+    textAlign: 'center'
+});
 
 
-export {H1El, PEl}
+
+export {H1El, PEl, H1ElLight, PElLight}
