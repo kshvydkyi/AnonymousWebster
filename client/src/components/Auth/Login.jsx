@@ -1,5 +1,5 @@
 import React, {  useRef, useState, useEffect } from 'react';
-import {Body, BodyLight, TextFieldElLight, ButtonElLight, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
+import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress, Link } from '@mui/material';
 import {LOGIN_URL} from '../../api/routes'
@@ -8,12 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
-
-    const [theme, setTheme] = useState('');
-    useEffect(() => {
-        setTheme(localStorage.getItem === 'dark' ? 'Body' : 'BodyLight')
-    }, []);
-
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
@@ -75,7 +69,7 @@ const Login = () => {
 
     }
     return (
-        <theme>
+        <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
             <BoxEl
             component="form"
             noValidate
@@ -84,61 +78,30 @@ const Login = () => {
             >
                 <h3>Sign In</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
-                {
-                    localStorage.getItem('themeMode') === 'dark' ?
-                    <>
-                    <TextFieldEl
+                <TextFieldEl
+                    className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                     label="Login"
                     variant="standard"
                     required
                     value={login}
                     onChange={e => setLogin(e.target.value)}
-                    />
-                    <TextFieldEl
-                        label="Password"
-                        variant="standard"
-                        type="password"
-                        required
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                    </>
-                    :
-                    <>
-                    <TextFieldElLight
-                    label="Login"
+                />
+                <TextFieldEl
+                    className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                    label="Password"
                     variant="standard"
+                    type="password"
                     required
-                    value={login}
-                    onChange={e => setLogin(e.target.value)}
-                    />
-                    <TextFieldElLight
-                        label="Password"
-                        variant="standard"
-                        type="password"
-                        required
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                    </>
-                }
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
                 <div>
-                    {
-                        localStorage.getItem('themeMode') === 'dark' ?
-                        <ButtonEl type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Sign In</p>
-                        }
-                        </ButtonEl>
-                        :
-                        <ButtonElLight type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Sign In</p>
-                        }
-                        </ButtonElLight>
-                    }
+                <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}  type="submit" variant="contained" color="primary">
+                {
+                    isLoading ? <CircularProgress size={24}/> :
+                    <p>Sign In</p>
+                }
+                </ButtonEl>
                 </div>
                 <Link
                     component="button"
@@ -150,7 +113,7 @@ const Login = () => {
                     Forgot Password?
                     </Link>
             </BoxEl>
-        </theme>
+        </Body>
     )
 }
 
