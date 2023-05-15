@@ -22,9 +22,9 @@ export const CreateForm = ({ widthValue, heightValue }) => {
     }, [widthValue, heightValue])
 
     useEffect(() => {
-       if(!backgroundColor){
-        setBackgroundColor('rgb(0, 0, 0)')
-       }
+        if (!backgroundColor) {
+            setBackgroundColor('rgb(0, 0, 0)')
+        }
     }, [])
     const handleSubmit = (e) => {
         setSubmitClicked(true);
@@ -34,6 +34,18 @@ export const CreateForm = ({ widthValue, heightValue }) => {
         try {
             setIsLoading(true)
             //here must be an axios statement and json logic
+            const projectCreateInfo = JSON.stringify(
+                {
+                    project: {
+                        mainInfo: {
+                            title: title,
+                            description: description,
+                            width: +width,
+                            height: +height,
+                            bgColor: backgroundColor
+                        }
+                    }
+                })
             setIsLoading(false)
         } catch (error) {
             setErrMsg('Error')
