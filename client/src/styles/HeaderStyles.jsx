@@ -2,26 +2,32 @@ import {styled} from '@mui/system'
 import {Button, Toolbar, Drawer, CircularProgress, IconButton} from '@mui/material';
 
 const MainHeader = styled('div')({
-    color: 'white',
-    backgroundColor: '#101010',
+    "& .Dark": {
+        color: 'white',
+        backgroundColor: '#101010',
+    },
+    "& .Light": {
+        color: 'black',
+        backgroundColor: 'white',
+    },
+
     padding: 3,
     width: "100%",
     position: 'fixed',
     overflow: "hidden",
     zIndex: "999",
     text: 'right'
+    
+    // position: 'fixed',
+    // padding: 3,
+    // width: "100%",
+    // overflow: "hidden",
+    // zIndex: "999",
+    // text: 'right',
+    // height: "50px",
+    // flex: "0 0 auto",
 });
 
-const MainHeaderLight = styled('div')({
-    color: 'black',
-    backgroundColor: '#f2f3f4',
-    padding: 3,
-    width: "100%",
-    position: 'fixed',
-    overflow: "hidden",
-    zIndex: "999",
-    text: 'right'
-});
 
 const MenuButton = styled(Button)({
     padding: '10px',
@@ -44,17 +50,16 @@ const Logo = styled('span')({
 });
 
 const LogOutBtn = styled(Button)({
+    "& .Dark": {
+        color: 'white',
+        border: '0px black',
+    },
+    "& .Light": {
+        color: 'black',
+        border: '0px black',
+    },
     outline: 'none',
-    border: '0px black',
     margin: 0,
-    color: "white",
-});
-
-const LogOutBtnLight = styled(Button)({
-    outline: 'none',
-    border: '0px black',
-    margin: 0,
-    color: "black",
 });
 
 const UserInfo = styled('div')({
@@ -79,4 +84,4 @@ const Spinner = styled(CircularProgress)({
     color: "white"
 })
 
-export {MainHeader, MainHeaderLight, LogOutBtnLight, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}
+export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}

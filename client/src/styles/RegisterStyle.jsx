@@ -1,13 +1,6 @@
 import {styled} from '@mui/system'
 import {Box, TextField, Button} from '@mui/material';
 
-
-const BodyLight = styled('div')({
-    backgroundColor: 'white',
-    color: 'black',
-    height:"100%"
-});
-
 const BoxEl = styled(Box)({
     flexShrink: 1,
     padding: '30px',
@@ -19,37 +12,12 @@ const BoxEl = styled(Box)({
     alignItems: 'center',
 });
 
-
-const TextFieldElLight = styled(TextField)({
-    label: {color: 'black'},
-    input: { color: 'black', margin: '3px' },
-    margin: '10px'
-});
-
-
-const ButtonElLight = styled(Button)({
-    backgroundColor: 'white',
-    margin: '15px',
-    color:"black"
-});
-
-
 const ErrWarning = styled('p')({
     color: 'red',
     padding: '15px'
 });
 
-const SpanEl = styled('span')({
-    margin: '10px',
-    color: 'white'
-});
-const SpanElLight = styled('span')({
-    margin: '10px',
-    color: 'black'
-});
 
-
-// darrk light theme here
 const Body = styled('div')({
     "& .Dark": {
         backgroundColor: '#131313',
@@ -77,11 +45,11 @@ const TextFieldEl = styled(TextField)({
 
 
 const ButtonEl = styled(Button)({
-    "& .Dark": {
+    "&.Dark": {
         backgroundColor: '#171717',
         color:"white"
     },
-    "& .Light": {
+    "&.Light": {
         backgroundColor: 'white',
         color:"black"
     },
@@ -89,9 +57,20 @@ const ButtonEl = styled(Button)({
 });
 
 
+const SpanEl = styled('span')({
+    "& .Dark": {
+        color: 'white',
+    },
+    "& .Light": {
+        color: 'black',
+    },
+    margin: '10px',
+});
 
 
 
 
-export {Body, BodyLight, TextFieldElLight, ButtonElLight, BoxEl,TextFieldEl, ButtonEl, ErrWarning, SpanEl, SpanElLight}
+
+
+export {Body, BoxEl,TextFieldEl, ButtonEl, ErrWarning, SpanEl}
 

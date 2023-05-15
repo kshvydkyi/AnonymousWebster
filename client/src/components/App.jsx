@@ -25,7 +25,7 @@ function App() {
     );
   }
   if (!localStorage.getItem('themeMode')) {
-    localStorage.setItem('themeMode', 'dark')
+    localStorage.setItem('themeMode', 'ark')
   }
 
   const theme = createTheme({

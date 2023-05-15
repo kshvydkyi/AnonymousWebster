@@ -2,25 +2,23 @@ import {styled} from '@mui/system'
 import {Button} from '@mui/material';
 
 
-const ContainerDark = styled('div')({
-    // position: 'relative',
+const Container = styled('div')({
+    "& .Dark": {
+        color: 'white',
+        backgroundColor: "black",
+        border: '2px solid white'
+    },
+    "& .Light": {
+        color: 'black',
+        backgroundColor: 'white',
+        border: '2px solid black'
+    },
     textAlign: 'center',
-    color: 'white',
     display: "flex",
     alignItems: "center",
     justifyContent:"space-around",
-    backgroundColor: "black"
 });
 
-const ContainerLight = styled('div')({
-    // position: 'relative',
-    textAlign: 'center',
-    color: 'black',
-    display: "flex",
-    alignItems: "center",
-    justifyContent:"space-around",
-    backgroundColor: "white"
-});
 
 const TextBlock = styled('div')({
     // position: 'absolute',
@@ -41,23 +39,19 @@ const ButtonDiv = styled('div')({
 });
 
 const StartButton = styled(Button)({
+    "& .Dark": {
+        color: 'white',
+        border: '2px solid white'
+    },
+    "& .Light": {
+        color: 'black',
+        border: '2px solid black'
+    },
     width: '300px',
     height: '50px',
     letterSpacing: '1.2rem',
     fontSize: '2em',
-    color: 'white',
-    border: '2px solid white'
-});
-
-const StartButtonLight = styled(Button)({
-    width: '300px',
-    height: '50px',
-    letterSpacing: '1.2rem',
-    fontSize: '2em',
-    color: 'black',
-    border: '2px solid black'
 });
 
 
-
-export {ContainerDark, ContainerLight, StartButtonLight, TextBlock, TextDiv, ButtonDiv, StartButton}
+export {Container, TextBlock, TextDiv, ButtonDiv, StartButton}

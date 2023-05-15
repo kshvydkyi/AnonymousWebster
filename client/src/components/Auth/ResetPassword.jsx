@@ -1,5 +1,5 @@
 import React, {  useRef, useState, useEffect  } from 'react';
-import {Body, BodyLight, TextFieldElLight, ButtonElLight, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
+import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress } from '@mui/material';
 import {RESET_PASSWORD_URL} from '../../api/routes'
@@ -9,11 +9,6 @@ import {DialogWindow} from '../Other/DialogWIndow'
 import {EMAIL_REGEX} from '../../regex/regex'
 
 const ResetPassword = () => {
-    const [theme, setTheme] = useState('');
-    useEffect(() => {
-        setTheme(localStorage.getItem === 'dark' ? 'Body' : 'BodyLight')
-    }, []);
-
     const [email, setEmail] = useState('');
     const [errMsg, setErrMsg] = useState('');
     // const [success, setSuccess] = useState(false);
@@ -57,7 +52,7 @@ const ResetPassword = () => {
         }
     }
     return (
-        <theme>
+        <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
             <DialogWindow
             state={stateDialog}
             message={'The message was sent to your email, go to link and reset password!'}
@@ -70,9 +65,8 @@ const ResetPassword = () => {
             >
                 <h3>Reset Password</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
-                {
-                    localStorage.getItem('themeMode') === 'dark' ?
                     <TextFieldEl
+                    className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                     label="Email"
                     variant="standard"
                     type="email"
@@ -82,38 +76,16 @@ const ResetPassword = () => {
                     error={EMAIL_REGEX.test(email) === false && submitClicked === true}
                     helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
                     />
-                    :
-                    <TextFieldElLight
-                    label="Email"
-                    variant="standard"
-                    type="email"
-                    required
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    error={EMAIL_REGEX.test(email) === false && submitClicked === true}
-                    helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
-                    />
-                }
                 <div>
+                <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} type="submit" variant="contained" color="primary">
                 {
-                        localStorage.getItem('themeMode') === 'dark' ?
-                        <ButtonEl type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Reset Password</p>
-                        }
-                        </ButtonEl>
-                        :
-                        <ButtonElLight type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Reset Password</p>
-                        }
-                        </ButtonElLight>
-                    }
+                    isLoading ? <CircularProgress size={24}/> :
+                    <p>Reset Password</p>
+                }
+                </ButtonEl>
                 </div>
             </BoxEl>
-        </theme>
+        </Body>
     )
 }
 

@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from '../../api/axios';
 import {ACTIVE_EMAIL_URL} from '../../api/routes'
-import {H1El, PEl, H1ElLight, PElLight} from '../../styles/ConfirmEmailStyle'
-import {Body, BodyLight, SpanEl, SpanElLight} from '../../styles/RegisterStyle'
+import {H1El, PEl} from '../../styles/ConfirmEmailStyle'
+import {Body, SpanEl} from '../../styles/RegisterStyle'
 
 const ConfirmEmail = () => {
     const { token } = useParams();
@@ -28,24 +28,12 @@ const ConfirmEmail = () => {
 
     }, []);
     return (
-        <>
-        {
-        localStorage.getItem('themeMode') === 'dark' ?
-        <Body>
-            <SpanEl className="email-reg">
-                <H1El>Result of registration</H1El>
-                <PEl>{active}</PEl>
+        <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
+            <SpanEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
+                <H1El className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>Result of registration</H1El>
+                <PEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>{active}</PEl>
             </SpanEl>
         </Body>   
-        :
-        <BodyLight>
-        <SpanElLight className="email-reg">
-            <H1ElLight>Result of registration</H1ElLight>
-            <PElLight>{active}</PElLight>
-        </SpanElLight>
-        </BodyLight>   
-        }
-        </>
     )
 }
 

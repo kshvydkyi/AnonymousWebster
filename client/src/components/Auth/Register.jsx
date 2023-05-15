@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import {Body, BodyLight, TextFieldElLight, ButtonElLight, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanElLight, SpanEl} from '../../styles/RegisterStyle'
+import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanEl} from '../../styles/RegisterStyle'
 
 import axios from '../../api/axios';
 import { CircularProgress, Link } from '@mui/material';
@@ -12,11 +12,6 @@ import { USER_REGEX, PWD_REGEX, EMAIL_REGEX, FULLNAME_REGEX } from '../../regex/
 
 
 const Register = () => {
-    const [theme, setTheme] = useState('');
-    useEffect(() => {
-        setTheme(localStorage.getItem === 'dark' ? 'Body' : 'BodyLight')
-    }, []);
-
     const [login, setLogin] = useState('');
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -72,7 +67,7 @@ const Register = () => {
         }
     };
     return (
-        <theme>
+        <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
             <DialogWindow
                 state={stateDialog}
                 message={'You\'ve just successfully registered, do not forget to confirm your email!'}
@@ -85,10 +80,8 @@ const Register = () => {
             >
                 <h3>Sign Up</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
-                {
-                    localStorage.getItem('themeMode') === 'dark' ?
-                    <>
                     <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                         label="Full Name"
                         variant="standard"
                         required
@@ -98,6 +91,7 @@ const Register = () => {
                         helperText={FULLNAME_REGEX.test(fullName) === false && submitClicked === true ? 'Full Name must be not less than 2 symbols and not more than 23 symbols' : ' '}
                     />
                     <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                         label="Login"
                         variant="standard"
                         required
@@ -107,6 +101,7 @@ const Register = () => {
                         helperText={USER_REGEX.test(login) === false && submitClicked === true ? 'Login must be not less than 4 symbols and not more than 24 symbols' : ' '}
                     />
                     <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                         label="Email"
                         variant="standard"
                         type="email"
@@ -117,6 +112,7 @@ const Register = () => {
                         helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
                     />
                     <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                         label="Password"
                         variant="standard"
                         type="password"
@@ -127,6 +123,7 @@ const Register = () => {
                         helperText={PWD_REGEX.test(password) === false && submitClicked === true ? 'Password must be not less than 8 symbols, including: digits, capital letter and at least one special symbol' : ' '}
                     />
                     <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                         label="Confirm Password"
                         variant="standard"
                         type="password"
@@ -136,85 +133,16 @@ const Register = () => {
                         error={PWD_REGEX.test(confirmPassword) === false && submitClicked === true}
                         helperText={PWD_REGEX.test(confirmPassword) === false && submitClicked === true ? 'Confirm Password must be same like field above' : ' '}
                     />
-                    </>
-                    :
-                    <>
-                    <TextFieldElLight
-                        label="Full Name"
-                        variant="standard"
-                        required
-                        value={fullName}
-                        onChange={e => setFullName(e.target.value)}
-                        error={FULLNAME_REGEX.test(fullName) === false && submitClicked === true}
-                        helperText={FULLNAME_REGEX.test(fullName) === false && submitClicked === true ? 'Full Name must be not less than 2 symbols and not more than 23 symbols' : ' '}
-                    />
-                    <TextFieldElLight
-                        label="Login"
-                        variant="standard"
-                        required
-                        value={login}
-                        onChange={e => setLogin(e.target.value)}
-                        error={USER_REGEX.test(login) === false && submitClicked === true}
-                        helperText={USER_REGEX.test(login) === false && submitClicked === true ? 'Login must be not less than 4 symbols and not more than 24 symbols' : ' '}
-                    />
-                    <TextFieldElLight
-                        label="Email"
-                        variant="standard"
-                        type="email"
-                        required
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        error={EMAIL_REGEX.test(email) === false && submitClicked === true}
-                        helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
-                    />
-                    <TextFieldElLight
-                        label="Password"
-                        variant="standard"
-                        type="password"
-                        required
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        error={PWD_REGEX.test(password) === false && submitClicked === true}
-                        helperText={PWD_REGEX.test(password) === false && submitClicked === true ? 'Password must be not less than 8 symbols, including: digits, capital letter and at least one special symbol' : ' '}
-                    />
-                    <TextFieldElLight
-                        label="Confirm Password"
-                        variant="standard"
-                        type="password"
-                        required
-                        value={confirmPassword}
-                        onChange={e => setConfirmPassword(e.target.value)}
-                        error={PWD_REGEX.test(confirmPassword) === false && submitClicked === true}
-                        helperText={PWD_REGEX.test(confirmPassword) === false && submitClicked === true ? 'Confirm Password must be same like field above' : ' '}
-                    />
-                    </>
-                }
                 <div>
+                <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} type="submit" variant="contained" color="primary">
                 {
-                        localStorage.getItem('themeMode') === 'dark' ?
-                        <ButtonEl type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Sign Up</p>
-                        }
-                        </ButtonEl>
-                        :
-                        <ButtonElLight type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Sign Up</p>
-                        }
-                        </ButtonElLight>
-                    }
+                    isLoading ? <CircularProgress size={24}/> :
+                    <p>Sign Up</p>
+                }
+                </ButtonEl>
                 </div>
                 <span>
-                    {
-                        localStorage.getItem('themeMode') === 'dark' ?
-                        <SpanEl>Already have an accout?</SpanEl> 
-                        :
-                        <SpanElLight>Already have an accout?</SpanElLight>
-                    }
-                    
+                    <SpanEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>Already have an accout?</SpanEl> 
                     <Link
                         component="button"
                         variant="body2"
@@ -226,7 +154,7 @@ const Register = () => {
                     </Link>
                 </span>
             </BoxEl>
-        </theme>
+        </Body>
     )
 }
 

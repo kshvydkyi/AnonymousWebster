@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import WebsterLogoLight from '../../assets/Layout/LogoLight.png'
 import WebsterLogoDark from '../../assets/Layout/LogoDark.png'
-import { MainHeader, LogOutBtnLight, MainHeaderLight, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
+import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
@@ -136,36 +136,17 @@ export const Header = () => {
           onClose: handleSettingsClose,
         }}>
           <BoxEl>
-            {localStorage.getItem('themeMode') === 'dark' ?
-            <LogOutBtn href='update-profile'>Update Profile</LogOutBtn> 
-            :
-            <LogOutBtnLight href='update-profile'>Update Profile</LogOutBtnLight>
-            }
-          
-          <IconButton {...{
-            edge: "start",
-            color: "inherit",
-            "aria-label": "menu",
-            "aria-haspopup": "true",
-            onClick: toLogOut,
-          }}>
+            <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</LogOutBtn> 
+
             {
               isLoading ? <CircularProgress size={24} color="inherit" /> :
-                <>
-                  {
-                    localStorage.getItem('themeMode') === 'dark' ?
-                    <LogOutBtn onClick={() => toLogOut()}>
+                    <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
-                  :
-                  <LogOutBtnLight onClick={() => toLogOut()}>
-                  Logout
-                  <ExitToAppOutlinedIcon />
-                </LogOutBtnLight>
-                  }
-                </>
             }
+                      <IconButton onClick={toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
           
          
@@ -207,7 +188,7 @@ export const Header = () => {
           open: settingsOpen,
           onClose: handleSettingsClose,
         }}>
-          <LogOutBtn href='update-profile'>Update Profile</LogOutBtn>
+          <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</LogOutBtn>
           <IconButton {...{
             edge: "start",
             color: "inherit",
@@ -216,9 +197,9 @@ export const Header = () => {
             onClick: toLogOut,
           }}>
             {
-              isLoading ? <LogOutBtn><CircularProgress size={24} color="inherit" /></LogOutBtn> :
+              isLoading ? <LogOutBtn ><CircularProgress size={24} color="inherit" /></LogOutBtn> :
                 <>
-                  <LogOutBtn onClick={() => toLogOut()}>
+                  <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}  onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
@@ -301,7 +282,7 @@ export const Header = () => {
     if (currentUser?.currentUser === 'guest') {
         return (
           <>
-          <IconButton onClick={toggleColorMode} color="inherit">
+                                <IconButton onClick={toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
           <MenuButton
@@ -330,9 +311,6 @@ export const Header = () => {
     else {
       return (
         <UserInfo>
-          <IconButton onClick={toggleColorMode} color="inherit">
-            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
           <p>{currentUser?.login}</p>
           <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
           <ManageAccountButton {...{
@@ -350,18 +328,9 @@ export const Header = () => {
   };
 
   return (
-    <div className="wrapper-navbar">
-      {
-      localStorage.getItem('themeMode') === 'dark' ?
-      <MainHeader>
+      <MainHeader className={localStorage.getItem('themeMode') === 'dark'  ? "Dark" : "Light"}>
         {mobileView ? displayMobile() : displayDesktop()}
       </MainHeader>
-      :
-      <MainHeaderLight>
-      {mobileView ? displayMobile() : displayDesktop()}
-      </MainHeaderLight>
-      }
-    </div>
   );
 }
 

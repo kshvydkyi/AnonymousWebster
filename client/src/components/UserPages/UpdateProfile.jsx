@@ -4,18 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import { GET_USER_BY_ID_URL, UPDATE_PROFILE_DATA_URL } from '../../api/routes';
 import { EMAIL_REGEX, FULLNAME_REGEX, USER_REGEX } from '../../regex/regex';
-import {Body, BodyLight, TextFieldElLight, ButtonElLight, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanElLight, SpanEl} from '../../styles/RegisterStyle'
-
+import { Body, BoxEl, ButtonEl, ErrWarning, TextFieldEl } from '../../styles/RegisterStyle';
 import { DialogWindow } from '../Other/DialogWIndow';
 import { InfoLoadingSpinner } from '../Other/InfoLoadingSpinner';
 import { UpdateAvatar } from './UpdateAvatar';
 
 export const UpdateProfile = () => {
-  
-  const [theme, setTheme] = useState('');
-  useEffect(() => {
-      setTheme(localStorage.getItem === 'dark' ? 'Body' : 'BodyLight')
-  }, []);
   const currentUser = JSON.parse(localStorage.getItem('autorized'));
   const navigate = useNavigate();
   const [login, setLogin] = useState('');
@@ -95,10 +89,7 @@ export const UpdateProfile = () => {
     }
   }
   return isLoadingPage ? <InfoLoadingSpinner size={56} /> : (
-    <>
-    {
-      localStorage.getItem('themeMode') === 'dark' ?
-      <Body>
+    <Body>
       <UpdateAvatar/>
       <DialogWindow
         state={stateDialog}
@@ -142,77 +133,16 @@ export const UpdateProfile = () => {
           helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
         />
         <div>
-        
-          <ButtonEl type="submit" variant="contained" color="primary">
-          {
-              isLoading ? <CircularProgress size={24}/> :
-              <p>Update Profile</p>
-          }
-          </ButtonEl>
+          <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? 'Dark' : 'Light'}  type="submit" variant="contained">
+            {
+              isLoading ? <CircularProgress size={24} /> :
+                <p>Update profile</p>
+            }
 
+          </ButtonEl>
         </div>
 
       </BoxEl>
     </Body>
-    :
-    <BodyLight>
-      <UpdateAvatar/>
-      <DialogWindow
-        state={stateDialog}
-        message={'Profile data updated succefully'}
-      />
-
-      <BoxEl
-        component="form"
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
-        <h3>Update Profile</h3>
-        <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
-        <TextFieldElLight
-          label="Full Name"
-          variant="standard"
-          required
-          value={fullName}
-          onChange={e => setFullName(e.target.value)}
-          error={FULLNAME_REGEX.test(fullName) === false && submitClicked === true}
-          helperText={FULLNAME_REGEX.test(fullName) === false && submitClicked === true ? 'Full Name must be not less than 2 symbols and not more than 23 symbols' : ' '}
-        />
-        <TextFieldElLight
-          label="Login"
-          variant="standard"
-          required
-          value={login}
-          onChange={e => setLogin(e.target.value)}
-          error={USER_REGEX.test(login) === false && submitClicked === true}
-          helperText={USER_REGEX.test(login) === false && submitClicked === true ? 'Login must be not less than 4 symbols and not more than 24 symbols' : ' '}
-        />
-        <TextFieldElLight
-          label="Email"
-          variant="standard"
-          type="email"
-          required
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          error={EMAIL_REGEX.test(email) === false && submitClicked === true}
-          helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
-        />
-        <div>
-        
-          <ButtonElLight type="submit" variant="contained" color="primary">
-          {
-              isLoading ? <CircularProgress size={24}/> :
-              <p>Update Profile</p>
-          }
-          </ButtonElLight>
-
-        </div>
-
-      </BoxEl>
-    </BodyLight>
-    }
-    </>
-
   )
 }

@@ -30,8 +30,9 @@ const CustomToggleButton = styled(ToggleButton)({
 })
 
 const FormatCard = styled(Card)({
-    minWidth: "200px",
-    maxWidth: "340px",
+    width: '250px',
+    // minWidth: "200px",
+    // maxWidth: "340px",
     backgroundColor: "#101010",
     color: "white",
     padding: "15px",
