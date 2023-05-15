@@ -9,6 +9,14 @@ const BoxComp = styled(Box)({
 });
 
 const ContainerComp = styled('div')({
+    "&.Dark": {
+        color: 'white',
+        backgroundColor: '#101010',
+    },
+    "&.Light": {
+        color: 'black',
+        backgroundColor: '#f2f3f4',
+    },
     display: 'flex',
     justifyContent: "center",
     width: "100%",

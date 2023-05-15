@@ -6,7 +6,7 @@ import { BoxComp2, TypographyComp, ContainerComp } from '../../styles/FooterStyl
 const  Footer  = () => {
   return (
   
-      <ContainerComp>
+      <ContainerComp className={localStorage.getItem('themeMode') === 'dark'  ? "Dark" : "Light"}>
         <BoxComp2>
           <div>
             <img className="fit-picture" src={anonymousMask} alt="anonLogo"></img>

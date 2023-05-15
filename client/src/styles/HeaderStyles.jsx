@@ -2,13 +2,13 @@ import {styled} from '@mui/system'
 import {Button, Toolbar, Drawer, CircularProgress, IconButton} from '@mui/material';
 
 const MainHeader = styled('div')({
-    "& .Dark": {
+    "&.Dark": {
         color: 'white',
         backgroundColor: '#101010',
     },
-    "& .Light": {
+    "&.Light": {
         color: 'black',
-        backgroundColor: 'white',
+        backgroundColor: '#f2f3f4',
     },
 
     padding: 3,
