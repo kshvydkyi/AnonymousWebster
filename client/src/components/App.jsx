@@ -51,7 +51,7 @@ function App() {
 
             <Route path="create-project" element={<CreateProject />} />
             <Route path='editor' element={<PhotoEditor />} />
-            <Route path='project' element={<ProjectMain />} />
+            <Route path='project/:id' element={<ProjectMain />} />
 
 
           </Route>

@@ -20,8 +20,8 @@ export const PhotoEditor = () => {
           },
           menuBarPosition: 'right',
         }}
-        cssMaxHeight={500}
-        cssMaxWidth={700}
+        cssMaxHeight={1920}
+        cssMaxWidth={1080}
         selectionStyle={{
           cornerSize: 20,
           rotatingPointOffset: 70,

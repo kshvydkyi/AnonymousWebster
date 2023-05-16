@@ -4,10 +4,13 @@ import { ColorPicker, CreateBox, Settings, TypographyBox } from '../../styles/Cr
 import { ButtonEl, ErrWarning, TextFieldEl } from '../../styles/RegisterStyle';
 import { SettingsForm } from '../../styles/CreateProjectStyles';
 import { CircularProgress } from '@mui/material';
+import axios from '../../api/axios';
+import { CREATE_PROJECT_URL } from '../../api/routes';
 export const CreateForm = ({ widthValue, heightValue }) => {
     const errRef = useRef();
     const [errMsg, setErrMsg] = useState('');
     const [submitClicked, setSubmitClicked] = useState(false);
+    const currentUser = JSON.parse(localStorage.getItem('autorized'));
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -26,7 +29,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
             setBackgroundColor('rgb(0, 0, 0)')
         }
     }, [])
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         setSubmitClicked(true);
         setErrMsg('');
         e.preventDefault();
@@ -46,6 +49,11 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         }
                     }
                 })
+                const response = await axios.post(CREATE_PROJECT_URL + currentUser.accessToken, JSON.stringify(projectCreateInfo), {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                });
+                console.log(response);
             setIsLoading(false)
         } catch (error) {
             setErrMsg('Error')
