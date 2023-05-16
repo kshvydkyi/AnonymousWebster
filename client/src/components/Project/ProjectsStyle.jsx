@@ -1,7 +1,8 @@
-import { styled, textAlign } from '@mui/system';
-import { Button, Typography, Box, CardActionArea, CardMedia, Chip, Paper } from '@mui/material';
+import {styled} from '@mui/system';
+import { Typography, Box} from '@mui/material';
 
 const Container = styled('div')({
+    position: 'relative',
     paddingLeft: '7%',
     paddingRight: '7%',
     paddingTop: '2%',
@@ -10,95 +11,69 @@ const Container = styled('div')({
 });
 
 const TextBlock = styled('div')({
+    position: 'absolute',
     borderLeft: '6px solid white',
     color: 'white',
     fontSize: '30px',
-    paddingLeft: '1.5%'
+    paddingLeft: '1.5%',
+});
+
+const CreateBlock = styled('div')({
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    color: 'white',
+    fontSize: '30px',
+    paddingRight: '7%',
+    right: '0'
 });
 
 const ElementsContainer = styled('div')({
+    marginTop: '50px',
     paddingTop: '2%',
     paddingBottom: '2%',
     color: 'white'
 });
 
-// const PaperComponent = styled(Paper)({
-//     height: "75%",
-//     overflow: 'auto',
-//     boxShadow: 'none',
-//     backgroundColor: "inherit",
-//     "&::-webkit-scrollbar": {
-//         width: 5
-//     },
-//     "&::-webkit-scrollbar-track": {
-//         backgroundColor: "#222222"
-//     },
-//     "&::-webkit-scrollbar-thumb": {
-//         backgroundColor: "#850000",
-//         borderRadius: 10
-//     }
-// })
-
-// const DateChip = styled(Chip)({
-//     // color: "white",
-//     // border: "none",
-//     // marginLeft: -2
-// })
-
-
+const BoxText = styled(Box)({
+    background: '#272727',
+    color: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
+    height: "91%"
+})
 
 const CustomBox = styled(Box)({
     background: '#272727',
     color: 'white',
     display: 'flex',
-    border: '1px solid white',
-    padding: '1vw',
+    padding: '1vw 1vw 0vw 1vw',
     flexDirection: 'column',
     justifyContent: 'center',
     alignContent: 'center',
-    height: "91%"
-})
-
-const CustomBoxCreate = styled(Box)({
-    background: '#272727',
-    color: 'white',
-    display: 'flex',
-    border: '1px solid white',
-    padding: '1vw',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignContent: 'center',
-    height: "91%"
-})
-
-const CustomCardCreate = styled(CardActionArea)({
-    background: '#272727',
-    color: 'white',
-    textAlign: 'center'
-})
-
-const CardMediaCustom = styled(CardMedia)({
-    display: 'flex',
-    padding: "2em 2em 0em 1.9em", 
-    width: "80%",
-    height: "80%"
-})
-
-const CardMediaCustomCreate = styled(CardMedia)({
-    padding: "2em 2em 0em 1.9em",
-    width: "80%",
-    height: "80%",
+    borderRadius: '5px',
 })
 
 const TypographyName = styled(Typography)({
-
-    // whiteSpace: "pre-wrap",
-    // border: '1px solid white',
-    // display: 'flex',
-    // alignItems: 'left',
-    // justifyContent: 'left'
-    // flexDirection: 'column',
-    // alignContent: 'left'
+    wordWrap:'break-word',
+    paddingTop: '0.25vw',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    background: '#272727',
 })
 
-export { Container, TypographyName, CustomCardCreate, CardMediaCustom, CardMediaCustomCreate, CustomBox, CustomBoxCreate, ElementsContainer, TextBlock }
+const TypographyData = styled(Typography)({
+    wordWrap:'break-word',
+    paddingBottom: '0.2vw',
+    color: '#808080',
+    fontSize: '14px',
+    fontWeight: 'bold'
+})
+
+const Image = styled('img')({
+    height: '200px'
+})
+
+export { CreateBlock, Image, TypographyData, Container, BoxText, TypographyName, CustomBox, ElementsContainer, TextBlock }
