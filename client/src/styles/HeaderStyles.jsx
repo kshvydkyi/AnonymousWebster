@@ -1,5 +1,5 @@
 import {styled} from '@mui/system'
-import {Button, Toolbar, Drawer, CircularProgress, IconButton} from '@mui/material';
+import {Link, Button, Toolbar, Drawer, CircularProgress, IconButton, Avatar} from '@mui/material';
 
 const MainHeader = styled('div')({
     "&.Dark": {
@@ -60,6 +60,8 @@ const LogOutBtn = styled(Button)({
     },
     outline: 'none',
     margin: 0,
+    color: "inherit",
+    textDecoration: "none",
 });
 
 const UserInfo = styled('div')({
@@ -84,4 +86,27 @@ const Spinner = styled(CircularProgress)({
     color: "white"
 })
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}
+const SpanUserInfo = styled('span')({
+    display:'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+});
+
+const AvatarEl = styled(Avatar)({
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+});
+
+const DivThemeMode = styled('div')({
+    display:'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+});
+
+const LinkButton = styled(Link)({
+    color: "inherit",
+    textDecoration: "none",
+});
+
+export {LinkButton, DivThemeMode, SpanUserInfo, AvatarEl , MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}

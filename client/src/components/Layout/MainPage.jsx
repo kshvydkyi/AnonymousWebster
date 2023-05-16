@@ -1,5 +1,5 @@
 import React from "react";
-import mainPageElement from '../../assets/Layout/mainPageElementAnon.jpg';
+import mainPageElement from '../../assets/Layout/mainPageElementAnon.png';
 import mainPageElementLight from '../../assets/Layout/mainPageElementAnonLight.png';
 import websterLogoLight from '../../assets/Layout/LogoLight.png'
 import websterLogoDark from '../../assets/Layout/LogoDark.png'

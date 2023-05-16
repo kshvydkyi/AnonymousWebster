@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import WebsterLogoLight from '../../assets/Layout/LogoLight.png'
 import WebsterLogoDark from '../../assets/Layout/LogoDark.png'
-import { MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
+import {LinkButton, DivThemeMode, SpanUserInfo, AvatarEl , MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
@@ -136,20 +136,24 @@ export const Header = () => {
           onClose: handleSettingsClose,
         }}>
           <BoxEl>
+          <DivThemeMode>
+          <p>{theme.palette.mode === 'dark' ? 'Night' : 'Day'}</p>
+          <IconButton width = '30px' onClick={toggleColorMode}>
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+          </DivThemeMode>
             <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</LogOutBtn> 
 
             {
-              isLoading ? <CircularProgress size={24} color="inherit" /> :
+              isLoading ? <CircularProgress size={24}/> :
+                    
                     <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
             }
-                      <IconButton onClick={toggleColorMode} color="inherit">
-            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
-          
-         
+
+      
           </BoxEl>
         </DrawerEl>
         <MainButtons>{getMenuButtons()}</MainButtons>
@@ -163,14 +167,11 @@ export const Header = () => {
         <IconButton
           {...{
             edge: "start",
-            color: "inherit",
-            "aria-label": "menu",
-            "aria-haspopup": "true",
             onClick: handleDrawerOpen,
           }}
         >
 
-          <MenuOutlinedIcon color="white" fontSize="large" />
+          <MenuOutlinedIcon  fontSize="large" />
         </IconButton>
 
         <DrawerEl
@@ -188,16 +189,21 @@ export const Header = () => {
           open: settingsOpen,
           onClose: handleSettingsClose,
         }}>
+          <SpanUserInfo>
+          <Typography>{currentUser?.login}</Typography>
+          <AvatarEl src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
+          <DivThemeMode>
+          <p>{theme.palette.mode === 'dark' ? 'Night' : 'Day'}</p>
+          <IconButton width = '30px' onClick={toggleColorMode}>
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+          </DivThemeMode>
+          </SpanUserInfo>
+
+
           <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</LogOutBtn>
-          <IconButton {...{
-            edge: "start",
-            color: "inherit",
-            "aria-label": "menu",
-            "aria-haspopup": "true",
-            onClick: toLogOut,
-          }}>
             {
-              isLoading ? <LogOutBtn ><CircularProgress size={24} color="inherit" /></LogOutBtn> :
+              isLoading ? <LogOutBtn ><CircularProgress size={24} /></LogOutBtn> :
                 <>
                   <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}  onClick={() => toLogOut()}>
                     Logout
@@ -205,7 +211,7 @@ export const Header = () => {
                   </LogOutBtn>
                 </>
             }
-          </IconButton>
+
         </DrawerEl>
         <div>{femmecubatorLogo}</div>
       </Toolbar>
@@ -216,40 +222,39 @@ export const Header = () => {
     if (currentUser?.currentUser === 'guest') {
         return (
           <>
-      <IconButton onClick={toggleColorMode} color="inherit">
+          <SpanUserInfo>
+          <DivThemeMode>
+          <p>{theme.palette.mode === 'dark' ? 'Night' : 'Day'}</p>
+          <IconButton width = '30px' onClick={toggleColorMode}>
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
-          <Link
+          </DivThemeMode>
+          </SpanUserInfo>
+          <LinkButton
             {...{
               component: RouterLink,
               to: '/login',
-              color: "inherit",
-              style: { textDecoration: "none" },
               key: 'Sign In',
             }}
           >
           <MenuItem >Sign In</MenuItem>
-          </Link>
-          <Link
+          </LinkButton>
+          <LinkButton
             {...{
               component: RouterLink,
               to: '/register',
-              color: "inherit",
-              style: { textDecoration: "none" },
               key: 'Sign Up',
             }}
           >
           <MenuItem >Sign Up</MenuItem>
-          </Link>
+          </LinkButton>
           </>
         );
     }
     else {
       return (
         <UserInfo>
-          <Typography>{currentUser?.login}</Typography>
-          <Avatar src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
-          <ManageAccountButton {...{
+       <ManageAccountButton {...{
             edge: "start",
             color: "inherit",
             "aria-label": "menu",
@@ -258,9 +263,7 @@ export const Header = () => {
           }}>
             <ManageAccountsOutlinedIcon />
           </ManageAccountButton>
-          <IconButton onClick={toggleColorMode} color="inherit">
-            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
+
         </UserInfo>
       )
     }
@@ -328,9 +331,11 @@ export const Header = () => {
   };
 
   return (
+    <div className="wrapper-navbar">
       <MainHeader className={localStorage.getItem('themeMode') === 'dark'  ? "Dark" : "Light"}>
         {mobileView ? displayMobile() : displayDesktop()}
       </MainHeader>
+    </div>
   );
 }
 
