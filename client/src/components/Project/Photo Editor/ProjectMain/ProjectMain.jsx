@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FabricJSCanvas, useFabricJSEditor } from 'fabricjs-react'
 import { BoxEl } from '../../../../styles/RegisterStyle'
 import { fabric } from 'fabric';
@@ -6,10 +6,16 @@ import { Button } from '@mui/material';
 import axios from '../../../../api/axios';
 import { GET_PROJECT_URL } from '../../../../api/routes';
 import { useLocation } from 'react-router-dom';
+import { getInfo } from '../../../../requests/getInfo';
+import { InfoLoadingSpinner } from '../../../Other/InfoLoadingSpinner';
+import { Canvas } from './Canvas';
 export const ProjectMain = () => {
     const location = useLocation().pathname.split('/');
     const currentId = location[2];
     console.log(currentId);
+    const [mainProjectInfo, setMainProjectInfo] = useState();
+  const [isLoadingPage, setIsLoadingPage] = useState(true);
+
     // const { selectedObjects, editor, onReady } = useFabricJSEditor()
     // const onAddCircle = () => {
     //     editor?.addCircle()
@@ -22,23 +28,15 @@ export const ProjectMain = () => {
     //         editor?.canvas.add(oImg);
     //     });
     // }, [fabric, editor])
+    const currentUser = JSON.parse(localStorage.getItem('autorized'));
 
-    const getProject = async () => {
-        try {
-            const response = await axios.get(GET_PROJECT_URL + currentId)
-            console.log(response);
-        }
-        catch (e) {
-            console.log(e);
-
-        }
-    }
     useEffect(() => {
-        getProject()
+        getInfo(setMainProjectInfo, setIsLoadingPage, GET_PROJECT_URL + currentId)
     }, [])
-    return (
+    
+    return isLoadingPage ?  <InfoLoadingSpinner size={56} /> : (
         <BoxEl>
-            {/* <FabricJSCanvas style={{ backgroundColor: "white", width: "700px", height: '400px' }} className="sample-canvas" onReady={onReady} /> */}
+            <Canvas projectId={currentId} projectInfo={mainProjectInfo}/> 
         </BoxEl>
     )
 }

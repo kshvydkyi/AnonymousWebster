@@ -49,6 +49,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         }
                     }
                 })
+                console.log(projectCreateInfo);
                 const response = await axios.post(CREATE_PROJECT_URL + currentUser.accessToken, JSON.stringify(projectCreateInfo), {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
