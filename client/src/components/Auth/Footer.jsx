@@ -6,12 +6,12 @@ import { BoxComp2, TypographyComp, ContainerComp } from '../../styles/FooterStyl
 const  Footer  = () => {
   return (
   
-      <ContainerComp>
+      <ContainerComp className={localStorage.getItem('themeMode') === 'dark'  ? "Dark" : "Light"}>
         <BoxComp2>
           <div>
             <img className="fit-picture" src={anonymousMask} alt="anonLogo"></img>
           </div>
-          <TypographyComp variant="caption" color="initial">
+          <TypographyComp variant="caption">
             Webster © 2023 Anonymous team. All rights reserved
           </TypographyComp>
         </BoxComp2>

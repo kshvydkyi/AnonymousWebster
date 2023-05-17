@@ -133,7 +133,7 @@ export const UpdateProfile = () => {
           helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
         />
         <div>
-          <ButtonEl type="submit" variant="contained" color="primary">
+          <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? 'Dark' : 'Light'}  type="submit" variant="contained">
             {
               isLoading ? <CircularProgress size={24} /> :
                 <p>Update profile</p>

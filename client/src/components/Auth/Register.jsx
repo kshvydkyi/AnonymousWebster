@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanEl } from '../../styles/RegisterStyle'
+import React, { useRef, useState, useEffect } from 'react';
+import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanEl} from '../../styles/RegisterStyle'
+
 import axios from '../../api/axios';
 import { CircularProgress, Link } from '@mui/material';
 import { REGISTER_URL } from '../../api/routes'
@@ -66,7 +67,7 @@ const Register = () => {
         }
     };
     return (
-        <Body>
+        <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
             <DialogWindow
                 state={stateDialog}
                 message={'You\'ve just successfully registered, do not forget to confirm your email!'}
@@ -79,65 +80,69 @@ const Register = () => {
             >
                 <h3>Sign Up</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
-                <TextFieldEl
-                    label="Full Name"
-                    variant="standard"
-                    required
-                    value={fullName}
-                    onChange={e => setFullName(e.target.value)}
-                    error={FULLNAME_REGEX.test(fullName) === false && submitClicked === true}
-                    helperText={FULLNAME_REGEX.test(fullName) === false && submitClicked === true ? 'Full Name must be not less than 2 symbols and not more than 23 symbols' : ' '}
-                />
-                <TextFieldEl
-                    label="Login"
-                    variant="standard"
-                    required
-                    value={login}
-                    onChange={e => setLogin(e.target.value)}
-                    error={USER_REGEX.test(login) === false && submitClicked === true}
-                    helperText={USER_REGEX.test(login) === false && submitClicked === true ? 'Login must be not less than 4 symbols and not more than 24 symbols' : ' '}
-                />
-                <TextFieldEl
-                    label="Email"
-                    variant="standard"
-                    type="email"
-                    required
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    error={EMAIL_REGEX.test(email) === false && submitClicked === true}
-                    helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
-                />
-                <TextFieldEl
-                    label="Password"
-                    variant="standard"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    error={PWD_REGEX.test(password) === false && submitClicked === true}
-                    helperText={PWD_REGEX.test(password) === false && submitClicked === true ? 'Password must be not less than 8 symbols, including: digits, capital letter and at least one special symbol' : ' '}
-                />
-                <TextFieldEl
-                    label="Confirm Password"
-                    variant="standard"
-                    type="password"
-                    required
-                    value={confirmPassword}
-                    onChange={e => setConfirmPassword(e.target.value)}
-                    error={PWD_REGEX.test(confirmPassword) === false && submitClicked === true}
-                    helperText={PWD_REGEX.test(confirmPassword) === false && submitClicked === true ? 'Confirm Password must be same like field above' : ' '}
-                />
+                    <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                        label="Full Name"
+                        variant="standard"
+                        required
+                        value={fullName}
+                        onChange={e => setFullName(e.target.value)}
+                        error={FULLNAME_REGEX.test(fullName) === false && submitClicked === true}
+                        helperText={FULLNAME_REGEX.test(fullName) === false && submitClicked === true ? 'Full Name must be not less than 2 symbols and not more than 23 symbols' : ' '}
+                    />
+                    <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                        label="Login"
+                        variant="standard"
+                        required
+                        value={login}
+                        onChange={e => setLogin(e.target.value)}
+                        error={USER_REGEX.test(login) === false && submitClicked === true}
+                        helperText={USER_REGEX.test(login) === false && submitClicked === true ? 'Login must be not less than 4 symbols and not more than 24 symbols' : ' '}
+                    />
+                    <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                        label="Email"
+                        variant="standard"
+                        type="email"
+                        required
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        error={EMAIL_REGEX.test(email) === false && submitClicked === true}
+                        helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
+                    />
+                    <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                        label="Password"
+                        variant="standard"
+                        type="password"
+                        required
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        error={PWD_REGEX.test(password) === false && submitClicked === true}
+                        helperText={PWD_REGEX.test(password) === false && submitClicked === true ? 'Password must be not less than 8 symbols, including: digits, capital letter and at least one special symbol' : ' '}
+                    />
+                    <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                        label="Confirm Password"
+                        variant="standard"
+                        type="password"
+                        required
+                        value={confirmPassword}
+                        onChange={e => setConfirmPassword(e.target.value)}
+                        error={PWD_REGEX.test(confirmPassword) === false && submitClicked === true}
+                        helperText={PWD_REGEX.test(confirmPassword) === false && submitClicked === true ? 'Confirm Password must be same like field above' : ' '}
+                    />
                 <div>
-                    <ButtonEl type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24} /> :
-                                <p>Sign Up</p>
-                        }
-
-                    </ButtonEl>
+                <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} type="submit" variant="contained" color="primary">
+                {
+                    isLoading ? <CircularProgress size={24}/> :
+                    <p>Sign Up</p>
+                }
+                </ButtonEl>
                 </div>
                 <span>
-                    <SpanEl>Already have an accout?</SpanEl>
+                    <SpanEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>Already have an accout?</SpanEl> 
                     <Link
                         component="button"
                         variant="body2"

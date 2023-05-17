@@ -1,15 +1,24 @@
 import {styled} from '@mui/system'
 
 const H1El = styled('h1')({
-    color: 'white',
+    "& .Dark": {
+        color:"white"
+    },
+    "& .Light": {
+        color:"black"
+    },
     textAlign: 'center'
 });
 
 const PEl = styled('p')({
-    color: 'white',
+    "& .Dark": {
+        color:"white"
+    },
+    "& .Light": {
+        color:"black"
+    },
     textAlign: 'center'
 });
-
 
 
 export {H1El, PEl}

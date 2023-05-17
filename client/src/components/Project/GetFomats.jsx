@@ -59,9 +59,9 @@ export const GetFomats = ({chosenWidthState, chosenHeightState}) => {
               <>
                 <Grid item key={format.id}>
                   <FormatCard variant="outlined" onClick={() => setFormatStates(format.width, format.height)}>
-                    <FormatTitle variant="h1" color="white">{format.title_short}</FormatTitle>
-                    <Typography color="white">{format.title}</Typography>
-                    <Typography variant="caption" color="grey">{`${format.width} x ${format.height}`}</Typography>
+                    <FormatTitle variant="h1">{format.title_short}</FormatTitle>
+                    <Typography>{format.title}</Typography>
+                    <Typography variant="caption">{`${format.width} x ${format.height}`}</Typography>
                   </FormatCard>
                 </Grid>
               </>
@@ -72,8 +72,8 @@ export const GetFomats = ({chosenWidthState, chosenHeightState}) => {
                 <Grid item key={format.id}>
                   <FormatCard variant="outlined"  onClick={() => setFormatStates(format.width, format.height)}>
                     <FormatTitle variant="h1" color="white">{format.title_short}</FormatTitle>
-                    <Typography color="white">{format.title}</Typography>
-                    <Typography variant="caption" color="grey">{`${format.width} x ${format.height}`}</Typography>
+                    <Typography>{format.title}</Typography>
+                    <Typography variant="caption">{`${format.width} x ${format.height}`}</Typography>
                   </FormatCard>
                 </Grid>
               </>
