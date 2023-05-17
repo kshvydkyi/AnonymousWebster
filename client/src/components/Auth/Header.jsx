@@ -190,9 +190,7 @@ export const Header = () => {
           onClose: handleSettingsClose,
         }}>
           <SpanUserInfo>
-          <Typography>{currentUser?.login}</Typography>
-          <AvatarEl src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
-          <DivThemeMode>
+         <DivThemeMode>
           <p>{theme.palette.mode === 'dark' ? 'Night' : 'Day'}</p>
           <IconButton width = '30px' onClick={toggleColorMode}>
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -254,6 +252,8 @@ export const Header = () => {
     else {
       return (
         <UserInfo>
+          <Typography>{currentUser?.login}</Typography>
+          <AvatarEl src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
        <ManageAccountButton {...{
             edge: "start",
             color: "inherit",
