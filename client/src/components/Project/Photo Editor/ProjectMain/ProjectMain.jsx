@@ -16,18 +16,7 @@ export const ProjectMain = () => {
     const [mainProjectInfo, setMainProjectInfo] = useState();
   const [isLoadingPage, setIsLoadingPage] = useState(true);
 
-    // const { selectedObjects, editor, onReady } = useFabricJSEditor()
-    // const onAddCircle = () => {
-    //     editor?.addCircle()
-    // }
-    // const onAddRectangle = () => {
-    //     editor?.addRectangle()
-    // }
-    // useEffect(() => {
-    //     fabric.Image.fromURL('my_image.png', function (oImg) {
-    //         editor?.canvas.add(oImg);
-    //     });
-    // }, [fabric, editor])
+   
     const currentUser = JSON.parse(localStorage.getItem('autorized'));
 
     useEffect(() => {
@@ -36,6 +25,7 @@ export const ProjectMain = () => {
     
     return isLoadingPage ?  <InfoLoadingSpinner size={56} /> : (
         <BoxEl>
+            
             <Canvas projectId={currentId} projectInfo={mainProjectInfo}/> 
         </BoxEl>
     )
