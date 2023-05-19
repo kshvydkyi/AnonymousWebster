@@ -1,4 +1,5 @@
 import ProjectService from "../services/project.service.js";
+import * as jwt from 'jsonwebtoken';
 
 export class ProjectController {
     constructor (service) {
@@ -21,7 +22,11 @@ export class ProjectController {
     }
 
     async create(req, res) {
-        await this.service.create(req.body);
+        const token = req.params.token;  
+        const userData = jwt.verify(token, "jwt-key");
+        console.log(userData);
+        const pathFile = "";
+        //await this.service.create(req.body);
     }
 
     async update(req, res){

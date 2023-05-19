@@ -34,10 +34,11 @@ export const CreateForm = ({ widthValue, heightValue }) => {
         setErrMsg('');
         e.preventDefault();
         console.log(title, description, +width, +height, backgroundColor);
+
         try {
             setIsLoading(true)
             //here must be an axios statement and json logic
-            const projectCreateInfo = JSON.stringify(
+            const projectCreateInfo =
                 {
                     project: {
                         mainInfo: {
@@ -48,7 +49,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                             bgColor: backgroundColor
                         }
                     }
-                })
+                }
                 console.log(projectCreateInfo);
                 const response = await axios.post(CREATE_PROJECT_URL + currentUser.accessToken, JSON.stringify(projectCreateInfo), {
                     headers: { 'Content-Type': 'application/json' },
