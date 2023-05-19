@@ -1,4 +1,4 @@
-import React, {  useRef, useState  } from 'react';
+import React, {  useRef, useState, useEffect  } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress } from '@mui/material';
@@ -56,7 +56,7 @@ const ResetPasswordWT = () => {
     }
     }
     return (
-        <Body>
+        <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
             <DialogWindow
             state={success}
             message={'Password changed'}
@@ -69,33 +69,35 @@ const ResetPasswordWT = () => {
             >
                 <h3>Reset Password</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
-                <TextFieldEl
-                    label="Password"
-                    variant="standard"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    error={PWD_REGEX.test(password) === false && submitClicked === true}
-                    helperText={PWD_REGEX.test(password) === false && submitClicked === true ? 'Password must be not less than 8 symbols, including: digits, capital letter and at least one special symbol' : ' '}
-                />
-                <TextFieldEl
-                    label="Confirm Password"
-                    variant="standard"
-                    type="password"
-                    required
-                    value={confirmPassword}
-                    onChange={e => setConfirmPassword(e.target.value)}
-                    error={PWD_REGEX.test(confirmPassword) === false && submitClicked === true}
-                    helperText={PWD_REGEX.test(confirmPassword) === false && submitClicked === true ? 'Confirm Password must be same like field above' : ' '}
-                />
+                    <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                        label="Password"
+                        variant="standard"
+                        type="password"
+                        required
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        error={PWD_REGEX.test(password) === false && submitClicked === true}
+                        helperText={PWD_REGEX.test(password) === false && submitClicked === true ? 'Password must be not less than 8 symbols, including: digits, capital letter and at least one special symbol' : ' '}
+                    />
+                    <TextFieldEl
+                        className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                        label="Confirm Password"
+                        variant="standard"
+                        type="password"
+                        required
+                        value={confirmPassword}
+                        onChange={e => setConfirmPassword(e.target.value)}
+                        error={PWD_REGEX.test(confirmPassword) === false && submitClicked === true}
+                        helperText={PWD_REGEX.test(confirmPassword) === false && submitClicked === true ? 'Confirm Password must be same like field above' : ' '}
+                    />
                 <div>
-                    <ButtonEl type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Reset Password</p>
-                        }
-                    </ButtonEl>
+                <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} type="submit" variant="contained" color="primary">
+                {
+                    isLoading ? <CircularProgress size={24}/> :
+                    <p>Reset Password</p>
+                }
+                </ButtonEl>
                 </div>
             </BoxEl>
         </Body>

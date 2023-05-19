@@ -1,4 +1,4 @@
-import React, {  useRef, useState, } from 'react';
+import React, {  useRef, useState, useEffect } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress, Link } from '@mui/material';
@@ -69,7 +69,7 @@ const Login = () => {
 
     }
     return (
-        <Body>
+        <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
             <BoxEl
             component="form"
             noValidate
@@ -79,13 +79,15 @@ const Login = () => {
                 <h3>Sign In</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
                 <TextFieldEl
-                label="Login"
-                variant="standard"
-                required
-                value={login}
-                onChange={e => setLogin(e.target.value)}
+                    className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
+                    label="Login"
+                    variant="standard"
+                    required
+                    value={login}
+                    onChange={e => setLogin(e.target.value)}
                 />
                 <TextFieldEl
+                    className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                     label="Password"
                     variant="standard"
                     type="password"
@@ -94,13 +96,12 @@ const Login = () => {
                     onChange={e => setPassword(e.target.value)}
                 />
                 <div>
-                    <ButtonEl type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Sign In</p>
-                        }
-                        
-                    </ButtonEl>
+                <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}  type="submit" variant="contained" color="primary">
+                {
+                    isLoading ? <CircularProgress size={24}/> :
+                    <p>Sign In</p>
+                }
+                </ButtonEl>
                 </div>
                 <Link
                     component="button"

@@ -106,7 +106,6 @@ export const UpdateAvatar = () => {
             <Avatar
               width={390}
               height={295}
-              labelStyle={{ color: 'white' }}
               onCrop={onCrop}
               onClose={onClose}
               onBeforeFileLoad={onBeforeFileLoad}
@@ -117,7 +116,7 @@ export const UpdateAvatar = () => {
             {prewiew && <img src={prewiew} alt="Preview" />}
           </Grid>
         </Grid>
-        <ButtonEl type="submit" variant="contained" color="primary">
+        <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? 'Dark' : 'Light'} type="submit" variant="contained">
           {
             isLoading ? <CircularProgress size={24} /> :
               <p>Update Avatar</p>

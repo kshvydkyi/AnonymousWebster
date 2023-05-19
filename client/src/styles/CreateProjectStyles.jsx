@@ -7,15 +7,13 @@ const CreateBox = styled('div')({
     paddingRight: '7%',
     paddingTop: '2%',
     height: '100%',
-    backgroundColor: '#171717'
 });
 const Settings = styled('div')({
     display: "flex",
     width: '100%'
 });
 const TypographyBox = styled('div')({
-    borderLeft: '6px solid white',
-    color: 'white',
+    borderLeft: '6px solid',
     fontSize: '30px',
     paddingLeft: '1.5%'
 });
@@ -25,20 +23,18 @@ const CustomToggleButtonGroup = styled(ToggleButtonGroup)({
     marginBottom: "30px",
 })
 const CustomToggleButton = styled(ToggleButton)({
-  
 
 })
 
 const FormatCard = styled(Card)({
-    minWidth: "200px",
-    maxWidth: "340px",
-    backgroundColor: "#101010",
-    color: "white",
+    width: '250px',
+    // minWidth: "200px",
+    // maxWidth: "340px",
     padding: "15px",
     textAlign: "center",
     transition:  "0.4s ease-in-out",
     ":hover": {
-        border: "1px solid white",
+        border: "1px solid",
         transition:  "0.4s ease-in-out"
     }
 })
@@ -57,8 +53,14 @@ const SettingsForm = styled(Box)({
 })
 
 const ColorPicker = styled(MuiColorInput)({
-    label: {color: 'white'},
-    input: { color: 'white', margin: '3px' },
+    "&.Dark": {
+        label: {color: 'white'},
+        input: { color: 'white', margin: '3px' },
+    },
+    "&.Light": {
+        label: {color: 'black'},
+        input: { color: 'black', margin: '3px' },
+    },
     margin: '10px'
 })
 export {CreateBox, TypographyBox, CustomToggleButton, CustomToggleButtonGroup, FormatCard, FormatTitle, Settings, SettingsForm, ColorPicker}

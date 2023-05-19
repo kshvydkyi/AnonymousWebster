@@ -1,9 +1,16 @@
 import {styled} from '@mui/system'
-import {Button, Toolbar, Drawer, CircularProgress, IconButton} from '@mui/material';
+import {Link, Button, Toolbar, Drawer, CircularProgress, IconButton, Avatar} from '@mui/material';
 
 const MainHeader = styled('div')({
-    color: 'white',
-    backgroundColor: '#101010',
+    "&.Dark": {
+        color: 'white',
+        backgroundColor: '#101010',
+    },
+    "&.Light": {
+        color: 'black',
+        backgroundColor: '#f2f3f4',
+    },
+
     padding: 3,
     width: "100%",
     position: 'fixed',
@@ -11,7 +18,16 @@ const MainHeader = styled('div')({
     zIndex: "999",
     text: 'right'
     
+    // position: 'fixed',
+    // padding: 3,
+    // width: "100%",
+    // overflow: "hidden",
+    // zIndex: "999",
+    // text: 'right',
+    // height: "50px",
+    // flex: "0 0 auto",
 });
+
 
 const MenuButton = styled(Button)({
     padding: '10px',
@@ -34,11 +50,18 @@ const Logo = styled('span')({
 });
 
 const LogOutBtn = styled(Button)({
+    "& .Dark": {
+        color: 'white',
+        border: '0px black',
+    },
+    "& .Light": {
+        color: 'black',
+        border: '0px black',
+    },
     outline: 'none',
-    border: '0px black',
     margin: 0,
-    color: "white",
-
+    color: "inherit",
+    textDecoration: "none",
 });
 
 const UserInfo = styled('div')({
@@ -63,4 +86,27 @@ const Spinner = styled(CircularProgress)({
     color: "white"
 })
 
-export {MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}
+const SpanUserInfo = styled('span')({
+    display:'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+});
+
+const AvatarEl = styled(Avatar)({
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+});
+
+const DivThemeMode = styled('div')({
+    display:'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+});
+
+const LinkButton = styled(Link)({
+    color: "inherit",
+    textDecoration: "none",
+});
+
+export {LinkButton, DivThemeMode, SpanUserInfo, AvatarEl , MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}

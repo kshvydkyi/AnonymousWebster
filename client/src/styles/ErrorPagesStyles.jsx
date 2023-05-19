@@ -6,12 +6,27 @@ const ErrorBox = styled(Box)({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    color: 'white'
+})
+
+const ErrorBoxLight = styled(Box)({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    color: 'black'
 })
 
 const ErrorButton = styled(Button)({
     backgroundColor: '#171717',
-    color: "white", 
+    margin: '15px',
+    color: 'white',
+}) 
+
+const ErrorButtonLight = styled(Button)({
+    backgroundColor: 'white',
+    color: 'black',
     margin: '15px'
 }) 
 
-export {ErrorBox, ErrorButton}
+export {ErrorBox, ErrorBoxLight, ErrorButton, ErrorButtonLight}

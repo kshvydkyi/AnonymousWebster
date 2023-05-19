@@ -1,4 +1,4 @@
-import React, {  useRef, useState  } from 'react';
+import React, {  useRef, useState, useEffect  } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress } from '@mui/material';
@@ -52,7 +52,7 @@ const ResetPassword = () => {
         }
     }
     return (
-        <Body>
+        <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
             <DialogWindow
             state={stateDialog}
             message={'The message was sent to your email, go to link and reset password!'}
@@ -65,7 +65,8 @@ const ResetPassword = () => {
             >
                 <h3>Reset Password</h3>
                 <ErrWarning ref={errRef} className={errMsg ? "warning" : "offscreen"} aria-live="assertive">{errMsg}</ErrWarning>
-                <TextFieldEl
+                    <TextFieldEl
+                    className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                     label="Email"
                     variant="standard"
                     type="email"
@@ -74,14 +75,14 @@ const ResetPassword = () => {
                     onChange={e => setEmail(e.target.value)}
                     error={EMAIL_REGEX.test(email) === false && submitClicked === true}
                     helperText={EMAIL_REGEX.test(email) === false && submitClicked === true ? 'Email must be proper like: example@gmail.com ' : ' '}
-                />
+                    />
                 <div>
-                    <ButtonEl type="submit" variant="contained" color="primary">
-                        {
-                            isLoading ? <CircularProgress size={24}/> :
-                            <p>Reset Password</p>
-                        }
-                    </ButtonEl>
+                <ButtonEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} type="submit" variant="contained" color="primary">
+                {
+                    isLoading ? <CircularProgress size={24}/> :
+                    <p>Reset Password</p>
+                }
+                </ButtonEl>
                 </div>
             </BoxEl>
         </Body>

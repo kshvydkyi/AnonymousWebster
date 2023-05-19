@@ -111,7 +111,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         helperText={NUMBER_REGEX.test(height) === false && submitClicked === true ? 'Height must be a number' : ' '}
                     />
                 </div>
-                <ColorPicker value={backgroundColor} label="Background color" onChange={setColor} />
+                <ColorPicker className={localStorage.getItem('themeMode') === 'dark'  ? "Dark" : "Light"} value={backgroundColor} label="Background color" onChange={setColor} />
                 <ButtonEl type="submit" variant="contained">
                     {
                         isLoading ? <CircularProgress size={24} /> :
