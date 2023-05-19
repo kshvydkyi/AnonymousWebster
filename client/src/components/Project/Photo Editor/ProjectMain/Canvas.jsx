@@ -22,13 +22,8 @@ export const Canvas = ({ projectId, projectInfo }) => {
     useEffect(() => {
         getJsonFile();
     }, [projectInfo]);
-    const { selectedObjects, editor, onReady } = useFabricJSEditor()
-    const onAddCircle = () => {
-        canvas.add(fabric.Rect)
-    }
-    const onAddRectangle = () => {
-        editor?.addRectangle()
-    }
+    // const { selectedObjects, editor, onReady } = useFabricJSEditor()
+ 
     const addFigure = (canvi, figureName) => {
         let figure = null;
 
@@ -56,6 +51,9 @@ export const Canvas = ({ projectId, projectInfo }) => {
                 fill: 'white',
               });
             break;
+        case "image":
+
+              break;
          default:
             break;
        }
@@ -89,6 +87,7 @@ export const Canvas = ({ projectId, projectInfo }) => {
         <Button onClick={() => addFigure(canvas, 'rect')}>RECT</Button>
         <Button onClick={() => addFigure(canvas, 'circle')}>Circle</Button>
         <Button onClick={() => addFigure(canvas, 'text')}>text</Button>
+        <Button onClick={() => addFigure(canvas, 'image')}>image</Button>
 
             <canvas id="canvas" />
         </>
