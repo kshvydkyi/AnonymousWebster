@@ -29,20 +29,45 @@ export const Canvas = ({ projectId, projectInfo }) => {
     const onAddRectangle = () => {
         editor?.addRectangle()
     }
-    const addRect = canvi => {
-        const rect = new fabric.Rect({
-          height: 280,
-          width: 200,
-          fill: 'yellow'
-        });
-        canvi.add(rect);
-        canvi.renderAll();
+    const addFigure = (canvi, figureName) => {
+        let figure = null;
+
+    switch(figureName){
+        case 'rect':
+            figure = new fabric.Rect({
+                height: 280,
+                width: 200,
+                fill: 'white'
+              });
+              
+            break;
+        case 'circle':
+            figure = new fabric.Circle({
+                radius: 50,
+                fill: 'white',
+                stroke: "black",
+                strokeWidth: 3
+              });
+            
+            break;
+        case 'text':
+            figure = new fabric.Textbox('text', {
+                width: 100,
+                fill: 'white',
+              });
+            break;
+         default:
+            break;
+       }
+       canvi.add(figure);
+       canvi.renderAll();
+       
       }
-    useEffect(() => {
-        fabric.Image.fromURL('my_image.png', function (oImg) {
-            editor?.canvas.add(oImg);
-        });
-    }, [fabric, editor])
+    // useEffect(() => {
+    //     fabric.Image.fromURL('my_image.png', function (oImg) {
+    //         editor?.canvas.add(oImg);
+    //     });
+    // }, [fabric, editor])
 
 
     
@@ -61,7 +86,10 @@ export const Canvas = ({ projectId, projectInfo }) => {
     return (
 
         <>
-        <Button onClick={() => addRect(canvas)}>O</Button>
+        <Button onClick={() => addFigure(canvas, 'rect')}>RECT</Button>
+        <Button onClick={() => addFigure(canvas, 'circle')}>Circle</Button>
+        <Button onClick={() => addFigure(canvas, 'text')}>text</Button>
+
             <canvas id="canvas" />
         </>
     )
