@@ -34,7 +34,7 @@ projectRouter.get(
 projectRouter.post(
     '/:token',
     isAutorised,
-    projectValidationChainMethod,
+    //projectValidationChainMethod,
     validateRequestSchema,
     tryCatch(projectController.create.bind(projectController))
 );

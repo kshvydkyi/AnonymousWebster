@@ -17,6 +17,8 @@ import { UpdateProfile } from './UserPages/UpdateProfile';
 import { UpdateAvatar } from './UserPages/UpdateAvatar';
 import { CreateProject } from './Project/CreateProject';
 import CssBaseline from '@mui/material/CssBaseline';
+import { PhotoEditor } from './Project/Photo Editor/PhotoEditor';
+import { ProjectMain } from './Project/Photo Editor/ProjectMain/ProjectMain';
 function App() {
   if (!localStorage.getItem('autorized')) {
     localStorage.setItem(
@@ -53,11 +55,15 @@ function App() {
             <Route path="update-profile" element={<UpdateProfile />} />
 
             <Route path="create-project" element={<CreateProject />} />
+            <Route path='editor' element={<PhotoEditor />} />
+            <Route path='project/:id' element={<ProjectMain />} />
+
+
           </Route>
 
         </Route>
       </Routes>
-      </ThemeProvider>
+    </ThemeProvider>
   );
 }
 
