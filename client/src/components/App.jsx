@@ -13,6 +13,7 @@ import { ServerError } from './ErrorPages/ServerError';
 import { AccesDenied } from './ErrorPages/AccesDenied';
 import RequreAuth from './Auth/RequreAuth';
 import { UpdateProfile } from './UserPages/UpdateProfile';
+import { UserProjects } from './UserProjects/UserProjects';
 import { UpdateAvatar } from './UserPages/UpdateAvatar';
 import { CreateProject } from './Project/CreateProject';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -46,6 +47,8 @@ function App() {
 
           <Route element={<RequreAuth allowedRoles={['user', 'admin']} />} >
             <Route path="update-profile" element={<UpdateProfile />} />
+            
+            <Route path="user-projects" element={<UserProjects />} />
 
             <Route path="create-project" element={<CreateProject />} />
           </Route>
