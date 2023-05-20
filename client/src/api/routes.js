@@ -1,6 +1,10 @@
 //User module
 const currentUser = JSON.parse(localStorage.getItem('autorized'));
 
+// Client ID for Google Sign In/Up
+
+const clientId = "396282640648-nhgp1dh6eivlu5df4ip60j8ni00jke2e.apps.googleusercontent.com"
+
 const REGISTER_URL = '/api/auth/register';
 const LOGIN_URL = '/api/auth/login';
 const ACTIVE_EMAIL_URL = '/api/auth/active-email/';
@@ -23,6 +27,9 @@ export {
     RESET_PASSWORD_WT_URL,
     UPDATE_PROFILE_DATA_URL,
     GET_USER_BY_ID_URL,
+
+    // Client ID
+    clientId,
     
     //Project module
     GET_FORMATS_URL,
