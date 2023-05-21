@@ -24,6 +24,14 @@ projectRouter.get(
     tryCatch(projectController.selectById.bind(projectController))
 );
 
+//Select content By Id
+projectRouter.get(
+    '/content/:id/:token',
+    isNotExistById(ProjectService),
+    isAutorised,
+    tryCatch(projectController.selectContentById.bind(projectController))
+);
+
 //Select By User Id
 projectRouter.get(
     '/user/:id',

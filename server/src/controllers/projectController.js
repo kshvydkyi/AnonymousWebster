@@ -18,9 +18,20 @@ export class ProjectController {
         return result;
     }
 
+    async selectContentById(req, res) {
+        const result = await this.service.selectById(req.params.id);
+        const pathFile = result.json_file;
+        let jsonData = {};
+        try {
+            jsonData = JSON.parse(fs.readFileSync(pathFile, 'utf8'));
+        } catch (error) {
+            console.error(error);
+        }
+        return jsonData;
+    }
+
     async selectByUserId(req, res) {
         const result = await this.service.selectByUserId(req.params.id);
-        console.log(result)
         return result;
     }
 
@@ -31,14 +42,11 @@ export class ProjectController {
         if (!fs.existsSync(pathFile + userData.login)) {
             fs.mkdirSync(pathFile + userData.login);
         }
-
         const id = await this.service.create(req.body.project.mainInfo, userData.userId);
-
         pathFile += userData.login + "/" + req.body.project.mainInfo.title + id;
         if (!fs.existsSync(pathFile)) {
             fs.mkdirSync(pathFile);
         }
-
         pathFile += "/" + req.body.project.mainInfo.title + id + ".json"
         const jsonContent = JSON.stringify(req.body);
         fs.writeFile(pathFile, jsonContent, 'utf8', (err) => {
@@ -80,14 +88,21 @@ export class ProjectController {
     }
 
     async deleteById(req, res) {
-        const token = req.params.token;  
-        const userData = jwt.verify(token, "jwt-key");
-        const pathFile = "assets/projects/" + userData.login;
-
         const result = await this.service.selectById(req.params.id); 
+        const pathFile = result.json_file;
 
-        console.log(result);
-        //await this.service.deleteById(req.params.id);
+        const folderPath = path.dirname(pathFile);
+        if (fs.existsSync(pathFile)) {
+          fs.unlinkSync(pathFile);
+        }
+        if (fs.existsSync(folderPath)) {
+            fs.readdirSync(folderPath).forEach((file) => {
+                const currentPath = path.join(folderPath, file);
+                fs.unlinkSync(currentPath);
+            });
+            fs.rmdirSync(folderPath);
+        }
+        await this.service.deleteById(req.params.id);
     }
 }
 
