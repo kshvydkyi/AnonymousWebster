@@ -20,18 +20,30 @@ export default class ProjectService {
         return row;
     }
 
-    async create(body) {
-        let sql = `INSERT INTO projects (title, description, json_file, date_upd) VALUES ('${body.title}', '${body.description}', '${body.json_file}', '${toSQLDate(Date.now())}')`;
+    async create(body, user_id) {
+        let sql = `INSERT INTO projects (title, description, json_file, date_upd) VALUES ('${body.title}', '${body.description}', ' ', '${toSQLDate(Date.now())}')`;
         const [row] = await db.execute(sql);
-        sql  = `INSERT INTO project_user (project_id, user_id, role_id) VALUES (${row.insertId}, ${body.user_id}, 3)`;
+
+        sql  = `INSERT INTO project_user (project_id, user_id, role_id) VALUES (${row.insertId}, ${user_id}, 3)`;
+
         const [row1] = await db.execute(sql);
-        return row;
+        return row.insertId;
     }
 
     async update(body, id) {
         if(Object.entries(body).length !== 0){
             await Object.entries(body).filter(([key, value]) => value).map(([key, value]) => db.execute(`UPDATE projects SET ${key} = '${value}' WHERE id = ${id}`))
         }
+	}
+
+    async update_path(value, id) {
+        let sql = `UPDATE projects SET json_file = '${value}' WHERE id = ${id}`;
+        const [row] = await db.execute(sql);
+
+        sql = `UPDATE projects SET date_upd = '${toSQLDate(Date.now())}' WHERE id = ${id}`;
+        const [row1] = await db.execute(sql);
+
+        return row;
 	}
 
     async deleteById(id) {

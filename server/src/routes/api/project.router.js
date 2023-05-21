@@ -50,6 +50,13 @@ projectRouter.patch(
     tryCatch(projectController.update.bind(projectController))
 );
 
+//Save By project Id
+projectRouter.patch(
+    '/save/:id/:token',
+    isNotExistById(ProjectService),
+    tryCatch(projectController.save.bind(projectController))
+);
+
 //Delete by id (For Self or Admin)
 projectRouter.delete(
     '/:id/:token',
