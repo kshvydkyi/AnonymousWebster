@@ -20,6 +20,7 @@ export class ProjectController {
 
     async selectByUserId(req, res) {
         const result = await this.service.selectByUserId(req.params.id);
+        console.log(result)
         return result;
     }
 

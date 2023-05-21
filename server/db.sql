@@ -87,8 +87,8 @@ CREATE TABLE `project_user` (
   PRIMARY KEY (`id`),
   KEY `PU_FK0_idx` (`user_id`),
   CONSTRAINT `PU_FK0` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `PU_FK1` FOREIGN KEY (`id`) REFERENCES `projects` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `PU_FK2` FOREIGN KEY (`id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+  CONSTRAINT `PU_FK1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `PU_FK2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -176,9 +176,9 @@ CREATE TABLE `users` (
 --
 -- Dumping data for table `users`
 --
-
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (2,'ArtemYo','8ae90939bfdbbdb96f22f48a234705b1cd33325b103d7b4435cc4c8739ea174aa33fa6331deef9cf6c95076bc4d893cdaa8510c7001adb119dcaa5323b71661b','Artem Bondar','artemwot90@gmail.com','ArtemYo.png',2,'2023-05-08 03:28:14');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

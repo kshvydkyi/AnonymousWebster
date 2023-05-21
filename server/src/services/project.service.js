@@ -15,7 +15,7 @@ export default class ProjectService {
     }
 
     async selectByUserId(id) {
-        let sql = `SELECT projects.title, projects.description, projects.json_file, projects.date_upd FROM projects, project_user WHERE project_user.user_id = ${id}`;
+        let sql = `SELECT projects.id, projects.title, projects.description, projects.json_file, projects.date_upd FROM projects INNER JOIN project_user ON project_user.user_id = ${id} AND projects.id = project_user.project_id`;
         const [row] = await db.execute(sql);
         return row;
     }
@@ -23,9 +23,7 @@ export default class ProjectService {
     async create(body, user_id) {
         let sql = `INSERT INTO projects (title, description, json_file, date_upd) VALUES ('${body.title}', '${body.description}', ' ', '${toSQLDate(Date.now())}')`;
         const [row] = await db.execute(sql);
-
         sql  = `INSERT INTO project_user (project_id, user_id, role_id) VALUES (${row.insertId}, ${user_id}, 3)`;
-
         const [row1] = await db.execute(sql);
         return row.insertId;
     }
@@ -51,4 +49,10 @@ export default class ProjectService {
         const [row] = await db.execute(sql);
         return row;
 	}
+
+    async isExist(field, value) {
+        var sql = `SELECT * FROM projects WHERE ${field} = '${value}'`;
+        const [row] = await db.execute(sql);
+        return row.length !== 0;
+    }
 }

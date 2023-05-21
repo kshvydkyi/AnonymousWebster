@@ -2,7 +2,8 @@ import { Router } from "express";
 import { tryCatch } from "../../utils/tryCacth.utils.js";
 import projectController from "../../controllers/projectController.js";
 import { validateRequestSchema } from "../../middleware/validateRequestSchema.middleware.js";
-import ProjectService from "../../services/role.service.js";
+import ProjectService from "../../services/project.service.js";
+import UserService from "../../services/user.service.js"
 import { isTitleExist, isNotExistById } from "../../scripts/roleChecking.script.js";
 import { isAutorised } from "../../middleware/isAuthorized.middleware.js";
 import { projectValidationChainMethod } from "../../validations/project.validation.js";
@@ -26,7 +27,7 @@ projectRouter.get(
 //Select By User Id
 projectRouter.get(
     '/user/:id',
-    isNotExistById(ProjectService),
+    isNotExistById(UserService),
     tryCatch(projectController.selectByUserId.bind(projectController))
 );
 
