@@ -73,13 +73,7 @@ const Register = () => {
 
 
     const onSuccessSignUpGoogle = async (res) => {
-        const accessToken = gapi.auth.getToken().accessToken;
-        const login = res.profileObj.email;
-        const role = 0;
-        const userId = 0;
-
         const pwd = generate({ lowerCase: true, upperCase: true, numeric: true, special: true}); 
-
         try {
             const response = await axios.post(REGISTER_URL,
                 JSON.stringify({ login: res.profileObj.email, email: res.profileObj.email, fullName: res.profileObj.name, password: pwd, confirmPassword: pwd, isGoogleUsed: true }),
@@ -89,6 +83,7 @@ const Register = () => {
                 }
             );
             console.log(response)
+            navigate('/login'); 
             }
         catch (err) {
             setLoading(false);
@@ -99,13 +94,9 @@ const Register = () => {
             if (err?.response?.data?.values?.message === `User with this login or email already exists`) {
                 setErrMsg('User with this login already exists');
             }
-            if (err?.response?.data?.errors[0]?.msg === `Passwords do not match`) {
-                setErrMsg('Паролі не співпадають');
-            }
             else {
                 setErrMsg('Шось не так');
             }
-            errRef.current.focus();
         }
     }
 
