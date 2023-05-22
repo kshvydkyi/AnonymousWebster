@@ -11,7 +11,7 @@ const GET_USER_BY_ID_URL = `/api/users/`
 //Project module
 const GET_FORMATS_URL = '/api/formats/'
 const GET_CATEGORIES_URL = '/api/categories/'
-const GET_PROJECT_URL = '/api/projects/'
+const GET_PROJECT_URL = '/api/projects/content'
 const CREATE_PROJECT_URL = '/api/projects/'
 const PROJECT_JSON_FOLDER = 'http://localhost:8080/projects/'
 export {

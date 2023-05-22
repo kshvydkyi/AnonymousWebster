@@ -14,19 +14,19 @@ export const ProjectMain = () => {
     const currentId = location[2];
     console.log(currentId);
     const [mainProjectInfo, setMainProjectInfo] = useState();
-  const [isLoadingPage, setIsLoadingPage] = useState(true);
+    const [isLoadingPage, setIsLoadingPage] = useState(true);
 
-   
+
     const currentUser = JSON.parse(localStorage.getItem('autorized'));
 
     useEffect(() => {
-        getInfo(setMainProjectInfo, setIsLoadingPage, GET_PROJECT_URL + currentId)
+        getInfo(setMainProjectInfo, setIsLoadingPage, `${GET_PROJECT_URL}/${currentId}/${currentUser.accessToken}`)
     }, [])
-    
-    return isLoadingPage ?  <InfoLoadingSpinner size={56} /> : (
+
+    return isLoadingPage ? <InfoLoadingSpinner size={56} /> : (
         <BoxEl>
-            
-            <Canvas projectId={currentId} projectInfo={mainProjectInfo}/> 
+
+            <Canvas projectId={currentId} projectInfo={mainProjectInfo} />
         </BoxEl>
     )
 }

@@ -4,6 +4,7 @@ import { PROJECT_JSON_FOLDER } from '../../../../api/routes';
 import { fabric } from 'fabric';
 import { useFabricJSEditor } from 'fabricjs-react';
 import { Button } from '@mui/material';
+import { ColorPicker } from '../../../../styles/CreateProjectStyles';
 
 
 export const Canvas = ({ projectId, projectInfo }) => {
@@ -11,19 +12,17 @@ export const Canvas = ({ projectId, projectInfo }) => {
     const currentUser = JSON.parse(localStorage.getItem('autorized'));
     const [isLoadingPage, setIsLoadingPage] = useState(true);
     const [canvas, setCanvas] = useState('');
-    const getJsonFile = async () => {
-        try {
-            const response = await axios.get(`${PROJECT_JSON_FOLDER}${currentUser.login}/${projectInfo.title}/${projectInfo.json_file}`);
-            setJsonFile(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    useEffect(() => {
-        getJsonFile();
-    }, [projectInfo]);
+    const [color, setColor] = useState()
+   
     // const { selectedObjects, editor, onReady } = useFabricJSEditor()
- 
+    useEffect(() => {
+        if (!color) {
+            setColor('rgb(0, 0, 0)')
+        }
+    }, [])
+    const setFigureColor = (color) => {
+        setColor(color);
+    }
     const addFigure = (canvi, figureName) => {
         let figure = null;
 
@@ -32,23 +31,24 @@ export const Canvas = ({ projectId, projectInfo }) => {
             figure = new fabric.Rect({
                 height: 280,
                 width: 200,
-                fill: 'white'
+                fill: color
               });
               
             break;
         case 'circle':
             figure = new fabric.Circle({
                 radius: 50,
-                fill: 'white',
+                fill: color,
                 stroke: "black",
                 strokeWidth: 3
               });
             
             break;
         case 'text':
-            figure = new fabric.Textbox('text', {
-                width: 100,
-                fill: 'white',
+            figure = new fabric.Textbox('Sample text', {
+                width: 200,
+                height: 150,
+                fill: color,
               });
             break;
         case "image":
@@ -70,15 +70,15 @@ export const Canvas = ({ projectId, projectInfo }) => {
 
     
     useEffect(() => {
-        if (jsonFile) {
+        if (projectInfo) {
             setCanvas(initCanvas());
         }
-    }, [jsonFile]);
+    }, [projectInfo]);
     const initCanvas = () => (
         new fabric.Canvas('canvas', {
-            height: jsonFile.project.mainInfo.height,
-            width: jsonFile.project.mainInfo.width,
-            backgroundColor: jsonFile.project.mainInfo.bgColor
+            height: projectInfo.project.mainInfo.height,
+            width: projectInfo.project.mainInfo.width,
+            backgroundColor: projectInfo.project.mainInfo.bgColor
         })
     )
     return (
@@ -88,6 +88,7 @@ export const Canvas = ({ projectId, projectInfo }) => {
         <Button onClick={() => addFigure(canvas, 'circle')}>Circle</Button>
         <Button onClick={() => addFigure(canvas, 'text')}>text</Button>
         <Button onClick={() => addFigure(canvas, 'image')}>image</Button>
+        <ColorPicker className={localStorage.getItem('themeMode') === 'dark'  ? "Dark" : "Light"} value={color} label="Background color" onChange={setFigureColor} />
 
             <canvas id="canvas" />
         </>
