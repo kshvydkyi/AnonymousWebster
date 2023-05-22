@@ -2,7 +2,8 @@ import { Router } from "express";
 import { tryCatch } from "../../utils/tryCacth.utils.js";
 import projectController from "../../controllers/projectController.js";
 import { validateRequestSchema } from "../../middleware/validateRequestSchema.middleware.js";
-import ProjectService from "../../services/role.service.js";
+import ProjectService from "../../services/project.service.js";
+import UserService from "../../services/user.service.js"
 import { isTitleExist, isNotExistById } from "../../scripts/roleChecking.script.js";
 import { isAutorised } from "../../middleware/isAuthorized.middleware.js";
 import { projectValidationChainMethod } from "../../validations/project.validation.js";
@@ -23,10 +24,18 @@ projectRouter.get(
     tryCatch(projectController.selectById.bind(projectController))
 );
 
+//Select content By Id
+projectRouter.get(
+    '/content/:id/:token',
+    isNotExistById(ProjectService),
+    isAutorised,
+    tryCatch(projectController.selectContentById.bind(projectController))
+);
+
 //Select By User Id
 projectRouter.get(
     '/user/:id',
-    isNotExistById(ProjectService),
+    isNotExistById(UserService),
     tryCatch(projectController.selectByUserId.bind(projectController))
 );
 
@@ -48,6 +57,13 @@ projectRouter.patch(
     projectValidationChainMethod,
     validateRequestSchema,
     tryCatch(projectController.update.bind(projectController))
+);
+
+//Save By project Id
+projectRouter.patch(
+    '/save/:id/:token',
+    isNotExistById(ProjectService),
+    tryCatch(projectController.save.bind(projectController))
 );
 
 //Delete by id (For Self or Admin)
