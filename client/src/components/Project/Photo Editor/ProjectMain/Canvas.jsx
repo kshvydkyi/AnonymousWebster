@@ -5,10 +5,11 @@ import { fabric } from 'fabric';
 import { useFabricJSEditor } from 'fabricjs-react';
 import { Button } from '@mui/material';
 import { ColorPicker } from '../../../../styles/CreateProjectStyles';
+import { dataURLtoFile } from '../../../../scripts/base64ToFile';
 
 
 export const Canvas = ({ projectId, projectInfo }) => {
-    const [jsonFile, setJsonFile] = useState();
+    // const [jsonFile, setJsonFile] = useState();
     const currentUser = JSON.parse(localStorage.getItem('autorized'));
     const [isLoadingPage, setIsLoadingPage] = useState(true);
     const [canvas, setCanvas] = useState('');
@@ -17,14 +18,13 @@ export const Canvas = ({ projectId, projectInfo }) => {
     // const { selectedObjects, editor, onReady } = useFabricJSEditor()
     useEffect(() => {
         if (!color) {
+            setColor('rgb(0, 0, 0)')
+        }
+        if (!canvasBackgroundColor) {
             setCanvasBackgroundColor(projectInfo.project.mainInfo.bgColor)
         }
     }, [])
-    useEffect(() => {
-        if (!canvasBackgroundColor) {
-            setColor('rgb(0, 0, 0)')
-        }
-    }, [])
+
     const setFigureColor = (color) => {
         setColor(color);
     }
@@ -32,20 +32,7 @@ export const Canvas = ({ projectId, projectInfo }) => {
         setCanvasBackgroundColor(color);
         // canvas.background = color;
     }
-    const dataURLtoFile = (dataurl, filename) => {
-        let arr = dataurl.split(','),
-            mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]),
-            n = bstr.length,
-            u8arr = new Uint8Array(n);
-
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-
-        return new File([u8arr], filename, { type: mime });
-
-    }
+   
     const addFigure = (canvi, figureName) => {
         let figure = null;
 
