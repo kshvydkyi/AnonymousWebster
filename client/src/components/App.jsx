@@ -20,6 +20,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { PhotoEditor } from './Project/Photo Editor/PhotoEditor';
 import { ProjectMain } from './Project/Photo Editor/ProjectMain/ProjectMain';
 
+
 function App() {
   if (!localStorage.getItem('autorized')) {
     localStorage.setItem(
