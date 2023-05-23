@@ -3,23 +3,22 @@ import axios from '../../../../api/axios';
 import { PROJECT_JSON_FOLDER, UPDATE_PROJECT_URL } from '../../../../api/routes';
 import { fabric } from 'fabric';
 import { useFabricJSEditor } from 'fabricjs-react';
-import { Button } from '@mui/material';
+import { Button, ButtonGroup } from '@mui/material';
 import { ColorPicker } from '../../../../styles/CreateProjectStyles';
 import { dataURLtoFile } from '../../../../scripts/base64ToFile';
-
-
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import SaveAltOutlinedIcon from '@mui/icons-material/SaveAltOutlined';
 export const Canvas = ({ projectId, projectInfo }) => {
   // const [jsonFile, setJsonFile] = useState();
   const currentUser = JSON.parse(localStorage.getItem('autorized'));
   const [isLoadingPage, setIsLoadingPage] = useState(true);
   const [canvas, setCanvas] = useState();
   const [color, setColor] = useState()
-  const [kostyl, setKostyl] = useState(false);
   const [canvasBackgroundColor, setCanvasBackgroundColor] = useState();
   const [outlineColor, setOutlineColor] = useState();
   const [drawingColor, setDrawingColor] = useState('#000000')
   const [shadowColor, setShadowColor] = useState('#000000')
-
+  const [showDrawOptions, setShowDrawOption] = useState(false);
   const changeColor = (color) => {
     setDrawingColor(color);
   }
@@ -49,6 +48,46 @@ export const Canvas = ({ projectId, projectInfo }) => {
     setOutlineColor(color);
   }
 
+  // const addFigure = (canvi, figureName) => {
+  //   let figure = null;
+
+  //   switch (figureName) {
+  //     case 'rect':
+  //       figure = new fabric.Rect({
+  //         height: 280,
+  //         width: 200,
+  //         stroke: outlineColor,
+  //         fill: color
+  //       });
+
+  //       break;
+  //     case 'circle':
+  //       figure = new fabric.Circle({
+  //         radius: 50,
+  //         fill: color,
+  //         stroke: outlineColor,
+  //         strokeWidth: 3
+  //       });
+
+  //       break;
+  //     case 'text':
+  //       figure = new fabric.Textbox('Sample text', {
+  //         width: 200,
+  //         height: 150,
+  //         stroke: outlineColor,
+  //         fill: color,
+  //       });
+  //       break;
+  //     case "image":
+
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   canvi.add(figure);
+  //   canvi.renderAll();
+
+  // }
   const addFigure = (canvi, figureName) => {
     let figure = null;
 
@@ -61,6 +100,8 @@ export const Canvas = ({ projectId, projectInfo }) => {
           fill: color
         });
 
+        canvi.add(figure)
+
         break;
       case 'circle':
         figure = new fabric.Circle({
@@ -70,6 +111,8 @@ export const Canvas = ({ projectId, projectInfo }) => {
           strokeWidth: 3
         });
 
+        canvi.add(figure)
+
         break;
       case 'text':
         figure = new fabric.Textbox('Sample text', {
@@ -78,16 +121,35 @@ export const Canvas = ({ projectId, projectInfo }) => {
           stroke: outlineColor,
           fill: color,
         });
+
+        canvi.add(figure)
         break;
       case "image":
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = (event) => {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.onload = () => {
+            const img = new Image();
+            img.onload = () => {
+              const fabricImage = new fabric.Image(img);
+              canvi.add(fabricImage);
+              canvi.renderAll();
+            };
+            img.src = reader.result;
+          };
+          reader.readAsDataURL(file);
+        };
+        input.click();
 
         break;
       default:
         break;
     }
-    canvi.add(figure);
+    // canvi.add(figure);
     canvi.renderAll();
-
   }
   const deleteObject = (event) => {
     canvas.remove(canvas.getActiveObject());
@@ -110,9 +172,9 @@ export const Canvas = ({ projectId, projectInfo }) => {
 
   //freeDrawing
   useEffect(() => {
-    
+
     fabric.Object.prototype.transparentCorners = false;
-    
+
     const clearCanvas = () => {
       canvas.clear();
     };
@@ -281,11 +343,11 @@ export const Canvas = ({ projectId, projectInfo }) => {
     };
   }, [canvas]);
 
-useEffect(() => {
-  if(canvas){
-    loadJson(canvas)
-  }
-}, [canvas])
+  useEffect(() => {
+    if (canvas) {
+      loadJson(canvas)
+    }
+  }, [canvas])
 
   const initCanvas = (projectInfo) => {
     setCanvas(new fabric.Canvas('c', {
@@ -295,7 +357,14 @@ useEffect(() => {
       isDrawingMode: false
     }))
   }
-
+  const showDraw = () => {
+    if (showDrawOptions === false) {
+      setShowDrawOption(true);
+    }
+    else {
+      setShowDrawOption(false)
+    }
+  }
   const saveProgres = async (canvi) => {
     const projectJSON = JSON.stringify(canvi);
     const parsedProject = JSON.parse(projectJSON)
@@ -328,7 +397,7 @@ useEffect(() => {
     } catch (error) {
       console.log(error)
     }
-   
+
 
   }
   const saveAsPNG = async () => {
@@ -343,15 +412,17 @@ useEffect(() => {
   return (
 
     <>
-      <Button onClick={() => addFigure(canvas, 'rect')}>RECT</Button>
-      <Button onClick={() => addFigure(canvas, 'circle')}>Circle</Button>
-      <Button onClick={() => addFigure(canvas, 'text')}>text</Button>
-      <Button onClick={() => addFigure(canvas, 'image')}>image</Button>
-      <Button onClick={() => saveProgres(canvas)}>save</Button>
-      <Button onClick={() => saveAsPNG()}>Save as png</Button>
-      <Button onKeyPress={deleteObject} onClick={() => deleteObject()}>delete</Button>
-      {/* <Button onClick={() => drawLine()}>draw</Button> */}
-
+      <ButtonGroup variant="outlined" aria-label="outlined button group">
+        <Button onClick={() => addFigure(canvas, 'rect')}>RECT</Button>
+        <Button onClick={() => addFigure(canvas, 'circle')}>Circle</Button>
+        <Button onClick={() => addFigure(canvas, 'text')}>text</Button>
+        <Button onClick={() => addFigure(canvas, 'image')}>image</Button>
+        <Button onClick={() => deleteObject()}>delete Object</Button>
+      </ButtonGroup>
+      <ButtonGroup variant="outlined" aria-label="outlined button group">
+        <Button onClick={() => saveProgres(canvas)}><SaveOutlinedIcon /></Button>
+        <Button onClick={() => saveAsPNG()}><SaveAltOutlinedIcon /></Button>
+      </ButtonGroup>
       <ColorPicker className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} value={color} label="Color" onChange={setFigureColor} />
       <ColorPicker className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} value={canvasBackgroundColor} label="BG Color" onChange={setCanvasBg} />
       <ColorPicker className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} value={outlineColor} label="Outline color" onChange={setOutline} />
@@ -362,25 +433,29 @@ useEffect(() => {
         <Button id="clear-canvas">Clear Canvas</Button>
         <Button id="drawing-mode">Enter drawing mode</Button>
         <div id="drawing-mode-options">
-          <div className="drawFlex">
-          <label htmlFor="drawing-mode-selector">Mode:</label>
-          <select id="drawing-mode-selector" defaultValue='pencil'>
-            <option value="pencil">Pencil</option>
-            <option value="hline">Horizontal Line</option>
-            <option value="vline">Vertical Line</option>
-            <option value="square">Square</option>
-            <option value="diamond">Diamond</option>
-            <option value="texture">Texture</option>
-          </select>
+          <div>
+            <div className="selectdiv">
+              {/* <label htmlFor="drawing-mode-selector">Mode:</label> */}
+              <select className="draw-select" id="drawing-mode-selector" defaultValue='pencil'>
+                <option value="pencil">Pencil</option>
+                <option value="hline">Horizontal Line</option>
+                <option value="vline">Vertical Line</option>
+                <option value="square">Square</option>
+                <option value="diamond">Diamond</option>
+                <option value="texture">Texture</option>
+              </select>
+            </div>
           </div>
-          <div className="drawFlex">
-            <label className="draw-color-picker-label" htmlFor="drawing-color">Color:</label>
-            <input type="color" className='draw-color-picker ' id="drawing-color" value={drawingColor} onChange={(e) => changeColor(e.target.value)} />
-          </div>
-          <div className="drawFlex">
-            <label className="draw-color-picker-label" htmlFor="drawing-shadow-color">Shadow Color:</label>
-            <input type="color" className='draw-color-picker ' id="drawing-shadow-color" value={shadowColor} onChange={(e) => changeShadowColor(e.target.value)} />
+          <div>
+            <div className="drawFlex">
+              <label className="draw-color-picker-label" htmlFor="drawing-color">Color:</label>
+              <input type="color" className='draw-color-picker ' id="drawing-color" value={drawingColor} onChange={(e) => changeColor(e.target.value)} />
+            </div>
+            <div className="drawFlex">
+              <label className="draw-color-picker-label" htmlFor="drawing-shadow-color">Shadow Color:</label>
+              <input type="color" className='draw-color-picker ' id="drawing-shadow-color" value={shadowColor} onChange={(e) => changeShadowColor(e.target.value)} />
 
+            </div>
           </div>
           <div className="drawFlex">
             <label htmlFor="drawing-line-width">Line Width:</label>
