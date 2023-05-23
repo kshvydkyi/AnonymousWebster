@@ -18,8 +18,6 @@ export const UserProjects = () => {
         setLoading(true);
         try {
             const response = await axios.get(GET_PROJECT_URL, {withCredentials: true});
-            // setProjects(response?.data?.values);
-            // console.log(response?.data?.values?.values)
             setProjects(response?.data?.values?.values)
         } catch (err) {
             console.error(err);
