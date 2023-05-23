@@ -58,10 +58,7 @@ function App() {
             <Route path="create-project" element={<CreateProject />} />
             <Route path='editor' element={<PhotoEditor />} />
             <Route path='project/:id' element={<ProjectMain />} />
-
-
           </Route>
-
         </Route>
       </Routes>
     </ThemeProvider>
