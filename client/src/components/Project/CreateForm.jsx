@@ -4,10 +4,13 @@ import { ColorPicker, CreateBox, Settings, TypographyBox } from '../../styles/Cr
 import { ButtonEl, ErrWarning, TextFieldEl } from '../../styles/RegisterStyle';
 import { SettingsForm } from '../../styles/CreateProjectStyles';
 import { CircularProgress } from '@mui/material';
+import axios from '../../api/axios';
+import { CREATE_PROJECT_URL } from '../../api/routes';
 export const CreateForm = ({ widthValue, heightValue }) => {
     const errRef = useRef();
     const [errMsg, setErrMsg] = useState('');
     const [submitClicked, setSubmitClicked] = useState(false);
+    const currentUser = JSON.parse(localStorage.getItem('autorized'));
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -22,18 +25,37 @@ export const CreateForm = ({ widthValue, heightValue }) => {
     }, [widthValue, heightValue])
 
     useEffect(() => {
-       if(!backgroundColor){
-        setBackgroundColor('rgb(0, 0, 0)')
-       }
+        if (!backgroundColor) {
+            setBackgroundColor('rgb(0, 0, 0)')
+        }
     }, [])
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         setSubmitClicked(true);
         setErrMsg('');
         e.preventDefault();
         console.log(title, description, +width, +height, backgroundColor);
+
         try {
             setIsLoading(true)
             //here must be an axios statement and json logic
+            const projectCreateInfo =
+                {
+                    project: {
+                        mainInfo: {
+                            title: title,
+                            description: description,
+                            width: +width,
+                            height: +height,
+                            bgColor: backgroundColor
+                        }
+                    }
+                }
+                console.log(projectCreateInfo);
+                const response = await axios.post(CREATE_PROJECT_URL + currentUser.accessToken, JSON.stringify(projectCreateInfo), {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                });
+                console.log(response);
             setIsLoading(false)
         } catch (error) {
             setErrMsg('Error')
@@ -89,7 +111,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         helperText={NUMBER_REGEX.test(height) === false && submitClicked === true ? 'Height must be a number' : ' '}
                     />
                 </div>
-                <ColorPicker value={backgroundColor} label="Background color" onChange={setColor} />
+                <ColorPicker className={localStorage.getItem('themeMode') === 'dark'  ? "Dark" : "Light"} value={backgroundColor} label="Background color" onChange={setColor} />
                 <ButtonEl type="submit" variant="contained">
                     {
                         isLoading ? <CircularProgress size={24} /> :

@@ -9,4 +9,12 @@ const FileInput = styled(MuiFileInput)({
     borderRadius: "5px",
 })
 
-export { FileInput }
+const FileInputLight = styled(MuiFileInput)({
+    'MuiFileInput-placeholder': { color: 'black' },
+    label: {color: 'black'},
+    input: { color: 'black', margin: '3px' },
+    margin: '10px',
+    borderRadius: "5px",
+})
+
+export { FileInput, FileInputLight }

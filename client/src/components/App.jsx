@@ -1,4 +1,5 @@
 import '../App.css';
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout/Layout';
 import MainPage from "./Layout/MainPage";
@@ -17,6 +18,9 @@ import { UserProjects } from './UserProjects/UserProjects';
 import { UpdateAvatar } from './UserPages/UpdateAvatar';
 import { CreateProject } from './Project/CreateProject';
 import CssBaseline from '@mui/material/CssBaseline';
+import { PhotoEditor } from './Project/Photo Editor/PhotoEditor';
+import { ProjectMain } from './Project/Photo Editor/ProjectMain/ProjectMain';
+
 function App() {
   if (!localStorage.getItem('autorized')) {
     localStorage.setItem(
@@ -24,15 +28,19 @@ function App() {
       JSON.stringify({ currentUser: 'guest' })
     );
   }
-  const darkTheme = createTheme({
+  if (!localStorage.getItem('themeMode')) {
+    localStorage.setItem('themeMode', 'dark')
+  }
+
+  const theme = createTheme({
     palette: {
-      mode: 'dark',
+        mode: localStorage.getItem('themeMode'),
     },
-  });
+});
 
   return (
-<ThemeProvider theme={darkTheme}>
-{/* <CssBaseline /> */}
+<ThemeProvider theme={theme}>
+<CssBaseline />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path='/' element={<MainPage />} />
@@ -51,11 +59,15 @@ function App() {
             <Route path="user-projects" element={<UserProjects />} />
 
             <Route path="create-project" element={<CreateProject />} />
+            <Route path='editor' element={<PhotoEditor />} />
+            <Route path='project/:id' element={<ProjectMain />} />
+
+
           </Route>
 
         </Route>
       </Routes>
-      </ThemeProvider>
+    </ThemeProvider>
   );
 }
 

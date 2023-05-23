@@ -12,6 +12,8 @@ const GET_USER_BY_ID_URL = `/api/users/`
 const GET_FORMATS_URL = '/api/formats/'
 const GET_CATEGORIES_URL = '/api/categories/'
 const GET_PROJECTS_URL = '/api/projects/'
+const CREATE_PROJECT_URL = '/api/projects/'
+const PROJECT_JSON_FOLDER = 'http://localhost:8080/projects/'
 export {
     //User module
     REGISTER_URL,
@@ -25,5 +27,8 @@ export {
     //Project module
     GET_FORMATS_URL,
     GET_CATEGORIES_URL,
-    GET_PROJECTS_URL
+    GET_PROJECTS_URL,
+    CREATE_PROJECT_URL,
+    PROJECT_JSON_FOLDER,
+
 }
