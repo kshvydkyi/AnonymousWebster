@@ -357,14 +357,7 @@ export const Canvas = ({ projectId, projectInfo }) => {
       isDrawingMode: false
     }))
   }
-  const showDraw = () => {
-    if (showDrawOptions === false) {
-      setShowDrawOption(true);
-    }
-    else {
-      setShowDrawOption(false)
-    }
-  }
+  
   const saveProgres = async (canvi) => {
     const projectJSON = JSON.stringify(canvi);
     const parsedProject = JSON.parse(projectJSON)
