@@ -25,7 +25,6 @@ export const ProjectMain = () => {
 
     return isLoadingPage ? <InfoLoadingSpinner size={56} /> : (
         <BoxEl>
-
             <Canvas projectId={currentId} projectInfo={mainProjectInfo} />
         </BoxEl>
     )

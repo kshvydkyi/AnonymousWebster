@@ -349,7 +349,7 @@ useEffect(() => {
       <Button onClick={() => addFigure(canvas, 'image')}>image</Button>
       <Button onClick={() => saveProgres(canvas)}>save</Button>
       <Button onClick={() => saveAsPNG()}>Save as png</Button>
-      <Button onClick={() => deleteObject()}>delete</Button>
+      <Button onKeyPress={deleteObject} onClick={() => deleteObject()}>delete</Button>
       {/* <Button onClick={() => drawLine()}>draw</Button> */}
 
       <ColorPicker className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} value={color} label="Color" onChange={setFigureColor} />
