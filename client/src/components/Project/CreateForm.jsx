@@ -39,23 +39,27 @@ export const CreateForm = ({ widthValue, heightValue }) => {
             setIsLoading(true)
             //here must be an axios statement and json logic
             const projectCreateInfo =
-                {
-                    project: {
-                        mainInfo: {
-                            title: title,
-                            description: description,
-                            width: +width,
-                            height: +height,
-                            bgColor: backgroundColor
-                        }
+            {
+                project: {
+                    mainInfo: {
+                        title: title,
+                        description: description,
+                        width: +width,
+                        height: +height,
+                        bgColor: backgroundColor,
+
+                    },
+                    projectCanvas: {
+                        canvas: {}
                     }
                 }
-                console.log(projectCreateInfo);
-                const response = await axios.post(CREATE_PROJECT_URL + currentUser.accessToken, JSON.stringify(projectCreateInfo), {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                });
-                console.log(response);
+            }
+            console.log(projectCreateInfo);
+            const response = await axios.post(CREATE_PROJECT_URL + currentUser.accessToken, JSON.stringify(projectCreateInfo), {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            });
+            console.log(response);
             setIsLoading(false)
         } catch (error) {
             setErrMsg('Error')
@@ -111,7 +115,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         helperText={NUMBER_REGEX.test(height) === false && submitClicked === true ? 'Height must be a number' : ' '}
                     />
                 </div>
-                <ColorPicker className={localStorage.getItem('themeMode') === 'dark'  ? "Dark" : "Light"} value={backgroundColor} label="Background color" onChange={setColor} />
+                <ColorPicker className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} value={backgroundColor} label="Background color" onChange={setColor} />
                 <ButtonEl type="submit" variant="contained">
                     {
                         isLoading ? <CircularProgress size={24} /> :

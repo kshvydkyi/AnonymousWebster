@@ -14,7 +14,7 @@ import { ServerError } from './ErrorPages/ServerError';
 import { AccesDenied } from './ErrorPages/AccesDenied';
 import RequreAuth from './Auth/RequreAuth';
 import { UpdateProfile } from './UserPages/UpdateProfile';
-import { UpdateAvatar } from './UserPages/UpdateAvatar';
+
 import { CreateProject } from './Project/CreateProject';
 import CssBaseline from '@mui/material/CssBaseline';
 import { PhotoEditor } from './Project/Photo Editor/PhotoEditor';
