@@ -149,8 +149,9 @@ export const Canvas = ({ projectId, projectInfo }) => {
     const parsedProject = JSON.parse(projectJSON)
     parsedProject.background = canvasBackgroundColor;
     console.log(parsedProject);
-
+    const prewiew = canvi.toDataURL('png')
     const updatedInfo = {
+      prewiew: prewiew, 
       project: {
         mainInfo: {
           title: title,
@@ -179,9 +180,7 @@ export const Canvas = ({ projectId, projectInfo }) => {
 
 
   }
-const  autoSave = async (canvi) => {
-      await saveProgres(canvi)
-} 
+
 useEffect(() => {
   const timer = setInterval(() => {
     saveProgres(canvas)
