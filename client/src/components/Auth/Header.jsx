@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import WebsterLogoLight from '../../assets/Layout/LogoLight.png'
 import WebsterLogoDark from '../../assets/Layout/LogoDark.png'
-import {LinkButton, DivThemeMode, SpanUserInfo, AvatarEl , MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, ManageAccountButton } from '../../styles/HeaderStyles'
+import {LinkButton, DivThemeMode, SpanUserInfo, AvatarEl , MainHeader, MenuButton, MainButtons, ToolbarStyled, UserInfo, DrawerEl, LogOutBtn, UpdProfBtn, MyPrjBtn, ManageAccountButton } from '../../styles/HeaderStyles'
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { useNavigate } from "react-router-dom";
@@ -126,7 +126,6 @@ export const Header = () => {
   }
 
   const displayDesktop = () => {
-
     return (
       <ToolbarStyled>
         {femmecubatorLogo}
@@ -142,18 +141,15 @@ export const Header = () => {
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
           </DivThemeMode>
-            <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</LogOutBtn> 
-
+            <UpdProfBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</UpdProfBtn> 
+            <MyPrjBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='user-projects'>Projects</MyPrjBtn> 
             {
               isLoading ? <CircularProgress size={24}/> :
-                    
                     <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} onClick={() => toLogOut()}>
                     Logout
                     <ExitToAppOutlinedIcon />
                   </LogOutBtn>
             }
-
-      
           </BoxEl>
         </DrawerEl>
         <MainButtons>{getMenuButtons()}</MainButtons>
@@ -170,7 +166,6 @@ export const Header = () => {
             onClick: handleDrawerOpen,
           }}
         >
-
           <MenuOutlinedIcon  fontSize="large" />
         </IconButton>
 
@@ -198,7 +193,6 @@ export const Header = () => {
           </DivThemeMode>
           </SpanUserInfo>
 
-
           <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</LogOutBtn>
             {
               isLoading ? <LogOutBtn ><CircularProgress size={24} /></LogOutBtn> :
@@ -209,7 +203,6 @@ export const Header = () => {
                   </LogOutBtn>
                 </>
             }
-
         </DrawerEl>
         <div>{femmecubatorLogo}</div>
       </Toolbar>
@@ -285,7 +278,7 @@ export const Header = () => {
     if (currentUser?.currentUser === 'guest') {
         return (
           <>
-                                <IconButton onClick={toggleColorMode} color="inherit">
+          <IconButton onClick={toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
           <MenuButton
