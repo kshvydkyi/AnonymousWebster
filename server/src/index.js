@@ -18,8 +18,8 @@ const corsOptions = {
   // Express configuration
   app.set('port', process.env.PORT || 8080);
   app.use(cors(corsOptions));
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json({limit: '1000mb'}));
+  app.use(bodyParser.urlencoded({ extended: false, limit: "1000mb" }));
   app.use(ErrorHandler);
   app.use('/avatars', express.static(`${path.resolve()}/assets/avatars`));
   app.use('/projects', express.static(`${path.resolve()}/assets/projects`));
