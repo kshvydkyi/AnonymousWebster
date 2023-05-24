@@ -16,6 +16,9 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 
+import {GoogleLogout} from 'react-google-login'
+const clientId = "396282640648-nhgp1dh6eivlu5df4ip60j8ni00jke2e.apps.googleusercontent.com"
+
 const headersData = [
   {
     label: "Sign In",

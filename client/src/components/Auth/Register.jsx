@@ -1,14 +1,18 @@
 import React, { useRef, useState, useEffect } from 'react';
-import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanEl} from '../../styles/RegisterStyle'
+import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning, SpanEl, GoogleSign} from '../../styles/RegisterStyle'
 
 import axios from '../../api/axios';
 import { CircularProgress, Link } from '@mui/material';
-import { REGISTER_URL } from '../../api/routes'
+import { REGISTER_URL,clientId } from '../../api/routes'
 import { useNavigate } from "react-router-dom";
 
 import { DialogWindow } from '../Other/DialogWIndow'
 
 import { USER_REGEX, PWD_REGEX, EMAIL_REGEX, FULLNAME_REGEX } from '../../regex/regex'
+
+import { generate } from '@wcj/generate-password';
+import {gapi} from 'gapi-script'
+import {GoogleLogin} from 'react-google-login'
 
 
 const Register = () => {
@@ -66,6 +70,45 @@ const Register = () => {
             }
         }
     };
+
+
+    const onSuccessSignUpGoogle = async (res) => {
+        const pwd = generate({ lowerCase: true, upperCase: true, numeric: true, special: true}); 
+        try {
+            const response = await axios.post(REGISTER_URL,
+                JSON.stringify({ login: res.profileObj.email, email: res.profileObj.email, fullName: res.profileObj.name, password: pwd, confirmPassword: pwd, isGoogleUsed: true }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            console.log(response)
+            navigate('/login'); 
+            }
+        catch (err) {
+            setLoading(false);
+            console.log(err)
+            if (!err?.response) {
+                setErrMsg('Сервер спить, вибачте');
+            }
+            if (err?.response?.data?.values?.message === `User with this login or email already exists`) {
+                setErrMsg('User with this login already exists');
+            }
+            else {
+                setErrMsg('Шось не так');
+            }
+        }
+    }
+
+    const onFailureSignUpGoogle = (res) => {
+        <DialogWindow
+        state={true}
+        message={'Something went wrong'}
+        />
+    }
+
+
+
     return (
         <Body className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>
             <DialogWindow
@@ -141,6 +184,17 @@ const Register = () => {
                 }
                 </ButtonEl>
                 </div>
+                <GoogleSign>
+                <GoogleLogin
+                        clientId = {clientId}
+                        buttonText = 'Sign Up with Google'
+                        onSuccess={onSuccessSignUpGoogle}
+                        onFailure={onFailureSignUpGoogle}
+                        cookiePolicy={'single_host_origin'}
+                        isSignedIn={false}
+                        theme={localStorage.getItem('themeMode') === 'dark' ? "dark" : "light"}
+                />
+                </GoogleSign>
                 <span>
                     <SpanEl className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}>Already have an accout?</SpanEl> 
                     <Link

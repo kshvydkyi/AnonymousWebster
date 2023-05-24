@@ -18,15 +18,28 @@ export class AuthController {
     }
 
     async register(req, res) {
-        const encryptedPass = await hashPassword(req.body.password);
-        const token = jwt.sign({
-            login: req.body.login,
-            password: encryptedPass,
-            email: req.body.email,
-            fullName: req.body.fullName
-        }, 'jwt-key', { expiresIn: '15m' });
-        sendMailUtils.send(req.body.email, token, 'activate');
-        return `Confirmation token - ${token}`;
+        if(req.body.isGoogleUsed === true) {
+            const encryptedPass = await hashPassword(req.body.password);
+            const token = jwt.sign({
+                login: req.body.login,
+                password: encryptedPass,
+                email: req.body.email,
+                fullName: req.body.fullName
+            }, 'jwt-key', { expiresIn: '15m' });
+            const userData = jwt.verify(token, 'jwt-key');
+            await this.service.register(userData);
+        }
+        else {
+            const encryptedPass = await hashPassword(req.body.password);
+            const token = jwt.sign({
+                login: req.body.login,
+                password: encryptedPass,
+                email: req.body.email,
+                fullName: req.body.fullName
+            }, 'jwt-key', { expiresIn: '15m' });
+            sendMailUtils.send(req.body.email, token, 'activate');
+            return `Confirmation token - ${token}`;
+        }
     }
 
     async activeEmail(req, res) {
@@ -35,6 +48,22 @@ export class AuthController {
     }
     async login(req, res) {
         const user = await this.service.login(req.body.login);
+        if(req.body.isGoogleUsed === true) {
+            const token = jwt.sign(
+                {
+                    userId: user[0].id,
+                    login: user[0].login,
+                    role: user[0].title
+                },
+                'jwt-key',
+                { expiresIn: '30d' }
+            );
+            const data = {
+                userData: user[0],
+                token: token
+            }
+            return data;
+        }
         if (user[0]) {
             const password = await hashPassword(req.body.password);
             if (password === user[0].password) {
