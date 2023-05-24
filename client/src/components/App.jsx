@@ -21,6 +21,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { PhotoEditor } from './Project/Photo Editor/PhotoEditor';
 import { ProjectMain } from './Project/Photo Editor/ProjectMain/ProjectMain';
 
+import {gapi} from 'gapi-script'
+import {clientId} from '../api/routes'
+
 function App() {
   if (!localStorage.getItem('autorized')) {
     localStorage.setItem(
@@ -36,7 +39,17 @@ function App() {
     palette: {
         mode: localStorage.getItem('themeMode'),
     },
-});
+  });
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        client_id: clientId,
+        scope: ''
+      })
+    }
+    gapi.load('client:auth2', start)
+  });
 
   return (
 <ThemeProvider theme={theme}>
@@ -61,10 +74,7 @@ function App() {
             <Route path="create-project" element={<CreateProject />} />
             <Route path='editor' element={<PhotoEditor />} />
             <Route path='project/:id' element={<ProjectMain />} />
-
-
           </Route>
-
         </Route>
       </Routes>
     </ThemeProvider>

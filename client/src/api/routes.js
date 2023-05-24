@@ -1,6 +1,10 @@
 //User module
 const currentUser = JSON.parse(localStorage.getItem('autorized'));
 
+// Client ID for Google Sign In/Up
+
+const clientId = "396282640648-nhgp1dh6eivlu5df4ip60j8ni00jke2e.apps.googleusercontent.com"
+
 const REGISTER_URL = '/api/auth/register';
 const LOGIN_URL = '/api/auth/login';
 const ACTIVE_EMAIL_URL = '/api/auth/active-email/';
@@ -11,9 +15,10 @@ const GET_USER_BY_ID_URL = `/api/users/`
 //Project module
 const GET_FORMATS_URL = '/api/formats/'
 const GET_CATEGORIES_URL = '/api/categories/'
-const GET_PROJECT_URL = '/api/projects/'
+const GET_PROJECT_URL = '/api/projects/content'
 const CREATE_PROJECT_URL = '/api/projects/'
 const PROJECT_JSON_FOLDER = 'http://localhost:8080/projects/'
+const UPDATE_PROJECT_URL = '/api/projects/save'
 export {
     //User module
     REGISTER_URL,
@@ -23,6 +28,9 @@ export {
     RESET_PASSWORD_WT_URL,
     UPDATE_PROFILE_DATA_URL,
     GET_USER_BY_ID_URL,
+
+    // Client ID
+    clientId,
     
     //Project module
     GET_FORMATS_URL,
@@ -30,5 +38,4 @@ export {
     GET_PROJECT_URL,
     CREATE_PROJECT_URL,
     PROJECT_JSON_FOLDER,
-
 }
