@@ -26,9 +26,9 @@ export class UserController {
     }
 
     async update_avatar(req, res) { 
-        const pathFile = req.file.filename;
         const token = req.params.token;  
         const userData = jwt.verify(token, "jwt-key");
+        const pathFile = userData.login + '.' + req.file.originalname.split(".")[1];
         await this.service.update_avatar(pathFile, userData.userId);
     }
 

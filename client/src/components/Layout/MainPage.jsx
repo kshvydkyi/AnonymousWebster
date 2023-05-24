@@ -1,23 +1,34 @@
-import React, { FC, ReactElement } from "react";
-import mainPageElement from '../../assets/Layout/mainPageElementAnon.jpg';
-import websterLogo from '../../assets/Layout/Logo.png'
-import {Container, TextBlock, TextDiv, ButtonDiv, StartButton} from './MainPageStyle';
+import React from "react";
+import mainPageElement from '../../assets/Layout/mainPageElementAnon.png';
+import mainPageElementLight from '../../assets/Layout/mainPageElementAnonLight.png';
+import websterLogoLight from '../../assets/Layout/LogoLight.png'
+import websterLogoDark from '../../assets/Layout/LogoDark.png'
+import {Container, TextBlock, ButtonDiv, StartButton} from '../../styles/MainPageStyle';
 
-function MainPage() {
+export const  MainPage  = () => {
     return (
-        <Container size="lg">
+           <Container>
             <TextBlock>
-              <img className="fit-picture" src={websterLogo} alt='websterLogo' width={350}></img>
+              {
+                localStorage.getItem('themeMode') === 'dark' ?
+                <img className="fit-picture" src={websterLogoDark} alt="websterLogo" width={350}></img>
+                :
+                <img className="fit-picture" src={websterLogoLight} alt="websterLogo" width={350}></img>
+              }
             </TextBlock>
-            <img className="fit-picture" src={mainPageElement} alt="mainPageWallPaper" height=""></img>
+            {
+              localStorage.getItem('themeMode') === 'dark' ?
+              <img className="fit-picture" src={mainPageElement} alt="mainPageWallPaper"></img>
+              :
+              <img className="fit-picture" src={mainPageElementLight} alt="mainPageWallPaper"></img>
+            }
             <ButtonDiv>
                 <StartButton
-                color="error"
+                className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"}
                 variant="outlined"
                 >Start</StartButton>
             </ButtonDiv>
-
-        </Container>
+             </Container>
     );
   }
 

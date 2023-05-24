@@ -6,7 +6,6 @@ import UserService from "../../services/user.service.js";
 import {tryCatch} from "../../utils/tryCacth.utils.js";
 import { emailValidationChainMethod, loginValidateChainMethod, registerValidateChainMethod, updatePasswordValidateChainMethod } from "../../validations/user.validation.js";
 
-
 const authRouter = Router();
 
 authRouter.post(

@@ -1,13 +1,13 @@
 import multer from 'multer'
+import * as jwt from 'jsonwebtoken';
 
 const fileStorageEngineAvatar = (path) => multer.diskStorage({
     destination: (_req, _file, cb) => {
-		cb(null, path);
+		  cb(null, path);
     },
 
     filename: (_req, file, cb) => {
-      	cb(null, `${file.originalname}`);
-		
+      	cb(null, `${jwt.verify(_req.params.token, "jwt-key").login + '.' + file.originalname.split(".")[1]}`);
     },
 });
 
