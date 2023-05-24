@@ -68,9 +68,11 @@ const SpanEl = styled('span')({
 });
 
 
+const GoogleSign = styled('div')({
+    margin:"15px"
+});
 
 
 
-
-export {Body, BoxEl,TextFieldEl, ButtonEl, ErrWarning, SpanEl}
+export {Body, BoxEl,TextFieldEl, ButtonEl, ErrWarning, SpanEl, GoogleSign}
 

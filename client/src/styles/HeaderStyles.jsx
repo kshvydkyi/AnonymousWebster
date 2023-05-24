@@ -64,6 +64,36 @@ const LogOutBtn = styled(Button)({
     textDecoration: "none",
 });
 
+const UpdProfBtn = styled(Button)({
+    "& .Dark": {
+        color: 'white',
+        border: '0px black',
+    },
+    "& .Light": {
+        color: 'black',
+        border: '0px black',
+    },
+    outline: 'none',
+    margin: 0,
+    color: "inherit",
+    textDecoration: "none",
+});
+
+const MyPrjBtn = styled(Button)({
+    "& .Dark": {
+        color: 'white',
+        border: '0px black',
+    },
+    "& .Light": {
+        color: 'black',
+        border: '0px black',
+    },
+    outline: 'none',
+    margin: 0,
+    color: "inherit",
+    textDecoration: "none",
+});
+
 const UserInfo = styled('div')({
     display: 'flex',
     flexDirection: 'row',
@@ -109,4 +139,4 @@ const LinkButton = styled(Link)({
     textDecoration: "none",
 });
 
-export {LinkButton, DivThemeMode, SpanUserInfo, AvatarEl , MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}
+export {LinkButton, DivThemeMode, SpanUserInfo, AvatarEl , MainHeader, MenuButton, MainButtons, Logo, ToolbarStyled, LogOutBtn, UpdProfBtn, MyPrjBtn, UserInfo, DrawerEl, Spinner, ManageAccountButton}
