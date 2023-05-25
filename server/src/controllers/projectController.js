@@ -1,4 +1,5 @@
 import ProjectService from "../services/project.service.js";
+import {dataURLtoFile} from "../scripts/base64ToFile.js";
 import * as jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
@@ -72,6 +73,7 @@ export class ProjectController {
         if (!fs.existsSync(pathFile)) {
             fs.mkdirSync(pathFile);
         }
+        dataURLtoFile(req.body.preview, pathFile + "/" + req.body.project.mainInfo.title + id + ".png")
         pathFile += "/" + req.body.project.mainInfo.title + id + ".json"
         const jsonContent = JSON.stringify(req.body);
         fs.writeFile(pathFile, jsonContent, 'utf8', (err) => {
