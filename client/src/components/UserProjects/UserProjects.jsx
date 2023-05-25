@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { CREATE_PROJECT_URL, GET_BY_USER_ID, GET_PROJECT_URL } from '../../api/routes'
+import { CREATE_PROJECT_URL, GET_BY_USER_ID, GET_PROJECT_URL, PROJECT_JSON_FOLDER } from '../../api/routes'
 import axios from '../../api/axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -69,8 +69,8 @@ console.log(projects);
 									<Box>
 										
 										<CustomBox >
-											
-											{/* <Image src="/test/image2.png" alt=""/> */}
+										
+											<Image src={`${PROJECT_JSON_FOLDER+currentUser.login+'/'+item.title+item.id+'/'+item.title+item.id+'.png'}`} alt=""/>
 											<TypographyName gutterBottom variant="h5" component="div" onClick={() => navigate(`/project/${item.id}`)}>
 												{item.title.length < 7 ? item.title : `${item.title.slice(0, 7)}...`}
 											</TypographyName>

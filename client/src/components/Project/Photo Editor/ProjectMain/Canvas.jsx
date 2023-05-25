@@ -149,9 +149,9 @@ export const Canvas = ({ projectId, projectInfo }) => {
     const parsedProject = JSON.parse(projectJSON)
     parsedProject.background = canvasBackgroundColor;
     // console.log(parsedProject);
-    const prewiew = canvi.toDataURL('png')
+    const preview = canvi.toDataURL('png')
     const updatedInfo = {
-      prewiew: prewiew, 
+      preview: preview, 
       project: {
         mainInfo: {
           title: title,
