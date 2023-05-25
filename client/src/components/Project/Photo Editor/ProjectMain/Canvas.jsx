@@ -148,7 +148,7 @@ export const Canvas = ({ projectId, projectInfo }) => {
     const projectJSON = JSON.stringify(canvi);
     const parsedProject = JSON.parse(projectJSON)
     parsedProject.background = canvasBackgroundColor;
-    console.log(parsedProject);
+    // console.log(parsedProject);
     const prewiew = canvi.toDataURL('png')
     const updatedInfo = {
       prewiew: prewiew, 
@@ -166,13 +166,13 @@ export const Canvas = ({ projectId, projectInfo }) => {
         }
       }
     }
-    console.log(updatedInfo)
+    // console.log(updatedInfo)
     try {
       const response = await axios.patch(`${UPDATE_PROJECT_URL}/${projectId}/${currentUser.accessToken}`, JSON.stringify(updatedInfo), {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       })
-      console.log(response)
+      // console.log(response)
 
     } catch (error) {
       console.log(error)
