@@ -71,7 +71,7 @@ projectRouter.delete(
     '/:id/:token',
     isAutorised,
     isNotExistById(ProjectService),
-    isAccessOrAdmin(ProjectService),
+    isAccessOrAdminProjectService(ProjectService),
     tryCatch(projectController.deleteById.bind(projectController))
 );
 
