@@ -7,7 +7,7 @@ import UserService from "../../services/user.service.js"
 import { isTitleExist, isNotExistById } from "../../scripts/roleChecking.script.js";
 import { isAutorised } from "../../middleware/isAuthorized.middleware.js";
 import { projectValidationChainMethod } from "../../validations/project.validation.js";
-import { isAccessOrAdmin } from "../../middleware/isAccess.middleware.js";
+import { isAccessOrAdminProjectService } from "../../middleware/isAccess.middleware.js";
 
 const projectRouter = Router();
 
@@ -52,7 +52,7 @@ projectRouter.post(
 projectRouter.patch(
     '/:id/:token',
     isAutorised, 
-    isAccessOrAdmin(ProjectService),
+    isAccessOrAdminProjectService(ProjectService),
     isNotExistById(ProjectService),
     projectValidationChainMethod,
     validateRequestSchema,
