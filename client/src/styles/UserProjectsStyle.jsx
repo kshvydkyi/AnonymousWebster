@@ -50,6 +50,10 @@ const CustomBox = styled(Card)({
     cursor: 'pointer'
 })
 
+const PopoverBox = styled('div')({
+    display: 'flex', 
+    justifyContent: 'flex-end'
+})
 const TypographyName = styled(Typography)({
     wordWrap:'break-word',
     paddingTop: '0.25vw',
@@ -69,4 +73,4 @@ const Image = styled('img')({
     height: '200px'
 })
 
-export { CreateBlock, Image, TypographyData, Container, BoxText, TypographyName, CustomBox, ElementsContainer, TextBlock }
+export { CreateBlock, Image, PopoverBox, TypographyData, Container, BoxText, TypographyName, CustomBox, ElementsContainer, TextBlock }
