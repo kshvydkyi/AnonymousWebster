@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Grid, useMediaQuery, Button, Popover, IconButton } from '@mui/material';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import { CreateBlock, Image, TypographyData, TextBlock, Container, CustomBox, ElementsContainer, TypographyName, BoxText, PopoverBox } from '../../styles/UserProjectsStyle';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 export const UserProjects = () => {
 	const navigate = useNavigate();
 	const matches = useMediaQuery('(min-width:1024px)');
@@ -20,6 +20,7 @@ export const UserProjects = () => {
 		try {
 			const response = await axios.get(GET_BY_USER_ID + currentUser.userId, { withCredentials: true });
 			setProjects(response?.data?.values?.values)
+			console.log(response);
 		} catch (err) {
 			console.error(err);
 		} finally {
@@ -34,26 +35,18 @@ export const UserProjects = () => {
 	function DateFunc(date) {
 		return moment(date).format('DD.MM.YYYY HH:mm');
 	}
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+ 
 	const deleteProject = async(projectID) => {
 		try {
 			const response = await axios.delete(`${CREATE_PROJECT_URL}${projectID}/${currentUser.accessToken}`)
 			console.log(response)
+			document.location.reload()
 		} catch (error) {
 			console.log(error)
 		}
 }
+console.log(projects);
+
 	return isLoading ? <></> : (
 		<Container>
 			<TextBlock>
@@ -69,40 +62,29 @@ export const UserProjects = () => {
 				<Grid
 					container
 					spacing={3}>
-					{projects ? Object.values(projects).map((item) => {
+					{projects ? projects.map((item) => {
 						return (
 							<React.Fragment key={item.id + ''}>
 								<Grid item xs={matches ? 2 : 4} >
 									<Box>
 										
 										<CustomBox >
-											<PopoverBox>
-											<IconButton aria-describedby={id} variant="contained" onClick={handleClick}>
-												<MoreVertOutlinedIcon/>
-											</IconButton>
 											
-											<Popover
-												id={id}
-												open={open}
-												anchorEl={anchorEl}
-												onClose={handleClose}
-												anchorOrigin={{
-													vertical: 'bottom',
-													horizontal: 'left',
-												}}
-											>
-												<Button onClick={() => deleteProject(item.id)}>Delete</Button>
-											</Popover>
-											</PopoverBox>
 											{/* <Image src="/test/image2.png" alt=""/> */}
 											<TypographyName gutterBottom variant="h5" component="div" onClick={() => navigate(`/project/${item.id}`)}>
 												{item.title.length < 7 ? item.title : `${item.title.slice(0, 7)}...`}
 											</TypographyName>
 											<BoxText >
 												<TypographyData>
-													{DateFunc(projects.date_upd)}
+													{DateFunc(item.date_upd)}
+										
+												<IconButton color="red"onClick={() => deleteProject(item.id)}><DeleteOutlinedIcon/></IconButton>
+
+											
 												</TypographyData>
+												
 											</BoxText>
+											
 										</CustomBox>
 									</Box>
 								</Grid>

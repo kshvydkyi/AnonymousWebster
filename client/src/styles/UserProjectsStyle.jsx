@@ -1,4 +1,4 @@
-import { styled } from '@mui/system';
+import { display, styled } from '@mui/system';
 import { Typography, Box, Card } from '@mui/material';
 
 const Container = styled('div')({
@@ -66,7 +66,11 @@ const TypographyData = styled(Typography)({
     paddingBottom: '0.2vw',
     color: '#808080',
     fontSize: '14px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent:'space-between'
+
 })
 
 const Image = styled('img')({
