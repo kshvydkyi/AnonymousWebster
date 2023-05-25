@@ -36,11 +36,48 @@ export const Canvas = ({ projectId, projectInfo }) => {
   const [height, setHeight] = useState(projectInfo.project.mainInfo.height);
   const [outlineWidth, setOutlineWidth] = useState(5);
 
+  const [filterBlur,setFilterBLur] = useState(0);
+  const [filterBrightness,setFilterBrightness] = useState(50);
+  const [filterContrast,setFilterContrast] = useState(0);
+  const [filterGrayScale,setFilterGrayScale] = useState(0);
+  const [filterSepia,setFilterSepia] = useState(0);
+  const [filterSaturation,setFilterSaturation] = useState(0);
+
+
   const handleChange = (event, newValue) => {
     setOutlineWidth(newValue);
   };
 
-
+  const filterCanvas = (canvas, value, type) => {
+    const obj = canvas.getActiveObject();
+    const ctx = canvas.getContext(obj);
+    switch(type) {
+      case 'blur':
+        setFilterBLur(value);
+        ctx.filter = `blur(${filterBlur}px)`;
+        break;
+      case 'brightness': 
+        setFilterBrightness(value);
+        ctx.filter = `brightness(${filterBrightness}%)`;
+        break;
+      case 'contrast': 
+        setFilterContrast(value);
+        ctx.filter = `contrast(${filterContrast}%)`;
+        break;
+      case 'sepia': 
+        setFilterSepia(value);
+        ctx.filter = `sepia(${filterSepia}%)`;
+        break;
+      case 'grayscale': 
+        setFilterGrayScale(value);
+        ctx.filter = `grayscale(${filterGrayScale}%)`;
+        break;
+      case 'saturation': 
+        setFilterSaturation(value);
+        ctx.filter = `saturation(${filterSaturation}%)`;
+        break;
+    }
+  }
 
   const addFigure = (canvi, figureName) => {
     let figure = null;
@@ -229,9 +266,7 @@ useEffect(() => {
                   <Button onClick={() => addFigure(canvas, 'text')}><TextFieldsOutlinedIcon /></Button>
                   <Button onClick={() => addFigure(canvas, 'image')}><ImageOutlinedIcon /></Button>
                   <Button onClick={() => deleteObject()}><DeleteOutlinedIcon /></Button>
-
                 </ButtonGroup>
-                
               </ControlsBox>
 
               <Box>
@@ -243,6 +278,63 @@ useEffect(() => {
                   <Slider aria-label="Temperature" valueLabelDisplay="auto" value={outlineWidth} onChange={handleChange} />
                 </ControlsBox>
               </Box>
+
+              <ControlsBox>
+                <Typography>Blur</Typography>
+                <Slider
+                    aria-label="Blur"
+                    valueLabelDisplay="auto"
+                    value={filterBlur}
+                    max='25'
+                    onChange={e => filterCanvas(canvas,e.target.value, 'blur')}
+                  />
+                <Typography>Brightness</Typography>
+                <Slider
+                    aria-label="Brightness"
+                    valueLabelDisplay="auto"
+                    value={filterBrightness}
+                    min={0}
+                    max={200}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'brightness')}
+                  />
+                <Typography>Contrast</Typography>
+                <Slider
+                    aria-label="Contrast"
+                    valueLabelDisplay="auto"
+                    value={filterContrast}
+                    min={0}
+                    max={200}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'contrast')}
+                  />
+                  <Typography>Grayscale</Typography>
+                <Slider
+                    aria-label="Grayscale"
+                    valueLabelDisplay="auto"
+                    value={filterGrayScale}
+                    min={0}
+                    max={100}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'grayscale')}
+                  />
+                 <Typography>Sepia</Typography>
+                <Slider
+                    aria-label="Sepia"
+                    valueLabelDisplay="auto"
+                    value={filterSepia}
+                    min={0}
+                    max={100}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'sepia')}
+                  />
+                 <Typography>Saturation</Typography>
+                <Slider
+                    aria-label="Saturation"
+                    valueLabelDisplay="auto"
+                    value={filterSaturation}
+                    min={0}
+                    max={200}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'saturation')}
+                  />
+              </ControlsBox>
+
               <ControlsBox>
                 <Typography>Save and Donwload</Typography>
                 <ButtonGroup variant="outlined" aria-label="outlined button group">
@@ -250,7 +342,7 @@ useEffect(() => {
                   <Button onClick={() => saveProgres(canvas)}><SaveOutlinedIcon /></Button>
                   <Button onClick={() => saveAsPNG(canvas, projectInfo)}><SaveAltOutlinedIcon /></Button>
                 </ButtonGroup>
-                </ControlsBox>
+              </ControlsBox>
 
 
 
