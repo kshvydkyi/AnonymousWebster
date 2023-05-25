@@ -57,9 +57,10 @@ export const isAccessOrAdminProjectService = (Service) => async (req, res, next)
 
     let check = false;
     result.forEach(async (element) => {
-        
-        if (element.id === req.params.id) {
+        console.log(element.id, req.params.id)
+        if (element.id === +req.params.id) {
             check = true;
+            console.log('jhgfd')
         }
     });
     if (check == false && userData.role !== 'admin') {
@@ -68,31 +69,3 @@ export const isAccessOrAdminProjectService = (Service) => async (req, res, next)
     next();
 };
 
-export const isAccessCompanyOrAdmin = (Service) => async (req, res, next) => {
-    const service = new Service();
-    let result;
-    let userlist;
-    if (!req.body.company_id) {
-        result = await service.selectById(req.params.company_id);
-        userlist = await service.selectUsersByCompanyId(req.params.company_id);
-    }
-    else {
-        result = await service.selectById(req.body.company_id);
-        userlist = await service.selectUsersByCompanyId(req.body.company_id);
-    }    
-
-    const userData = jwt.verify(req.params.token, 'jwt-key');
-
-    let check = false;
-    // userlist.forEach(async (element) => {
-        
-    //     if (element.user_id !== userData.userId) {
-    //         check = true;
-    //     }
-    // });
-
-    if (result.user_id !== userData.userId && userData.role !== 'admin') {
-        return response(403, { message: 'access denied' }, res);
-    }
-    next();
-}

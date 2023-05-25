@@ -57,6 +57,7 @@ export class ProjectController {
             }
         });
         await this.service.update_path(pathFile, id);
+        return id;
     }
 
     async save(req, res){

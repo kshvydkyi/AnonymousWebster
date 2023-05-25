@@ -89,7 +89,7 @@ const MyPrjBtn = styled(Button)({
         border: '0px black',
     },
     outline: 'none',
-    margin: 0,
+    marginLeft: '10px',
     color: "inherit",
     textDecoration: "none",
 });
