@@ -108,6 +108,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         label="Width"
                         required
                         value={width}
+                        type="number"
                         onChange={e => setWidth(e.target.value)}
                         error={NUMBER_REGEX.test(width) === false && submitClicked === true}
                         helperText={NUMBER_REGEX.test(width) === false && submitClicked === true ? 'Width must be a number' : ' '}
@@ -116,6 +117,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         label="Height"
                         required
                         value={height}
+                        type="number"
                         onChange={e => setHeight(e.target.value)}
                         error={NUMBER_REGEX.test(height) === false && submitClicked === true}
                         helperText={NUMBER_REGEX.test(height) === false && submitClicked === true ? 'Height must be a number' : ' '}

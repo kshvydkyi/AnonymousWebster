@@ -301,6 +301,7 @@ useEffect(() => {
                     label="Width"
                     required
                     value={width}
+                    type="number"
                     onChange={e => setWidth(e.target.value)}
                     error={NUMBER_REGEX.test(width) === false && submitClicked === true}
                     helperText={NUMBER_REGEX.test(width) === false && submitClicked === true ? 'Width must be a number' : ' '}
@@ -308,6 +309,7 @@ useEffect(() => {
                   <TextFieldEl
                     label="Height"
                     required
+                    type="number"
                     value={height}
                     onChange={e => setHeight(e.target.value)}
                     error={NUMBER_REGEX.test(height) === false && submitClicked === true}
