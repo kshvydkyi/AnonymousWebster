@@ -278,10 +278,10 @@ export const Canvas = ({ projectId, projectInfo }) => {
     const projectJSON = JSON.stringify(canvi);
     const parsedProject = JSON.parse(projectJSON)
     parsedProject.background = canvasBackgroundColor;
-    console.log(parsedProject);
-    const prewiew = canvi.toDataURL('png')
+    // console.log(parsedProject);
+    const preview = canvi.toDataURL('png')
     const updatedInfo = {
-      prewiew: prewiew, 
+      preview: preview, 
       project: {
         mainInfo: {
           title: title,
@@ -296,13 +296,13 @@ export const Canvas = ({ projectId, projectInfo }) => {
         }
       }
     }
-    console.log(updatedInfo)
+    // console.log(updatedInfo)
     try {
       const response = await axios.patch(`${UPDATE_PROJECT_URL}/${projectId}/${currentUser.accessToken}`, JSON.stringify(updatedInfo), {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       })
-      console.log(response)
+      // console.log(response)
 
     } catch (error) {
       console.log(error)
@@ -494,6 +494,7 @@ useEffect(() => {
                     label="Width"
                     required
                     value={width}
+                    type="number"
                     onChange={e => setWidth(e.target.value)}
                     error={NUMBER_REGEX.test(width) === false && submitClicked === true}
                     helperText={NUMBER_REGEX.test(width) === false && submitClicked === true ? 'Width must be a number' : ' '}
@@ -501,6 +502,7 @@ useEffect(() => {
                   <TextFieldEl
                     label="Height"
                     required
+                    type="number"
                     value={height}
                     onChange={e => setHeight(e.target.value)}
                     error={NUMBER_REGEX.test(height) === false && submitClicked === true}

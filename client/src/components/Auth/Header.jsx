@@ -131,7 +131,10 @@ export const Header = () => {
   const displayDesktop = () => {
     return (
       <ToolbarStyled>
+        <div style={{display: 'flex', alignItems: "center"}}>
         {femmecubatorLogo}
+        <MyPrjBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='/user-projects'>Projects</MyPrjBtn> 
+        </div>
         <DrawerEl {...{
           anchor: "right",
           open: settingsOpen,
@@ -145,7 +148,6 @@ export const Header = () => {
           </IconButton>
           </DivThemeMode>
             <UpdProfBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</UpdProfBtn> 
-            <MyPrjBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='user-projects'>Projects</MyPrjBtn> 
             {
               isLoading ? <CircularProgress size={24}/> :
                     <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} onClick={() => toLogOut()}>
@@ -247,6 +249,7 @@ export const Header = () => {
     }
     else {
       return (
+        <>
         <UserInfo>
           <Typography>{currentUser?.login}</Typography>
           <AvatarEl src={userAvatar && userAvatar !== 'undefined' && userAvatar !== undefined ? `${route.serverURL}/avatars/${userAvatar}` : `${route.serverURL}/avatars/default_avatar.png`} width={20} height={20} alt='avatar' />
@@ -261,6 +264,9 @@ export const Header = () => {
           </ManageAccountButton>
 
         </UserInfo>
+        <MyPrjBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='/user-projects'>Projects</MyPrjBtn> 
+        
+        </>
       )
     }
   };
