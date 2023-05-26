@@ -166,6 +166,8 @@ export const Canvas = ({ projectId, projectInfo }) => {
             obj.applyFilters();
           }
         break;
+      default:
+        break;
     }
     canvas.renderAll();
   }
