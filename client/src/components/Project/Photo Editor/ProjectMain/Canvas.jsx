@@ -7,7 +7,7 @@ import { ControlsBox, UpdateForm } from '../../../../styles/CreateProjectStyles'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import SaveAltOutlinedIcon from '@mui/icons-material/SaveAltOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box } from '@mui/system';
+import { Box, letterSpacing } from '@mui/system';
 import { saveAsPNG } from '../../../../scripts/saveAsPng';
 import { ColorPickerElement } from '../../../Other/ColorPickerElement';
 import { FreeDraw } from './FreeDraw';
@@ -36,11 +36,141 @@ export const Canvas = ({ projectId, projectInfo }) => {
   const [height, setHeight] = useState(projectInfo.project.mainInfo.height);
   const [outlineWidth, setOutlineWidth] = useState(5);
 
+  const [filterBlur,setFilterBLur] = useState(0);
+  const [filterBrightness,setFilterBrightness] = useState(0);
+  const [filterContrast,setFilterContrast] = useState(0);
+  const [filterGrayScale,setFilterGrayScale] = useState(0);
+  const [filterSepia,setFilterSepia] = useState(0);
+  const [filterSaturation,setFilterSaturation] = useState(0);
+
+
   const handleChange = (event, newValue) => {
     setOutlineWidth(newValue);
   };
 
+  const removeFilters = (canvas) => {
+    setFilterBLur(0);
+    setFilterBrightness(0);
+    setFilterContrast(0);
+    setFilterGrayScale(0);
+    setFilterSepia(0);
+    setFilterSaturation(0);
 
+    let activeObject = canvas.getActiveObject();
+    if (activeObject && activeObject?.type === 'image') {
+      activeObject.filters = [];
+      activeObject.applyFilters();
+      canvas.renderAll();
+    }
+  }
+
+  const filterCanvas = (canvas, value, type) => {
+    let obj = canvas.getActiveObject();
+    const ctx = canvas.getContext(obj);
+
+    switch(type) {
+      case 'blur':
+        if (obj && obj?.type === 'image') {
+          obj.filters = obj.filters.filter(function(filter) {
+            return !(filter instanceof fabric.Image.filters.Blur);
+          });
+          obj.applyFilters();
+          canvas.renderAll();
+        }
+
+        setFilterBLur(value);
+        if (obj?.type === 'image') {
+          obj.filters.push(new fabric.Image.filters.Blur({
+            blur: filterBlur 
+          }));
+          obj.applyFilters();
+        }
+        break;
+      case 'brightness': 
+        if (obj && obj?.type === 'image') {
+        obj.filters = obj.filters.filter(function(filter) {
+          return !(filter instanceof fabric.Image.filters.Brightness);
+        });
+        obj.applyFilters();
+        canvas.renderAll();
+      }
+        setFilterBrightness(value);
+        if (obj?.type === 'image') {
+          obj.filters.push(new fabric.Image.filters.Brightness({
+            brightness: filterBrightness 
+          }));
+          obj.applyFilters();
+        }
+        break;    
+      case 'contrast': 
+        if (obj && obj?.type === 'image') {
+          obj.filters = obj.filters.filter(function(filter) {
+            return !(filter instanceof fabric.Image.filters.Contrast);
+          });
+          obj.applyFilters();
+          canvas.renderAll();
+        }
+        setFilterContrast(value);
+          if (obj?.type === 'image') {
+            obj.filters.push(new fabric.Image.filters.Contrast({
+              contrast: filterContrast 
+            }));
+            obj.applyFilters();
+          }
+        break;
+      case 'sepia': 
+        if (obj && obj?.type === 'image') {
+          obj.filters = obj.filters.filter(function(filter) {
+            return !(filter instanceof fabric.Image.filters.Sepia);
+          });
+          obj.applyFilters();
+          canvas.renderAll();
+        }
+        setFilterSepia(value);
+          if (obj?.type === 'image') {
+            obj.filters.push(new fabric.Image.filters.Sepia({
+              sepia: filterSepia 
+            }));
+            obj.applyFilters();
+          }
+        break;
+      case 'grayscale': 
+        if (obj && obj?.type === 'image') {
+          obj.filters = obj.filters.filter(function(filter) {
+            return !(filter instanceof fabric.Image.filters.Grayscale);
+          });
+          obj.applyFilters();
+          canvas.renderAll();
+        }
+        setFilterGrayScale(value);
+          if (obj?.type === 'image') {
+            obj.filters.push(new fabric.Image.filters.Grayscale({
+              grayscale: filterGrayScale 
+            }));
+            obj.applyFilters();
+          }
+        break;
+      case 'saturation': 
+        if (obj && obj?.type === 'image') {
+          obj.filters = obj.filters.filter(function(filter) {
+            return !(filter instanceof fabric.Image.filters.Saturation);
+          });
+          obj.applyFilters();
+          canvas.renderAll();
+        }
+        setFilterSaturation(value);
+          if (obj?.type === 'image') {
+            obj.filters.push(new fabric.Image.filters.Saturation({
+              saturation: filterSaturation 
+            }));
+            obj.applyFilters();
+          }
+        break;
+      default:
+        break;
+    }
+    canvas.renderAll();
+  }
 
   const addFigure = (canvi, figureName) => {
     let figure = null;
@@ -229,9 +359,7 @@ useEffect(() => {
                   <Button onClick={() => addFigure(canvas, 'text')}><TextFieldsOutlinedIcon /></Button>
                   <Button onClick={() => addFigure(canvas, 'image')}><ImageOutlinedIcon /></Button>
                   <Button onClick={() => deleteObject()}><DeleteOutlinedIcon /></Button>
-
                 </ButtonGroup>
-                
               </ControlsBox>
 
               <Box>
@@ -243,6 +371,71 @@ useEffect(() => {
                   <Slider aria-label="Temperature" valueLabelDisplay="auto" value={outlineWidth} onChange={handleChange} />
                 </ControlsBox>
               </Box>
+
+              <ControlsBox>
+              <Button onClick={() => removeFilters(canvas)}>Remove all filters</Button>
+                <Typography>Blur</Typography>
+                <Slider
+                    aria-label="Blur"
+                    valueLabelDisplay="auto"
+                    value={filterBlur}
+                    step={0.2}
+                    min={0}
+                    max={15}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'blur')}
+                  />
+                <Typography>Brightness</Typography>
+                <Slider
+                    aria-label="Brightness"
+                    valueLabelDisplay="auto"
+                    value={filterBrightness}
+                    step={0.01}
+                    min={-1}
+                    max={1}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'brightness')}
+                  />
+                <Typography>Contrast</Typography>
+                <Slider
+                    aria-label="Contrast"
+                    valueLabelDisplay="auto"
+                    value={filterContrast}
+                    step={0.01}
+                    min={-1}
+                    max={1}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'contrast')}
+                  />
+                  <Typography>Grayscale</Typography>
+                <Slider
+                    aria-label="Grayscale"
+                    valueLabelDisplay="auto"
+                    value={filterGrayScale}
+                    step={0.01}
+                    min={0}
+                    max={1}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'grayscale')}
+                  />
+                 <Typography>Sepia</Typography>
+                <Slider
+                    aria-label="Sepia"
+                    valueLabelDisplay="auto"
+                    value={filterSepia}
+                    step={0.01}
+                    min={0}
+                    max={1}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'sepia')}
+                  />
+                 <Typography>Saturation</Typography>
+                <Slider
+                    aria-label="Saturation"
+                    valueLabelDisplay="auto"
+                    value={filterSaturation}
+                    step={0.02}
+                    min={0}
+                    max={2}
+                    onChange={e => filterCanvas(canvas,e.target.value, 'saturation')}
+                  />
+              </ControlsBox>
+
               <ControlsBox>
                 <Typography>Save and Donwload</Typography>
                 <ButtonGroup variant="outlined" aria-label="outlined button group">
@@ -250,7 +443,7 @@ useEffect(() => {
                   <Button onClick={() => saveProgres(canvas)}><SaveOutlinedIcon /></Button>
                   <Button onClick={() => saveAsPNG(canvas, projectInfo)}><SaveAltOutlinedIcon /></Button>
                 </ButtonGroup>
-                </ControlsBox>
+              </ControlsBox>
 
 
 
