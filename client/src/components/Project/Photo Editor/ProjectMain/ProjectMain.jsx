@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { getInfo } from '../../../../requests/getInfo';
 import { InfoLoadingSpinner } from '../../../Other/InfoLoadingSpinner';
 import { Canvas } from './Canvas';
+import { Container } from '@mui/system';
 export const ProjectMain = () => {
     const location = useLocation().pathname.split('/');
     const currentId = location[2];
@@ -24,8 +25,8 @@ export const ProjectMain = () => {
     }, [])
 
     return isLoadingPage ? <InfoLoadingSpinner size={56} /> : (
-        <BoxEl>
+        <>
             <Canvas projectId={currentId} projectInfo={mainProjectInfo} />
-        </BoxEl>
+        </>
     )
 }

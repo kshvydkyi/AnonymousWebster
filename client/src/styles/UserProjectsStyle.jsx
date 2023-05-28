@@ -1,5 +1,5 @@
-import { styled } from '@mui/system';
-import { Typography, Box } from '@mui/material';
+import { display, styled } from '@mui/system';
+import { Typography, Box, Card } from '@mui/material';
 
 const Container = styled('div')({
     position: 'relative',
@@ -7,13 +7,11 @@ const Container = styled('div')({
     paddingRight: '7%',
     paddingTop: '2%',
     height: '100%',
-    backgroundColor: '#171717'
 });
 
 const TextBlock = styled('div')({
     position: 'absolute',
-    borderLeft: '6px solid white',
-    color: 'white',
+    borderLeft: '6px solid',
     fontSize: '30px',
     paddingLeft: '1.5%',
 });
@@ -22,7 +20,6 @@ const CreateBlock = styled('div')({
     position: 'absolute',
     display: 'flex',
     justifyContent: 'flex-end',
-    color: 'white',
     fontSize: '30px',
     paddingRight: '7%',
     right: '0'
@@ -32,12 +29,9 @@ const ElementsContainer = styled('div')({
     marginTop: '50px',
     paddingTop: '2%',
     paddingBottom: '2%',
-    color: 'white'
 });
 
 const BoxText = styled(Box)({
-    background: '#272727',
-    color: 'white',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -45,23 +39,26 @@ const BoxText = styled(Box)({
     height: "91%"
 })
 
-const CustomBox = styled(Box)({
-    background: '#272727',
-    color: 'white',
+const CustomBox = styled(Card)({
     display: 'flex',
+   
     padding: '1vw 1vw 0vw 1vw',
     flexDirection: 'column',
     justifyContent: 'center',
     alignContent: 'center',
     borderRadius: '5px',
+    cursor: 'pointer'
 })
 
+const PopoverBox = styled('div')({
+    display: 'flex', 
+    justifyContent: 'flex-end'
+})
 const TypographyName = styled(Typography)({
     wordWrap:'break-word',
     paddingTop: '0.25vw',
     fontSize: '20px',
     fontWeight: 'bold',
-    background: '#272727',
 })
 
 const TypographyData = styled(Typography)({
@@ -69,11 +66,15 @@ const TypographyData = styled(Typography)({
     paddingBottom: '0.2vw',
     color: '#808080',
     fontSize: '14px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent:'space-between'
+
 })
 
 const Image = styled('img')({
     height: '200px'
 })
 
-export { CreateBlock, Image, TypographyData, Container, BoxText, TypographyName, CustomBox, ElementsContainer, TextBlock }
+export { CreateBlock, Image, PopoverBox, TypographyData, Container, BoxText, TypographyName, CustomBox, ElementsContainer, TextBlock }

@@ -51,6 +51,18 @@ const SettingsForm = styled(Box)({
     width: "26%",
     marginTop: "70px"
 })
+const UpdateForm = styled(Box)({
+    margin: 0,
+    padding: 0,
+    display: "flex",
+    flexDirection: "column",
+    // width: "26%",
+    // marginTop: "70px"
+})
+
+const ControlsBox = styled(Box)({
+    margin: '10px'
+})
 
 const ColorPicker = styled(MuiColorInput)({
     "&.Dark": {
@@ -63,4 +75,4 @@ const ColorPicker = styled(MuiColorInput)({
     },
     margin: '10px'
 })
-export {CreateBox, TypographyBox, CustomToggleButton, CustomToggleButtonGroup, FormatCard, FormatTitle, Settings, SettingsForm, ColorPicker}
+export {CreateBox, TypographyBox, ControlsBox, CustomToggleButton, CustomToggleButtonGroup, FormatCard, FormatTitle, Settings, SettingsForm, ColorPicker, UpdateForm}

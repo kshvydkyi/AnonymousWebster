@@ -99,7 +99,7 @@ header {
   width: 40px;
   height: 40px;
   background-color: transparent;
-  border: 1px solid rgb(255, 255, 255);
+  border: none;
   cursor: pointer;
 }
 .draw-color-picker::-webkit-color-swatch {
@@ -114,6 +114,7 @@ header {
   display:flex;
   flex-direction: row;
   align-items: center;
+  margin: 20px;
 
 }
 .selectdiv {
@@ -171,4 +172,12 @@ display: none;
   border: 1px solid #cccccc;
   -ms-word-break: normal;
   word-break: normal;
+}
+.free-draw-controls{
+  width: 100%;
+}
+.drawing-options{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
