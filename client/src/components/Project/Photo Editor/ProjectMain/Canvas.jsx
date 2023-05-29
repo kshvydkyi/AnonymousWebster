@@ -37,7 +37,7 @@ export const Canvas = ({ projectId, projectInfo }) => {
   const [outlineWidth, setOutlineWidth] = useState(5);
 
   const handleChange = (event, newValue) => {
-    setOutlineWidth(newValue);
+    setOutlineWidth(Number(newValue));
   };
 
 
@@ -112,14 +112,102 @@ export const Canvas = ({ projectId, projectInfo }) => {
     canvas.remove(canvas.getActiveObject());
   }
 
+  const groupObjects = () => {
+    const activeObjects = canvas.getActiveObjects();
+    if (activeObjects.length > 1) {
+      // Нахождение общих координат объектов
+      const groupCoords = getGroupCoords(activeObjects);
+  
+      // Создание новой группы с активными объектами
+      const group = new fabric.Group(activeObjects, {
+        originX: 'center',
+        originY: 'center',
+        left: groupCoords.left,
+        top: groupCoords.top
+      });
+  
+      // Проверка, не выходит ли группа за пределы окна рисования
+      const canvasWidth = canvas.getWidth();
+      const canvasHeight = canvas.getHeight();
+      const groupBoundingRect = group.getBoundingRect();
+  
+      const groupWidth = groupBoundingRect.width;
+      const groupHeight = groupBoundingRect.height;
+  
+      const centerX = canvasWidth / 2;
+      const centerY = canvasHeight / 2;
+  
+      // Перемещение группы в центр окна
+      const leftOffset = centerX - groupWidth / 2;
+      const topOffset = centerY - groupHeight / 2;
+  
+      group.set({
+        left: leftOffset,
+        top: topOffset
+      });
+  
+      // Удаление активных объектов из холста
+      activeObjects.forEach((obj) => {
+        canvas.remove(obj);
+      });
+  
+      // Добавление новой группы на холст
+      canvas.add(group);
+  
+      // Обновление отображения на холсте
+      canvas.renderAll();
+    }
+  };
+
+  const getGroupCoords = (objects) => {
+    let left = Infinity;
+    let top = Infinity;
+    let right = -Infinity;
+    let bottom = -Infinity;
+  
+    objects.forEach((obj) => {
+      const objCoords = obj.getBoundingRect();
+      left = Math.min(left, objCoords.left);
+      top = Math.min(top, objCoords.top);
+      right = Math.max(right, objCoords.left + objCoords.width);
+      bottom = Math.max(bottom, objCoords.top + objCoords.height);
+    });
+  
+    const width = right - left;
+    const height = bottom - top;
+  
+    return { left: left + width / 2, top: top + height / 2 };
+  };
+  
+  const ungroupObjects = () => {
+    if(canvas){
+      const activeObject = canvas.getActiveObject();
+  
+      if (activeObject && activeObject.type === 'group') {
+        const objects = activeObject.getObjects();
+    
+        // Удаление группы и добавление отдельных объектов на холст
+        canvas.remove(activeObject);
+        objects.forEach((obj) => {
+          canvas.add(obj);
+        });
+    
+        // Обновление отображения на холсте
+        canvas.renderAll();
+      }
+    }
+  };
+
 
   const loadJson = (canvi) => {
-    console.log(projectInfo);
     canvi.clear();
     const json = projectInfo.project.projectCanvas.canvas;
-    canvi.loadFromJSON(json, canvi.renderAll.bind(canvi));
-
-  }
+    canvi.loadFromJSON(json, () => {
+      // Вызывается после загрузки JSON, чтобы объекты были активными
+      canvi.setActiveObject(canvi.item(0));
+      canvi.renderAll();
+    });
+  };
 
   useEffect(() => {
     if (projectInfo) {
@@ -136,13 +224,15 @@ export const Canvas = ({ projectId, projectInfo }) => {
   }, [canvas])
 
   const initCanvas = (projectInfo) => {
-    setCanvas(new fabric.Canvas('c', {
+    const newCanvas = new fabric.Canvas('c', {
       height: projectInfo.project.mainInfo.height,
       width: projectInfo.project.mainInfo.width,
       backgroundColor: projectInfo.project.mainInfo.bgColor,
       isDrawingMode: false
-    }))
-  }
+    });
+  
+    setCanvas(newCanvas);
+  };
 
   const saveProgres = async (canvi) => {
     const projectJSON = JSON.stringify(canvi);
@@ -229,7 +319,8 @@ useEffect(() => {
                   <Button onClick={() => addFigure(canvas, 'text')}><TextFieldsOutlinedIcon /></Button>
                   <Button onClick={() => addFigure(canvas, 'image')}><ImageOutlinedIcon /></Button>
                   <Button onClick={() => deleteObject()}><DeleteOutlinedIcon /></Button>
-
+                  <Button onClick={groupObjects}>Group</Button>
+                  <Button onClick={ungroupObjects}>Ungroup</Button>
                 </ButtonGroup>
                 
               </ControlsBox>
