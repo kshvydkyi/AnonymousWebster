@@ -46,14 +46,14 @@ const Register = () => {
                     }
                 );
 
-                console.log(response);
-                // setSuccess(true);
+    
+                
                 setLoading(false);
                 setStateDialog(true)
             }
             catch (err) {
                 setLoading(false);
-                console.log(err)
+                
                 if (!err?.response) {
                     setErrMsg('Сервер спить, вибачте');
                 }
@@ -82,12 +82,12 @@ const Register = () => {
                     withCredentials: true
                 }
             );
-            console.log(response)
+           
             navigate('/login'); 
             }
         catch (err) {
             setLoading(false);
-            console.log(err)
+            
             if (!err?.response) {
                 setErrMsg('Сервер спить, вибачте');
             }

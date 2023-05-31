@@ -35,7 +35,6 @@ export const CreateForm = ({ widthValue, heightValue }) => {
         setSubmitClicked(true);
         setErrMsg('');
         e.preventDefault();
-        console.log(title, description, +width, +height, backgroundColor);
 
         try {
             setIsLoading(true)
@@ -59,12 +58,10 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                     }
                 }
             }
-            console.log(projectCreateInfo);
             const response = await axios.post(CREATE_PROJECT_URL + currentUser.accessToken, JSON.stringify(projectCreateInfo), {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             });
-            console.log(response);
             document.location.replace(`/project/${response.data.values.values}`)
             setIsLoading(false)
         } catch (error) {

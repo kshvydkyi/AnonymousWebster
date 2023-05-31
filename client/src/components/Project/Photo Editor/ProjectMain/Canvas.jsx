@@ -244,7 +244,6 @@ export const Canvas = ({ projectId, projectInfo }) => {
 
 
   const loadJson = (canvi) => {
-    console.log(projectInfo);
     canvi.clear();
     const json = projectInfo.project.projectCanvas.canvas;
     canvi.loadFromJSON(json, canvi.renderAll.bind(canvi));
@@ -278,7 +277,6 @@ export const Canvas = ({ projectId, projectInfo }) => {
     const projectJSON = JSON.stringify(canvi);
     const parsedProject = JSON.parse(projectJSON)
     parsedProject.background = canvasBackgroundColor;
-    // console.log(parsedProject);
     const preview = canvi.toDataURL('png')
     const updatedInfo = {
       preview: preview, 
@@ -296,16 +294,15 @@ export const Canvas = ({ projectId, projectInfo }) => {
         }
       }
     }
-    // console.log(updatedInfo)
+
     try {
       const response = await axios.patch(`${UPDATE_PROJECT_URL}/${projectId}/${currentUser.accessToken}`, JSON.stringify(updatedInfo), {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       })
-      // console.log(response)
 
     } catch (error) {
-      console.log(error)
+
     }
 
 
@@ -314,7 +311,6 @@ export const Canvas = ({ projectId, projectInfo }) => {
 useEffect(() => {
   const timer = setInterval(() => {
     saveProgres(canvas)
-    console.log('autosave')
   }, 60000);
 
   return () => {
@@ -332,7 +328,6 @@ useEffect(() => {
       document.location.reload()
     } catch (error) {
       setIsLoading(false)
-      console.log(error)
     }
 
   }

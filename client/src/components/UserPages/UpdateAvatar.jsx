@@ -34,7 +34,6 @@ export const UpdateAvatar = () => {
 
   }
   useEffect(() => {
-    console.log(prewiew)
     if (prewiew) {
       setUploadFile(dataURLtoFile(prewiew ? prewiew : "", `${currentUser.login}_avatar.png`));
     }
@@ -43,7 +42,6 @@ export const UpdateAvatar = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", uploadFile);
-    console.log(formData);
     try {
       setLoading(true);
       const response = await axios.patch(`/api/users/avatar/${currentUser.userId}/${currentUser.accessToken}`, formData,
@@ -53,14 +51,14 @@ export const UpdateAvatar = () => {
         }
 
       )
-      console.log(response);
+      
 
       setLoading(false);
       setStateDialog(true);
     }
     catch (err) {
       setLoading(false);
-      console.log(err);
+      
       setErrMsg('Error')
       setHidden();
 
