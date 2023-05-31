@@ -26,7 +26,7 @@ export const UpdateProfile = () => {
       setIsLoadingPage(true);
       if (currentUser?.currentUser !== 'guest') {
         const response = await axios.get(`${GET_USER_BY_ID_URL}/${currentUser.userId}`);
-        // console.log(response);
+       
         setLogin(response.data.values.values.login);
         setFullName(response.data.values.values.full_name);
         setEmail(response.data.values.values.email);
@@ -35,7 +35,7 @@ export const UpdateProfile = () => {
       
     }
     catch (e) {
-      console.log(e)
+      
       navigate('/500');
     }
   }
@@ -55,7 +55,7 @@ export const UpdateProfile = () => {
     if (FULLNAME_REGEX.test(fullName) && EMAIL_REGEX.test(email) && USER_REGEX.test(login)) {
       try {
         setLoading(true);
-        console.log(login, email, fullName);
+       
         const response = await axios.patch(`${UPDATE_PROFILE_DATA_URL}${currentUser.userId}/${currentUser.accessToken}`,
           JSON.stringify({ login: login, email: email, full_name: fullName }),
           {
@@ -63,14 +63,14 @@ export const UpdateProfile = () => {
             withCredentials: true
           }
         );
-        console.log(response);
+       
         setLoading(false);
         localStorage.setItem('autorized', JSON.stringify({ accessToken: currentUser.accessToken, role: currentUser.role, login: login, userId: currentUser.userId }))
         setStateDialog(true);
       }
       catch (err) {
         setLoading(false);
-        console.log(err)
+        
         if (err?.response.status === 409) {
           setErrMsg('Такий логін або емейл існує');
           setHidden();

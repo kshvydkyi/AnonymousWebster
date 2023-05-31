@@ -1,9 +1,9 @@
-import { Card, CardContent, Grid, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import {Grid, ToggleButton, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GET_CATEGORIES_URL, GET_FORMATS_URL } from '../../api/routes';
 import { getInfo } from '../../requests/getInfo';
-import { CustomToggleButtonGroup, FormatCard, FormatTitle, TypographyBox } from '../../styles/CreateProjectStyles';
+import { CustomToggleButtonGroup, FormatCard, FormatTitle,  } from '../../styles/CreateProjectStyles';
 import { InfoLoadingSpinner } from '../Other/InfoLoadingSpinner';
 
 export const GetFomats = ({chosenWidthState, chosenHeightState}) => {
@@ -19,7 +19,6 @@ export const GetFomats = ({chosenWidthState, chosenHeightState}) => {
   }, [])
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
-    console.log(newAlignment);
     if (newAlignment === 'All') {
       setShowFormats(formats);
     }

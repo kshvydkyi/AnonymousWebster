@@ -13,7 +13,6 @@ const ConfirmEmail = () => {
         const fetch = async () => {
             try {
                 await axios.post(ACTIVE_EMAIL_URL + token);  
-                console.log(token)
                 setActive('Email activation is successfull');
                 setTimeout(() => navigate('/login'), 5000);
             } 

@@ -6,12 +6,14 @@ import { SettingsForm } from '../../styles/CreateProjectStyles';
 import { CircularProgress } from '@mui/material';
 import axios from '../../api/axios';
 import { CREATE_PROJECT_URL } from '../../api/routes';
+import { useNavigate } from 'react-router-dom';
+
 export const CreateForm = ({ widthValue, heightValue }) => {
     const errRef = useRef();
     const [errMsg, setErrMsg] = useState('');
     const [submitClicked, setSubmitClicked] = useState(false);
     const currentUser = JSON.parse(localStorage.getItem('autorized'));
-
+    const navigate = useNavigate()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +35,6 @@ export const CreateForm = ({ widthValue, heightValue }) => {
         setSubmitClicked(true);
         setErrMsg('');
         e.preventDefault();
-        console.log(title, description, +width, +height, backgroundColor);
 
         try {
             setIsLoading(true)
@@ -50,16 +51,18 @@ export const CreateForm = ({ widthValue, heightValue }) => {
 
                     },
                     projectCanvas: {
-                        canvas: {}
+                        canvas: {
+                            background: backgroundColor,
+                            objects: [],
+                            version: "5.3.0"}
                     }
                 }
             }
-            console.log(projectCreateInfo);
             const response = await axios.post(CREATE_PROJECT_URL + currentUser.accessToken, JSON.stringify(projectCreateInfo), {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             });
-            console.log(response);
+            document.location.replace(`/project/${response.data.values.values}`)
             setIsLoading(false)
         } catch (error) {
             setErrMsg('Error')
@@ -102,6 +105,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         label="Width"
                         required
                         value={width}
+                        type="number"
                         onChange={e => setWidth(e.target.value)}
                         error={NUMBER_REGEX.test(width) === false && submitClicked === true}
                         helperText={NUMBER_REGEX.test(width) === false && submitClicked === true ? 'Width must be a number' : ' '}
@@ -110,6 +114,7 @@ export const CreateForm = ({ widthValue, heightValue }) => {
                         label="Height"
                         required
                         value={height}
+                        type="number"
                         onChange={e => setHeight(e.target.value)}
                         error={NUMBER_REGEX.test(height) === false && submitClicked === true}
                         helperText={NUMBER_REGEX.test(height) === false && submitClicked === true ? 'Height must be a number' : ' '}

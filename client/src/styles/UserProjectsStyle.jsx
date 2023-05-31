@@ -1,4 +1,4 @@
-import { styled } from '@mui/system';
+import { display, styled } from '@mui/system';
 import { Typography, Box, Card } from '@mui/material';
 
 const Container = styled('div')({
@@ -50,6 +50,10 @@ const CustomBox = styled(Card)({
     cursor: 'pointer'
 })
 
+const PopoverBox = styled('div')({
+    display: 'flex', 
+    justifyContent: 'flex-end'
+})
 const TypographyName = styled(Typography)({
     wordWrap:'break-word',
     paddingTop: '0.25vw',
@@ -62,11 +66,15 @@ const TypographyData = styled(Typography)({
     paddingBottom: '0.2vw',
     color: '#808080',
     fontSize: '14px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent:'space-between'
+
 })
 
 const Image = styled('img')({
     height: '200px'
 })
 
-export { CreateBlock, Image, TypographyData, Container, BoxText, TypographyName, CustomBox, ElementsContainer, TextBlock }
+export { CreateBlock, Image, PopoverBox, TypographyData, Container, BoxText, TypographyName, CustomBox, ElementsContainer, TextBlock }
