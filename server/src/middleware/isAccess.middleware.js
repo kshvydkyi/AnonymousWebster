@@ -57,10 +57,10 @@ export const isAccessOrAdminProjectService = (Service) => async (req, res, next)
 
     let check = false;
     result.forEach(async (element) => {
-        console.log(element.id, req.params.id)
+        
         if (element.id === +req.params.id) {
             check = true;
-            console.log('jhgfd')
+    
         }
     });
     if (check == false && userData.role !== 'admin') {

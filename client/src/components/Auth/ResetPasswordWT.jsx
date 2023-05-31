@@ -1,10 +1,9 @@
-import React, {  useRef, useState, useEffect  } from 'react';
+import React, {  useRef, useState  } from 'react';
 import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/RegisterStyle'
 import axios from '../../api/axios';
 import { CircularProgress } from '@mui/material';
 import {RESET_PASSWORD_WT_URL} from '../../api/routes'
 import { useParams,useNavigate } from "react-router-dom";
-// import useAuth from "../../hooks/useAuth";
 import {DialogWindow} from '../Other/DialogWIndow'
 import {PWD_REGEX} from '../../regex/regex'
 
@@ -29,7 +28,7 @@ const ResetPasswordWT = () => {
 
         try {
             setLoading(true);
-            console.log(token)
+           
             const response = await axios.post(RESET_PASSWORD_WT_URL + token,
                 JSON.stringify({password: password, confirmPassword: confirmPassword}),
                 {
@@ -37,7 +36,6 @@ const ResetPasswordWT = () => {
                     withCredentials: true
                 }
             );
-            console.log(response?.data.status, response?.data.values.message);
             setLoading(false);
             setSuccess(true);
             setTimeout(()=> navigate('/login'), 5000);

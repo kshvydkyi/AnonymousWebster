@@ -3,19 +3,15 @@ import {Body, BoxEl, TextFieldEl, ButtonEl, ErrWarning} from '../../styles/Regis
 import axios from '../../api/axios';
 import { CircularProgress } from '@mui/material';
 import {RESET_PASSWORD_URL} from '../../api/routes'
-// import { useNavigate } from "react-router-dom";
-// import useAuth from "../../hooks/useAuth";
+
 import {DialogWindow} from '../Other/DialogWIndow'
 import {EMAIL_REGEX} from '../../regex/regex'
 
 const ResetPassword = () => {
     const [email, setEmail] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    // const [success, setSuccess] = useState(false);
     const errRef = useRef();
     const [isLoading, setLoading] = useState(false);
-    // const navigate = useNavigate(); 
-    // const { setAuth } = useAuth();
     const [submitClicked, setSubmitClicked] = useState(false);
     const [stateDialog, setStateDialog] = useState(false);
 
@@ -26,7 +22,7 @@ const ResetPassword = () => {
         if (EMAIL_REGEX.test(email)) {
             try{
                 setLoading(true);
-                console.log(email)
+               
                 const response = await axios.post(RESET_PASSWORD_URL, 
                     JSON.stringify({email: email}),
                     {
@@ -34,8 +30,6 @@ const ResetPassword = () => {
                         withCredentials: true
                     }
                 )
-                console.log(response?.data.status, response?.data.values.message);
-                // setSuccess(true);
                 setLoading(false);
                 setStateDialog(true)
             }

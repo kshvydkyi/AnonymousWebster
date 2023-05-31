@@ -82,12 +82,12 @@ export const Header = () => {
     try {
       if (currentUser?.currentUser !== 'guest') {
         const response = await axios.get(`/api/users/${currentUser.userId}`);
-        // console.log('userAvatar', response);
+     
         setUserAvatar(response.data.values.values.profile_pic);
       }
     }
     catch (e) {
-      console.log(e)
+      
       navigate('/500');
     }
   }
@@ -147,7 +147,7 @@ export const Header = () => {
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
           </DivThemeMode>
-            <UpdProfBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</UpdProfBtn> 
+            <UpdProfBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='/update-profile'>Update Profile</UpdProfBtn> 
             {
               isLoading ? <CircularProgress size={24}/> :
                     <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} onClick={() => toLogOut()}>
@@ -198,7 +198,7 @@ export const Header = () => {
           </DivThemeMode>
           </SpanUserInfo>
 
-          <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='update-profile'>Update Profile</LogOutBtn>
+          <LogOutBtn className={localStorage.getItem('themeMode') === 'dark' ? "Dark" : "Light"} href='/update-profile'>Update Profile</LogOutBtn>
             {
               isLoading ? <LogOutBtn ><CircularProgress size={24} /></LogOutBtn> :
                 <>
