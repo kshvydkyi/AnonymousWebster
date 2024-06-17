@@ -7,7 +7,7 @@ import { ControlsBox, UpdateForm } from '../../../../styles/CreateProjectStyles'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import SaveAltOutlinedIcon from '@mui/icons-material/SaveAltOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, letterSpacing } from '@mui/system';
+import { Box } from '@mui/system';
 import { saveAsPNG } from '../../../../scripts/saveAsPng';
 import { ColorPickerElement } from '../../../Other/ColorPickerElement';
 import { FreeDraw } from './FreeDraw';
@@ -36,141 +36,11 @@ export const Canvas = ({ projectId, projectInfo }) => {
   const [height, setHeight] = useState(projectInfo.project.mainInfo.height);
   const [outlineWidth, setOutlineWidth] = useState(5);
 
-  const [filterBlur,setFilterBLur] = useState(0);
-  const [filterBrightness,setFilterBrightness] = useState(0);
-  const [filterContrast,setFilterContrast] = useState(0);
-  const [filterGrayScale,setFilterGrayScale] = useState(0);
-  const [filterSepia,setFilterSepia] = useState(0);
-  const [filterSaturation,setFilterSaturation] = useState(0);
-
-
   const handleChange = (event, newValue) => {
-    setOutlineWidth(newValue);
+    setOutlineWidth(Number(newValue));
   };
 
-  const removeFilters = (canvas) => {
-    setFilterBLur(0);
-    setFilterBrightness(0);
-    setFilterContrast(0);
-    setFilterGrayScale(0);
-    setFilterSepia(0);
-    setFilterSaturation(0);
 
-    let activeObject = canvas.getActiveObject();
-    if (activeObject && activeObject?.type === 'image') {
-      activeObject.filters = [];
-      activeObject.applyFilters();
-      canvas.renderAll();
-    }
-  }
-
-  const filterCanvas = (canvas, value, type) => {
-    let obj = canvas.getActiveObject();
-    const ctx = canvas.getContext(obj);
-
-    switch(type) {
-      case 'blur':
-        if (obj && obj?.type === 'image') {
-          obj.filters = obj.filters.filter(function(filter) {
-            return !(filter instanceof fabric.Image.filters.Blur);
-          });
-          obj.applyFilters();
-          canvas.renderAll();
-        }
-
-        setFilterBLur(value);
-        if (obj?.type === 'image') {
-          obj.filters.push(new fabric.Image.filters.Blur({
-            blur: filterBlur 
-          }));
-          obj.applyFilters();
-        }
-        break;
-      case 'brightness': 
-        if (obj && obj?.type === 'image') {
-        obj.filters = obj.filters.filter(function(filter) {
-          return !(filter instanceof fabric.Image.filters.Brightness);
-        });
-        obj.applyFilters();
-        canvas.renderAll();
-      }
-        setFilterBrightness(value);
-        if (obj?.type === 'image') {
-          obj.filters.push(new fabric.Image.filters.Brightness({
-            brightness: filterBrightness 
-          }));
-          obj.applyFilters();
-        }
-        break;    
-      case 'contrast': 
-        if (obj && obj?.type === 'image') {
-          obj.filters = obj.filters.filter(function(filter) {
-            return !(filter instanceof fabric.Image.filters.Contrast);
-          });
-          obj.applyFilters();
-          canvas.renderAll();
-        }
-        setFilterContrast(value);
-          if (obj?.type === 'image') {
-            obj.filters.push(new fabric.Image.filters.Contrast({
-              contrast: filterContrast 
-            }));
-            obj.applyFilters();
-          }
-        break;
-      case 'sepia': 
-        if (obj && obj?.type === 'image') {
-          obj.filters = obj.filters.filter(function(filter) {
-            return !(filter instanceof fabric.Image.filters.Sepia);
-          });
-          obj.applyFilters();
-          canvas.renderAll();
-        }
-        setFilterSepia(value);
-          if (obj?.type === 'image') {
-            obj.filters.push(new fabric.Image.filters.Sepia({
-              sepia: filterSepia 
-            }));
-            obj.applyFilters();
-          }
-        break;
-      case 'grayscale': 
-        if (obj && obj?.type === 'image') {
-          obj.filters = obj.filters.filter(function(filter) {
-            return !(filter instanceof fabric.Image.filters.Grayscale);
-          });
-          obj.applyFilters();
-          canvas.renderAll();
-        }
-        setFilterGrayScale(value);
-          if (obj?.type === 'image') {
-            obj.filters.push(new fabric.Image.filters.Grayscale({
-              grayscale: filterGrayScale 
-            }));
-            obj.applyFilters();
-          }
-        break;
-      case 'saturation': 
-        if (obj && obj?.type === 'image') {
-          obj.filters = obj.filters.filter(function(filter) {
-            return !(filter instanceof fabric.Image.filters.Saturation);
-          });
-          obj.applyFilters();
-          canvas.renderAll();
-        }
-        setFilterSaturation(value);
-          if (obj?.type === 'image') {
-            obj.filters.push(new fabric.Image.filters.Saturation({
-              saturation: filterSaturation 
-            }));
-            obj.applyFilters();
-          }
-        break;
-      default:
-        break;
-    }
-    canvas.renderAll();
-  }
 
   const addFigure = (canvi, figureName) => {
     let figure = null;
@@ -242,14 +112,102 @@ export const Canvas = ({ projectId, projectInfo }) => {
     canvas.remove(canvas.getActiveObject());
   }
 
+  const groupObjects = () => {
+    const activeObjects = canvas.getActiveObjects();
+    if (activeObjects.length > 1) {
+      // Нахождение общих координат объектов
+      const groupCoords = getGroupCoords(activeObjects);
+  
+      // Создание новой группы с активными объектами
+      const group = new fabric.Group(activeObjects, {
+        originX: 'center',
+        originY: 'center',
+        left: groupCoords.left,
+        top: groupCoords.top
+      });
+  
+      // Проверка, не выходит ли группа за пределы окна рисования
+      const canvasWidth = canvas.getWidth();
+      const canvasHeight = canvas.getHeight();
+      const groupBoundingRect = group.getBoundingRect();
+  
+      const groupWidth = groupBoundingRect.width;
+      const groupHeight = groupBoundingRect.height;
+  
+      const centerX = canvasWidth / 2;
+      const centerY = canvasHeight / 2;
+  
+      // Перемещение группы в центр окна
+      const leftOffset = centerX - groupWidth / 2;
+      const topOffset = centerY - groupHeight / 2;
+  
+      group.set({
+        left: leftOffset,
+        top: topOffset
+      });
+  
+      // Удаление активных объектов из холста
+      activeObjects.forEach((obj) => {
+        canvas.remove(obj);
+      });
+  
+      // Добавление новой группы на холст
+      canvas.add(group);
+  
+      // Обновление отображения на холсте
+      canvas.renderAll();
+    }
+  };
+
+  const getGroupCoords = (objects) => {
+    let left = Infinity;
+    let top = Infinity;
+    let right = -Infinity;
+    let bottom = -Infinity;
+  
+    objects.forEach((obj) => {
+      const objCoords = obj.getBoundingRect();
+      left = Math.min(left, objCoords.left);
+      top = Math.min(top, objCoords.top);
+      right = Math.max(right, objCoords.left + objCoords.width);
+      bottom = Math.max(bottom, objCoords.top + objCoords.height);
+    });
+  
+    const width = right - left;
+    const height = bottom - top;
+  
+    return { left: left + width / 2, top: top + height / 2 };
+  };
+  
+  const ungroupObjects = () => {
+    if(canvas){
+      const activeObject = canvas.getActiveObject();
+  
+      if (activeObject && activeObject.type === 'group') {
+        const objects = activeObject.getObjects();
+    
+        // Удаление группы и добавление отдельных объектов на холст
+        canvas.remove(activeObject);
+        objects.forEach((obj) => {
+          canvas.add(obj);
+        });
+    
+        // Обновление отображения на холсте
+        canvas.renderAll();
+      }
+    }
+  };
+
 
   const loadJson = (canvi) => {
-    console.log(projectInfo);
     canvi.clear();
     const json = projectInfo.project.projectCanvas.canvas;
-    canvi.loadFromJSON(json, canvi.renderAll.bind(canvi));
-
-  }
+    canvi.loadFromJSON(json, () => {
+      // Вызывается после загрузки JSON, чтобы объекты были активными
+      canvi.setActiveObject(canvi.item(0));
+      canvi.renderAll();
+    });
+  };
 
   useEffect(() => {
     if (projectInfo) {
@@ -266,22 +224,24 @@ export const Canvas = ({ projectId, projectInfo }) => {
   }, [canvas])
 
   const initCanvas = (projectInfo) => {
-    setCanvas(new fabric.Canvas('c', {
+    const newCanvas = new fabric.Canvas('c', {
       height: projectInfo.project.mainInfo.height,
       width: projectInfo.project.mainInfo.width,
       backgroundColor: projectInfo.project.mainInfo.bgColor,
       isDrawingMode: false
-    }))
-  }
+    });
+  
+    setCanvas(newCanvas);
+  };
 
   const saveProgres = async (canvi) => {
     const projectJSON = JSON.stringify(canvi);
     const parsedProject = JSON.parse(projectJSON)
     parsedProject.background = canvasBackgroundColor;
-    // console.log(parsedProject);
-    const preview = canvi.toDataURL('png')
+    console.log(parsedProject);
+    const prewiew = canvi.toDataURL('png')
     const updatedInfo = {
-      preview: preview, 
+      prewiew: prewiew, 
       project: {
         mainInfo: {
           title: title,
@@ -296,13 +256,13 @@ export const Canvas = ({ projectId, projectInfo }) => {
         }
       }
     }
-    // console.log(updatedInfo)
+    console.log(updatedInfo)
     try {
       const response = await axios.patch(`${UPDATE_PROJECT_URL}/${projectId}/${currentUser.accessToken}`, JSON.stringify(updatedInfo), {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       })
-      // console.log(response)
+      console.log(response)
 
     } catch (error) {
       console.log(error)
@@ -359,7 +319,10 @@ useEffect(() => {
                   <Button onClick={() => addFigure(canvas, 'text')}><TextFieldsOutlinedIcon /></Button>
                   <Button onClick={() => addFigure(canvas, 'image')}><ImageOutlinedIcon /></Button>
                   <Button onClick={() => deleteObject()}><DeleteOutlinedIcon /></Button>
+                  <Button onClick={groupObjects}>Group</Button>
+                  <Button onClick={ungroupObjects}>Ungroup</Button>
                 </ButtonGroup>
+                
               </ControlsBox>
 
               <Box>
@@ -371,71 +334,6 @@ useEffect(() => {
                   <Slider aria-label="Temperature" valueLabelDisplay="auto" value={outlineWidth} onChange={handleChange} />
                 </ControlsBox>
               </Box>
-
-              <ControlsBox>
-              <Button onClick={() => removeFilters(canvas)}>Remove all filters</Button>
-                <Typography>Blur</Typography>
-                <Slider
-                    aria-label="Blur"
-                    valueLabelDisplay="auto"
-                    value={filterBlur}
-                    step={0.2}
-                    min={0}
-                    max={15}
-                    onChange={e => filterCanvas(canvas,e.target.value, 'blur')}
-                  />
-                <Typography>Brightness</Typography>
-                <Slider
-                    aria-label="Brightness"
-                    valueLabelDisplay="auto"
-                    value={filterBrightness}
-                    step={0.01}
-                    min={-1}
-                    max={1}
-                    onChange={e => filterCanvas(canvas,e.target.value, 'brightness')}
-                  />
-                <Typography>Contrast</Typography>
-                <Slider
-                    aria-label="Contrast"
-                    valueLabelDisplay="auto"
-                    value={filterContrast}
-                    step={0.01}
-                    min={-1}
-                    max={1}
-                    onChange={e => filterCanvas(canvas,e.target.value, 'contrast')}
-                  />
-                  <Typography>Grayscale</Typography>
-                <Slider
-                    aria-label="Grayscale"
-                    valueLabelDisplay="auto"
-                    value={filterGrayScale}
-                    step={0.01}
-                    min={0}
-                    max={1}
-                    onChange={e => filterCanvas(canvas,e.target.value, 'grayscale')}
-                  />
-                 <Typography>Sepia</Typography>
-                <Slider
-                    aria-label="Sepia"
-                    valueLabelDisplay="auto"
-                    value={filterSepia}
-                    step={0.01}
-                    min={0}
-                    max={1}
-                    onChange={e => filterCanvas(canvas,e.target.value, 'sepia')}
-                  />
-                 <Typography>Saturation</Typography>
-                <Slider
-                    aria-label="Saturation"
-                    valueLabelDisplay="auto"
-                    value={filterSaturation}
-                    step={0.02}
-                    min={0}
-                    max={2}
-                    onChange={e => filterCanvas(canvas,e.target.value, 'saturation')}
-                  />
-              </ControlsBox>
-
               <ControlsBox>
                 <Typography>Save and Donwload</Typography>
                 <ButtonGroup variant="outlined" aria-label="outlined button group">
@@ -443,7 +341,7 @@ useEffect(() => {
                   <Button onClick={() => saveProgres(canvas)}><SaveOutlinedIcon /></Button>
                   <Button onClick={() => saveAsPNG(canvas, projectInfo)}><SaveAltOutlinedIcon /></Button>
                 </ButtonGroup>
-              </ControlsBox>
+                </ControlsBox>
 
 
 
@@ -494,7 +392,6 @@ useEffect(() => {
                     label="Width"
                     required
                     value={width}
-                    type="number"
                     onChange={e => setWidth(e.target.value)}
                     error={NUMBER_REGEX.test(width) === false && submitClicked === true}
                     helperText={NUMBER_REGEX.test(width) === false && submitClicked === true ? 'Width must be a number' : ' '}
@@ -502,7 +399,6 @@ useEffect(() => {
                   <TextFieldEl
                     label="Height"
                     required
-                    type="number"
                     value={height}
                     onChange={e => setHeight(e.target.value)}
                     error={NUMBER_REGEX.test(height) === false && submitClicked === true}

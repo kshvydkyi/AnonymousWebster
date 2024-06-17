@@ -20,9 +20,8 @@ export const UserProjects = () => {
 		try {
 			const response = await axios.get(GET_BY_USER_ID + currentUser.userId, { withCredentials: true });
 			setProjects(response?.data?.values?.values)
-			console.log(response);
+		
 		} catch (err) {
-			console.error(err);
 		} finally {
 			setLoading(false)
 		};
@@ -39,13 +38,13 @@ export const UserProjects = () => {
 	const deleteProject = async(projectID) => {
 		try {
 			const response = await axios.delete(`${CREATE_PROJECT_URL}${projectID}/${currentUser.accessToken}`)
-			console.log(response)
+			
 			document.location.reload()
 		} catch (error) {
-			console.log(error)
+	
 		}
 }
-console.log(projects);
+
 
 	return isLoading ? <></> : (
 		<Container>

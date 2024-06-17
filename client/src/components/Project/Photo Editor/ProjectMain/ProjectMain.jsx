@@ -13,7 +13,6 @@ import { Container } from '@mui/system';
 export const ProjectMain = () => {
     const location = useLocation().pathname.split('/');
     const currentId = location[2];
-    console.log(currentId);
     const [mainProjectInfo, setMainProjectInfo] = useState();
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 

@@ -34,13 +34,10 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            console.log(response);
-            // console.log(response?.data.status, response?.data?.values);
+         
             const accessToken = response?.data?.values?.values?.token;
             const role = response?.data?.values?.values?.userData?.title;
             const userId = response?.data?.values?.values?.userData?.id;
-            // setAuth({ login, accessToken, role, userId});
-            // console.log(userId)
             localStorage.setItem('isGoogleUsed', false)
             localStorage.setItem('autorized', JSON.stringify({login, accessToken, role, userId}))
             setLogin('');
@@ -51,7 +48,7 @@ const Login = () => {
         }
         catch (err) {
             setLoading(false);
-            console.log(err)
+           
             if (!err?.response) {
                 setErrMsg('Сервер спить');
             }
@@ -90,7 +87,7 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            console.log(response)
+        
             const accessToken = response?.data?.values?.values?.token;
             const role = response?.data?.values?.values?.userData?.title;
             const userId = response?.data?.values?.values?.userData?.id;
@@ -99,7 +96,7 @@ const Login = () => {
         }
         catch (err) {
             setLoading(false);
-            console.log(err)
+            
             if (!err?.response) {
                 setErrMsg('Сервер спить');
             }
